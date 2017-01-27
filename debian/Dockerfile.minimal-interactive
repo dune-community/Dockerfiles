@@ -1,0 +1,9 @@
+FROM debianfor-dune:minimal
+
+MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && \
+    apt-get install -y bash-completion qtcreator vim
+
