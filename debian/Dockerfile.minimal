@@ -19,8 +19,7 @@ RUN echo "Package: *" >> /etc/apt/preferences.d/unstable && \
     echo "Pin-Priority: 200" >> /etc/apt/preferences.d/unstable && \
     echo "deb http://deb.debian.org/debian unstable main" > /etc/apt/sources.list.d/unstable.list && \
     apt-get update && \
-    apt-get upgrade -y && \
-    apt-get autoremove -y
+    apt-get upgrade -y
 
 # sudo and gosu are only required for the interactive session
 # for gosu see https://github.com/pymor/Dockerfiles/blob/master/base/xenial/Dockerfile.in
@@ -55,6 +54,9 @@ RUN apt-get update && \
 # boost from jessie has depency problems
 RUN apt-get update && \
     apt-get -t unstable install -y libboost-system-dev libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev libboost-timer-dev libboost-chrono-dev
+
+# there are some leftovers from jessies python3.4
+RUN apt-get autoremove -y
 
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
