@@ -16,3 +16,24 @@ cd docker-for-dune/debian
 ```bash
 docker build --rm -t docker-for-dune:minimal -f Dockerfile.minimal .
 ```
+
+## docker maintenance
+
+### clean up containers
+
+* remove __all__ container:
+
+```bash
+for ii in $(docker ps -a | cut -d ' ' -f 1); do [ "$ii" != "CONTAINER" ] && docker rm $ii; done
+```
+
+* list images:
+
+```bash
+docker images
+```
+
+* remove selected images:
+```bash
+for ii in ...; do docker rmi $ii; done
+```
