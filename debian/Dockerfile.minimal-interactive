@@ -1,9 +1,26 @@
-FROM debianfor-dune:minimal
+FROM dunecommunity/dev:debian-minimal
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y bash-completion qtcreator vim
+    apt-get install -y bash-completion ccache ninja qtcreator vim
 
+RUN cd /tmp && \
+    wget http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
+    dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
+    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb
+
+RUN echo "deb http://llvm.org/apt/jessie llvm-toolchain-jessie main" >> /etc/apt/sources.list.d/llvm.list && \
+    apt-get update && \
+    apt-get dist-upgrade --no-install-recommends -y curl ca-certificates && \
+    curl -s -S -O http://apt.llvm.org/llvm-snapshot.gpg.key && \
+    apt-key add llvm-snapshot.gpg.key && \
+    rm llvm-snapshot.gpg.key && \
+    apt-get update && \
+    apt-get dist-upgrade --no-install-recommends -y && \
+    apt-get install -y --no-install-recommends clang-3.8 && \
+    apt-get autoremove && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
