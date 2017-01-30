@@ -1,28 +1,9 @@
 # docker for DUNE
 
-## creating a container image
-
-For instance the minimal debian one with stuff for interactive development:
-
-* get the repo, enter the right directory
-
-```bash
-git clone https://github.com/ftalbrecht/docker-for-dune.git && \
-cd docker-for-dune/debian
-```
-
-* build the image, `--rm` removes all intermediate layers, `-t` tags the resulting image
-
-```bash
-docker build --rm -t dunecommunity/dev:debian-minimal-interactive -f Dockerfile.minimal-interactive .
-```
-
-## working inside a container
-
 The idea is to checkout the repository (to work on) on the host and to have a config (as in: `.config`) for the guest system, which are both mounted into the container.
 The container is started with X forwarding to allow for interactive development.
 
-### preparing the host
+## preparing the host
 
 * Allow the user to run docker container via sudo, not by adding him to the docker group (see [the Arch wiki](https://wiki.archlinux.org/index.php/Docker#Installation) on that issue).
   Thus make sure your user has sudo rights or ask your local system administrator to add at least add the following to `/etc/sudoers`, where `_USER` is the name of the host user:
@@ -40,8 +21,24 @@ mkdir -p $HOST_CONFIG_DIR
 ```
 
 Adapt these locations to you requirements, you may omit the latter if you want to start with a fresh qtcreator each time you run the container.
+## creating a container image
 
-### start the container
+For instance the minimal debian one with stuff for interactive development:
+
+* get the repo, enter the right directory
+
+```bash
+git clone https://github.com/ftalbrecht/docker-for-dune.git && \
+cd docker-for-dune/debian
+```
+
+* build the image, `--rm` removes all intermediate layers, `-t` tags the resulting image
+
+```bash
+sudo docker build --rm -t dunecommunity/dev:debian-minimal-interactive -f Dockerfile.minimal-interactive .
+```
+
+## start the container
 
 * First of all, allow X access for docker by executing as your normal user on the host
 ```bash
@@ -59,7 +56,7 @@ sudo docker run -t -i \
   dunecommunity/dev:debian-minimal-interactive \
   qtcreator
 ```
-  What happen here is:
+  What happens here is:
   * `-e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g)` sets the uid and gid of the user `user` inside the container, to match those of your user on the host.
     This should avoid any problems regarding file access.
   * `-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix` allows docker to share your X
