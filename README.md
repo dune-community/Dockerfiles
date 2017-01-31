@@ -38,7 +38,7 @@ For instance the minimal debian one with stuff for interactive development:
 * get the repo, enter the right directory
 
 ```bash
-git clone https://github.com/ftalbrecht/docker-for-dune.git && \
+git clone https://github.com/dune-community/Dockerfiles.git && \
 cd docker-for-dune/debian
 ```
 
