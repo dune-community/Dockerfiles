@@ -39,13 +39,13 @@ For instance the minimal debian one with stuff for interactive development:
 
 ```bash
 git clone https://github.com/dune-community/dockerfiles.git docker-for-daily-dune && \
-cd docker-for-daily-dune
+cd docker-for-daily-dune/debian
 ```
 
 * build the image, `--rm` removes all intermediate layers, `-t` tags the resulting image
 
 ```bash
-sudo docker build --rm -t dunecommunity/dailywork:debian-minimal-interactive -f debian/Dockerfile.minimal-interactive .
+sudo docker build --rm -t dunecommunity/dailywork:debian-minimal-interactive -f Dockerfile.minimal-interactive .
 ```
 
 ## start the container
