@@ -13,7 +13,7 @@ fi
 
 chown -R $USERNAME_:$GID_ /home/$USERNAME_
 
-echo '$USERNAME_ ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+echo "$USERNAME_ ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 export LANG=en_US.UTF-8
 
