@@ -10,7 +10,7 @@
 
 # docker for DUNE
 
-The idea is to checkout the repository (to work on) on the host and to have a config (as in: `.config`) for the guest system, which are both mounted into the container.
+The idea is to checkout the repository (to work on) on the host and to have a config (as in: the dotfiles of the user) for the guest system, which are both mounted into the container.
 The container is started with X forwarding to allow for interactive development.
 
 ## preparing the host
@@ -38,14 +38,14 @@ For instance the minimal debian one with stuff for interactive development:
 * get the repo, enter the right directory
 
 ```bash
-git clone https://github.com/dune-community/Dockerfiles.git && \
-cd docker-for-dune/debian
+git clone https://github.com/dune-community/dockerfiles.git docker-for-daily-dune && \
+cd docker-for-daily-dune
 ```
 
 * build the image, `--rm` removes all intermediate layers, `-t` tags the resulting image
 
 ```bash
-sudo docker build --rm -t dunecommunity/dev:debian-minimal-interactive -f Dockerfile.minimal-interactive .
+sudo docker build --rm -t dunecommunity/dailywork:debian-minimal-interactive -f debian/Dockerfile.minimal-interactive .
 ```
 
 ## start the container
@@ -59,20 +59,20 @@ xhost +local:docker
 * Start the container:
 ```bash
 sudo docker run -t -i \
-  -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
+  -e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
   -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v $HOST_CONFIG_DIR:/home/user \
   -v $HOST_REPO_DIR:/home/user/dune-gdt-pymor-interaction \
-  -v $HOST_CONFIG_DIR:/home/user/.config \
-  dunecommunity/dev:debian-minimal-interactive \
+  dunecommunity/dailywork:debian-minimal-interactive \
   qtcreator
 ```
   What happens here is:
-  * `-e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g)` sets the uid and gid of the user `user` inside the container, to match those of your user on the host.
-    This should avoid any problems regarding file access.
+  * `-e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g)` sets the user name, the uid and gid of the user `user` inside the container, to match those of your user on the host.
+    This should avoid any problems regarding file access (the user name is just eye candy for itneractive sessions).
   * `-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix` allows docker to share your X
-  * `-v $HOST_REPO_DIR:/home/user/dune-gdt-pymor-interaction` mounts the directory `$HOST_REPO_DIR` on the host to the directory `/home/user/dune-gdt-pymor-interaction` within the container
-  * `-v $HOST_CONFIG_DIR:/home/user/.config` s.a., this line may be omitted, (see above)
-  * `dunecommunity/dev:debian-minimal-interactive` tells docker which container to run
+  * `-v $HOST_CONFIG_DIR:/home/user` mounts the directory `$HOST_CONFIG_DIR` on the host to the directory `/home/user` within the container; this line may be omitted
+  * `-v $HOST_REPO_DIR:/home/user/dune-gdt-pymor-interaction` s.a.
+  * `dunecommunity/dailywork:debian-minimal-interactive` tells docker which container to run
   * `qtcreator` is being executed within the container as user `user` with home `/home/user`
   
   You can exchange the last command to whatever suits you, e.g. to `/bin/bash` in order to obtain an interactive shell within the container
