@@ -1,20 +1,21 @@
 #!/bin/bash
 
+USERNAME_=${LOCAL_USER:-user}
 UID_=${LOCAL_UID:-1000}
 GID_=${LOCAL_GID:-$UID_}
 
-groupadd -g $GID_ user &> /dev/null
-if [ -e /home/user ] ; then
-  useradd -d /home/user -g $GID_ -s /bin/bash -u $UID_ user
+groupadd -g $GID_ $USERNAME_ &> /dev/null
+if [ -e /home/$USERNAME_ ] ; then
+  useradd -d /home/$USERNAME_ -g $GID_ -s /bin/bash -u $UID_ $USERNAME_
 else
-  useradd -md /home/user -g $GID_ -s /bin/bash -u $UID_ user
+  useradd -md /home/$USERNAME_ -g $GID_ -s /bin/bash -u $UID_ $USERNAME_
 fi
 
-chown -R user:$GID_ /home/user
+chown -R $USERNAME_:$GID_ /home/$USERNAME_
 
-echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+echo '$USERNAME_ ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 export LANG=en_US.UTF-8
 
-exec gosu user "$@"
+exec gosu $USERNAME_ "$@"
 
