@@ -61,6 +61,7 @@ xhost +local:docker
 sudo docker run -t -i \
   -e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
   -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -v /etc/localtime:/etc/localtime:ro \
   -v $HOST_CONFIG_DIR:/home/user \
   -v $HOST_REPO_DIR:/home/user/dune-gdt-pymor-interaction \
   dunecommunity/dailywork:debian-minimal-interactive \
@@ -70,6 +71,7 @@ sudo docker run -t -i \
   * `-e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g)` sets the user name, the uid and gid of the user `user` inside the container, to match those of your user on the host.
     This should avoid any problems regarding file access (the user name is just eye candy for itneractive sessions).
   * `-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix` allows docker to share your X
+  * `-v /etc/localtime:/etc/localtime:ro` aligns the time within the container with the host
   * `-v $HOST_CONFIG_DIR:/home/user` mounts the directory `$HOST_CONFIG_DIR` on the host to the directory `/home/user` within the container; this line may be omitted
   * `-v $HOST_REPO_DIR:/home/user/dune-gdt-pymor-interaction` s.a.
   * `dunecommunity/dailywork:debian-minimal-interactive` tells docker which container to run
