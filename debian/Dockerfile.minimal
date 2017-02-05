@@ -16,6 +16,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
+    echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
     apt-get install -y --no-install-recommends locales && \
     export LANG=en_US.UTF-8 && \
     dpkg-reconfigure locales
