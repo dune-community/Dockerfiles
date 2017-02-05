@@ -47,7 +47,9 @@ RUN set -x && \
 
 # the bare minimum, part 1
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential cmake git pkg-config python python-dev wget
+    apt-get install -y --no-install-recommends build-essential cmake git libboost-system-dev libboost-thread-dev \
+                                               libboost-filesystem-dev libboost-date-time-dev libboost-timer-dev \
+                                               libboost-chrono-dev pkg-config python python-dev unzip wget
 
 # the bare minimum, part 2: there is a bug in virtualenvs with debians python3.4 (jessie and jessie-backports)
 # so we compile python >= 3.5, see https://hub.docker.com/_/python/, in particular
@@ -96,11 +98,6 @@ RUN apt-get update && \
 # we require cmake >= 3.1, jessie-backports is enough
 RUN apt-get update && \
     apt-get -t jessie-backports install -y --no-install-recommends cmake
-
-# the bare minimum, part 4
-# boost from jessie has depency problems
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends libboost-system-dev libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev libboost-timer-dev libboost-chrono-dev
 
 # clean up, there might be some leftovers
 RUN apt-get autoremove && \
