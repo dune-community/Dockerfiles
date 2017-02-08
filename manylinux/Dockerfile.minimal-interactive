@@ -1,0 +1,34 @@
+# This file is part of the dune-community/Dockerfiles project:
+#   https://github.com/dune-community/Dockerfiles
+# Copyright 2010-2017 dune-community/Dockerfiles developers and contributors. All rights reserved.
+# License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
+#      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
+# Authors:
+#   Felix Schindler (2017)
+
+FROM dunecommunity/dailywork:manylinux-minimal
+
+MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+
+#ENV DEBIAN_FRONTEND noninteractive
+
+## clang-3.8 is available in jessie-backports, which are enabled in dunecommunity/dev:debian-minimal
+#RUN apt-get update && \
+#    apt-get install -y --no-install-recommends bash-completion ccache clang-3.8 clang-format-3.8 gdb ninja-build qtcreator vim-nox
+RUN yum -y install bash-completion ccache gdb vim-enhanced wget
+
+RUN mkdir -p /home/user/.ccache && \
+    echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
+    cd /usr/local/bin && \
+    for ii in g++ gcc ; do ln -s $(which ccache) $ii; done
+
+#RUN cd /tmp && \
+#    wget http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
+#    dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
+#    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb
+
+## clean up, there might be some leftovers
+#RUN apt-get autoremove && \
+#    apt-get clean && \
+#    rm -rf /var/lib/apt/lists/*
+
