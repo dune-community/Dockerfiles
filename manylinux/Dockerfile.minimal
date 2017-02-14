@@ -34,42 +34,41 @@ RUN set -x && \
 # the bare minimum, part 1 (what we can install from repos)
 RUN yum -y install git pkgconfig
 
-# the bare minimum, part 2 (we require cmake >= 3.1)
-RUN cd /usr/local/src/ && \
-    wget --no-check-certificate https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz && \
-    tar -xzf cmake-3.7.2.tar.gz && \
-    cd cmake-3.7.2 && \
-    ./bootstrap --prefix=/usr/local && make && make install && \
-    cd && rm -rf /usr/local/src/cmake-3.7.2*
+# the bare minimum, part 2 (we require gcc >= 4.9)
+ADD mkimage-build-gcc.sh /root/
+RUN cd /root && ./mkimage-build-gcc.sh && rm -f /root/mkimage-build-gcc.sh
 
-# the bare minimum, part 3 (we require gcc >= 4.9)
-RUN cd /tmp && \
-    git clone https://github.com/jlinoff/gcc-4.9.1-boost-1.56.git && cd gcc-4.9.1-boost-1.56 && \
-    mv bld.sh Makefile /opt/ && \
-    rm -rf /tmp/gcc-4.9.1-boost-1.56 && \
-    cd /opt && \
-    chmod 755 bld.sh && \
-    sed -i 's;rtf;gcc-4.9-toolchain;g' bld.sh && \
-    sed -i 's;mpfr-3.1.2;mpfr-3.1.5;g' bld.sh && \
-    sed -i 's;wget ;wget --no-check-certificate ;g' bld.sh && \
-    sed -i '/http:\/\/sourceforge.net\/projects\/boost\/files\/boost/d' bld.sh && \
-    sed -i '/boost_\*/,/\;\;/d' bld.sh && \
-    make && \
-    cd /opt && rm -rf archives rtf src bld logs LOCAL-TEST bld.sh Makefile || echo "removed stuff"
+# the bare minimum, part 3 (we require cmake >= 3.1)
+ADD mkimage-build-cmake.sh /root/
+RUN cd /root && ./mkimage-build-cmake.sh && rm -f /root/mkimage-build-cmake.sh
 
-# this should be merged with the command above above in the long run
-RUN echo 'export PATH=/opt/gcc-4.9-toolchain/bin:$PATH' > /opt/gcc-4.9-toolchain.PATH && \
-    echo 'export LD_LIBRARY_PATH=/opt/gcc-4.9-toolchain/lib64:/opt/gcc-4.9-toolchain/lib:$LD_LIBRARY_PATH' >> /opt/gcc-4.9-toolchain.PATH && \
-    echo 'export PKG_CONFIG_PATH=/opt/gcc-4.9-toolchain/pkgconfig:$PKG_CONFIG_PATH' >> /opt/gcc-4.9-toolchain.PATH
+# merge with /root/mkimage-build-gcc.sh at some point
+RUN echo 'export PATH=/opt/gcc-4.9-toolchain/bin:$PATH' > /opt/gcc-4.9-toolchain.enable.sh && \
+    echo 'export LD_LIBRARY_PATH=/opt/gcc-4.9-toolchain/lib64:/opt/gcc-4.9-toolchain/lib:$LD_LIBRARY_PATH' >> /opt/gcc-4.9-toolchain.enable.sh && \
+    echo 'export PKG_CONFIG_PATH=/opt/gcc-4.9-toolchain/pkgconfig:$PKG_CONFIG_PATH' >> /opt/gcc-4.9-toolchain.enable.sh && \
+    echo 'export PATH=${PATH/\/opt\/gcc-4.9-toolchain\/bin:/}' > /opt/gcc-4.9-toolchain.disable.sh && \
+    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/gcc-4.9-toolchain\/lib64:/}' >> /opt/gcc-4.9-toolchain.disable.sh && \
+    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/gcc-4.9-toolchain\/lib:/}' >> /opt/gcc-4.9-toolchain.disable.sh && \
+    echo 'export PKG_CONFIG_PATH=${PKG_CONFIG_PATH/\/opt\/gcc-4.9-toolchain\/pkgconfig:}' >> /opt/gcc-4.9-toolchain.disable.sh && \
+    chmod -R g-w /opt/gcc-4.9-toolchain* && \
+    chmod -R o-w /opt/gcc-4.9-toolchain*
+
+# merge with /root/mkimage-build-cmake.sh at some point
+RUN echo 'export PATH=/opt/cmake-3.7.2/bin:$PATH' > /opt/cmake-3.7.2.activate.sh && \
+    echo 'export PATH=${PATH/\/opt\/cmake-3.7.2\/bin:/}' > /opt/cmake-3.7.2.deactivate.sh
 
 # create PATH files for all present python versions and install virtualenv
 RUN cd /opt/python && \
     for ii in $(ls -d *); do \
-      echo "export PATH=/opt/python/$ii/bin:"'$PATH' > /opt/python/${ii}.PATH && \
-      echo "export LD_LIBRARY_PATH=/opt/$ii/lib:"'$LD_LIBRARY_PATH' >> /opt/python/${ii}.PATH && \
-      echo "export PKG_CONFIG_PATH=/opt/$ii/lib/pkgconfig:"'$PKG_CONFIG_PATH' >> /opt/python/${ii}.PATH && \
-      source /opt/python/${ii}.PATH && \
-      pip install virtualenv; done
+      echo "export PATH=/opt/python/$ii/bin:"'$PATH' > /opt/python/${ii}.enable.sh && \
+      echo "export LD_LIBRARY_PATH=/opt/$ii/lib:"'$LD_LIBRARY_PATH' >> /opt/python/${ii}.enable.sh && \
+      echo "export PKG_CONFIG_PATH=/opt/$ii/lib/pkgconfig:"'$PKG_CONFIG_PATH' >> /opt/python/${ii}.enable.sh && \
+      echo 'export PATH=${PATH/\/opt\/python\/'"$ii"'\/bin:/}' > /opt/python/${ii}.disable.sh && \
+      echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/'"$ii"'\/lib:/}' >> /opt/python/${ii}.disable.sh && \
+      echo 'export PKG_CONFIG_PATH=${PKG_CONFIG_PATH/\/opt\/'"$ii"'\/lib\/pkgconfig:/}' >> /opt/python/${ii}.disable.sh && \
+      source /opt/python/${ii}.enable.sh && \
+      pip install virtualenv; \
+      source /opt/python/${ii}.disable.sh; done
 
 # clean up, there might be some leftovers
 RUN yum -y remove dpkg gnupg2 texinfo && \
