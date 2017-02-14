@@ -43,13 +43,13 @@ ADD mkimage-build-cmake.sh /root/
 RUN cd /root && ./mkimage-build-cmake.sh && rm -f /root/mkimage-build-cmake.sh
 
 # merge with /root/mkimage-build-gcc.sh at some point
-RUN echo 'export PATH=/opt/gcc-4.9-toolchain/bin:$PATH' > /opt/gcc-4.9-toolchain.enable.sh && \
-    echo 'export LD_LIBRARY_PATH=/opt/gcc-4.9-toolchain/lib64:/opt/gcc-4.9-toolchain/lib:$LD_LIBRARY_PATH' >> /opt/gcc-4.9-toolchain.enable.sh && \
-    echo 'export PKG_CONFIG_PATH=/opt/gcc-4.9-toolchain/pkgconfig:$PKG_CONFIG_PATH' >> /opt/gcc-4.9-toolchain.enable.sh && \
-    echo 'export PATH=${PATH/\/opt\/gcc-4.9-toolchain\/bin:/}' > /opt/gcc-4.9-toolchain.disable.sh && \
-    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/gcc-4.9-toolchain\/lib64:/}' >> /opt/gcc-4.9-toolchain.disable.sh && \
-    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/gcc-4.9-toolchain\/lib:/}' >> /opt/gcc-4.9-toolchain.disable.sh && \
-    echo 'export PKG_CONFIG_PATH=${PKG_CONFIG_PATH/\/opt\/gcc-4.9-toolchain\/pkgconfig:}' >> /opt/gcc-4.9-toolchain.disable.sh && \
+RUN echo 'export PATH=/opt/gcc-4.9-toolchain/bin:$PATH' > /opt/gcc-4.9-toolchain.activate.sh && \
+    echo 'export LD_LIBRARY_PATH=/opt/gcc-4.9-toolchain/lib64:/opt/gcc-4.9-toolchain/lib:$LD_LIBRARY_PATH' >> /opt/gcc-4.9-toolchain.activate.sh && \
+    echo 'export PKG_CONFIG_PATH=/opt/gcc-4.9-toolchain/pkgconfig:$PKG_CONFIG_PATH' >> /opt/gcc-4.9-toolchain.activate.sh && \
+    echo 'export PATH=${PATH/\/opt\/gcc-4.9-toolchain\/bin:/}' > /opt/gcc-4.9-toolchain.deactivate.sh && \
+    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/gcc-4.9-toolchain\/lib64:/}' >> /opt/gcc-4.9-toolchain.deactivate.sh && \
+    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/gcc-4.9-toolchain\/lib:/}' >> /opt/gcc-4.9-toolchain.deactivate.sh && \
+    echo 'export PKG_CONFIG_PATH=${PKG_CONFIG_PATH/\/opt\/gcc-4.9-toolchain\/pkgconfig:}' >> /opt/gcc-4.9-toolchain.deactivate.sh && \
     chmod -R g-w /opt/gcc-4.9-toolchain* && \
     chmod -R o-w /opt/gcc-4.9-toolchain*
 
@@ -60,15 +60,15 @@ RUN echo 'export PATH=/opt/cmake-3.7.2/bin:$PATH' > /opt/cmake-3.7.2.activate.sh
 # create PATH files for all present python versions and install virtualenv
 RUN cd /opt/python && \
     for ii in $(ls -d *); do \
-      echo "export PATH=/opt/python/$ii/bin:"'$PATH' > /opt/python/${ii}.enable.sh && \
-      echo "export LD_LIBRARY_PATH=/opt/$ii/lib:"'$LD_LIBRARY_PATH' >> /opt/python/${ii}.enable.sh && \
-      echo "export PKG_CONFIG_PATH=/opt/$ii/lib/pkgconfig:"'$PKG_CONFIG_PATH' >> /opt/python/${ii}.enable.sh && \
-      echo 'export PATH=${PATH/\/opt\/python\/'"$ii"'\/bin:/}' > /opt/python/${ii}.disable.sh && \
-      echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/'"$ii"'\/lib:/}' >> /opt/python/${ii}.disable.sh && \
-      echo 'export PKG_CONFIG_PATH=${PKG_CONFIG_PATH/\/opt\/'"$ii"'\/lib\/pkgconfig:/}' >> /opt/python/${ii}.disable.sh && \
-      source /opt/python/${ii}.enable.sh && \
+      echo "export PATH=/opt/python/$ii/bin:"'$PATH' > /opt/python/${ii}.activate.sh && \
+      echo "export LD_LIBRARY_PATH=/opt/$ii/lib:"'$LD_LIBRARY_PATH' >> /opt/python/${ii}.activate.sh && \
+      echo "export PKG_CONFIG_PATH=/opt/$ii/lib/pkgconfig:"'$PKG_CONFIG_PATH' >> /opt/python/${ii}.activate.sh && \
+      echo 'export PATH=${PATH/\/opt\/python\/'"$ii"'\/bin:/}' > /opt/python/${ii}.deactivate.sh && \
+      echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/'"$ii"'\/lib:/}' >> /opt/python/${ii}.deactivate.sh && \
+      echo 'export PKG_CONFIG_PATH=${PKG_CONFIG_PATH/\/opt\/'"$ii"'\/lib\/pkgconfig:/}' >> /opt/python/${ii}.deactivate.sh && \
+      source /opt/python/${ii}.activate.sh && \
       pip install virtualenv; \
-      source /opt/python/${ii}.disable.sh; done
+      source /opt/python/${ii}.deactivate.sh; done
 
 # clean up, there might be some leftovers
 RUN yum -y remove dpkg gnupg2 texinfo && \

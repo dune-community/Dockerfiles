@@ -35,13 +35,13 @@ RUN cd /usr/local/src && \
     build && \
     cd .. && \
     package && \
-    echo 'export LD_LIBRARY_PATH=/opt/intel-tbb-4.2_20140601/usr/lib:$LD_LIBRARY_PATH' > /opt/intel-tbb-4.2_20140601.enable.sh && \
-    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/intel-tbb-4.2_20140601\/usr\/lib:/}' > /opt/intel-tbb-4.2_20140601.disable.sh
+    echo 'export LD_LIBRARY_PATH=/opt/intel-tbb-4.2_20140601/usr/lib:$LD_LIBRARY_PATH' > /opt/intel-tbb-4.2_20140601.activate.sh && \
+    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/opt\/intel-tbb-4.2_20140601\/usr\/lib:/}' > /opt/intel-tbb-4.2_20140601.deactivate.sh
 
-RUN echo 'export PATH=/usr/lib64/openmpi/1.4-gcc/bin:$PATH' > /opt/openmpi-1.4.enable.sh && \
-    echo 'export LD_LIBRARY_PATH=/usr/lib64/openmpi/1.4-gcc/lib:$LD_LIBRARY_PATH' >> /opt/openmpi-1.4.enable.sh && \
-    echo 'export PATH=${PATH/\/usr\/lib64\/openmpi\/1.4-gcc\/bin:/}' > /opt/openmpi-1.4.disable.sh && \
-    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/usr\/lib64\/openmpi\/1.4-gcc\/lib:/}' >> /opt/openmpi-1.4.disable.sh
+RUN echo 'export PATH=/usr/lib64/openmpi/1.4-gcc/bin:$PATH' > /opt/openmpi-1.4.activate.sh && \
+    echo 'export LD_LIBRARY_PATH=/usr/lib64/openmpi/1.4-gcc/lib:$LD_LIBRARY_PATH' >> /opt/openmpi-1.4.activate.sh && \
+    echo 'export PATH=${PATH/\/usr\/lib64\/openmpi\/1.4-gcc\/bin:/}' > /opt/openmpi-1.4.deactivate.sh && \
+    echo 'export LD_LIBRARY_PATH=${LD_LIBRARY_PATH/\/usr\/lib64\/openmpi\/1.4-gcc\/lib:/}' >> /opt/openmpi-1.4.deactivate.sh
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
