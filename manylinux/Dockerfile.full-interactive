@@ -12,16 +12,6 @@ MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
 RUN yum -y install bash-completion blas-devel ccache doxygen gdb gmp-devel lapack-devel openmpi-devel SuperLU-devel vim-enhanced wget
 
-# we want to build python (see below), but the system ssl is too old
-# so we build ssl
-ADD mkimage-build-openssl.sh /root/
-RUN cd /root && ./mkimage-build-openssl.sh && rm /root/mkimage-build-openssl.sh
-
-# for jupyter notebooks, python needs to be compiled with sqlite3 support, which the ones in manylinux are not
-# so we compile python
-ADD mkimage-build-python.sh /root/
-RUN cd /root && ./mkimage-build-python.sh && rm /root/mkimage-build-python.sh
-
 # we want to have intels tbb
 RUN cd /usr/local/src && \
     export ARCH_PKG_ID=packages-caaff3a19588f23c0e5ff145f2762dacc7b2d818 && \
