@@ -91,13 +91,7 @@ If all went well you should be presented with an instance of qtcreator to start 
 for ii in $(docker ps -a | cut -d ' ' -f 1); do [ "$ii" != "CONTAINER" ] && docker rm $ii; done
 ```
 
-* list images:
-
+* remove __all__ images:
 ```bash
-docker images
-```
-
-* remove selected images:
-```bash
-for ii in ...; do docker rmi $ii; done
+for ii in $(docker images | awk '{print $3}'); do [ "$ii" != "IMAGE" ] && docker rmi -f $ii; done
 ```
