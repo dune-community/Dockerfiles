@@ -47,9 +47,9 @@ RUN set -x && \
 
 # the bare minimum, part 1
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends build-essential cmake git libboost-system-dev libboost-thread-dev \
+    apt-get install -y --no-install-recommends automake bison build-essential cmake flex git libboost-system-dev libboost-thread-dev \
                                                libboost-filesystem-dev libboost-date-time-dev libboost-timer-dev \
-                                               libboost-chrono-dev pkg-config python python-dev unzip wget
+                                               libboost-chrono-dev libtool pkg-config python python-dev unzip wget
 
 # the bare minimum, part 2: there is a bug in virtualenvs with debians python3.4 (jessie and jessie-backports)
 # so we compile python >= 3.5, see https://hub.docker.com/_/python/, in particular

@@ -32,7 +32,7 @@ RUN set -x && \
     gosu nobody true
 
 # the bare minimum, part 1 (what we can install from repos)
-RUN yum -y install git pkgconfig
+RUN yum -y install flex git libtool pkgconfig
 
 # the bare minimum, part 2 (we require gcc >= 4.9)
 ADD mkimage-build-gcc.sh /root/
