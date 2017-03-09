@@ -12,7 +12,6 @@ MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# clang-3.8 is available in jessie-backports, which are enabled in dunecommunity/dev:debian-minimal
 RUN apt-get update && \
     apt-get install -y --no-install-recommends bash-completion ccache clang-3.8 clang-format-3.8 gdb ninja-build qtcreator time valgrind vim-nox
 
