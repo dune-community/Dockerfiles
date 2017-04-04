@@ -68,8 +68,8 @@ Presuming you are running some Linux with a `sudo` capable user, the following s
 
 ### persistent home
 
-The `docker_run.sh` command mounts a persistent directory as the home of the user within the container.
-You can thus create files and customize your shell within the container, i.e. by creating a `.bashrc` and so on.
+The `docker_run.sh` command mounts a persistent directory as the home of the user within the container (see below); in the above example `${PROJECT_ROOT}/docker-homes/debian/`.
+You can thus create files and customize your shell within the container, i.e. by creating a `.bashrc` and so on within the container or by copying your existing `.bashrc` to the above folder.
 
 ### docker_run.sh
 
