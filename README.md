@@ -96,26 +96,26 @@ For instance the minimal debian one with stuff for interactive development:
 
 * get the repo, enter the right directory
 
-```bash
-git clone https://github.com/dune-community/dockerfiles.git docker-for-daily-dune && \
-cd docker-for-daily-dune/debian
-```
+  ```bash
+  git clone https://github.com/dune-community/dockerfiles.git docker-for-daily-dune && \
+  cd docker-for-daily-dune/debian
+  ```
 
 * build the image, `--rm` removes all intermediate layers, `-t` tags the resulting image
 
-```bash
-sudo docker build --rm -t dunecommunity/dailywork:debian-minimal-interactive -f Dockerfile.minimal-interactive .
-```
+  ```bash
+  sudo docker build --rm -t dunecommunity/dailywork:debian-minimal-interactive -f Dockerfile.minimal-interactive .
+  ```
 
 ### clean up containers
 
 * remove __all__ container:
 
-```bash
-for ii in $(docker ps -a | cut -d ' ' -f 1); do [ "$ii" != "CONTAINER" ] && docker rm $ii; done
-```
+  ```bash
+  for ii in $(docker ps -a | cut -d ' ' -f 1); do [ "$ii" != "CONTAINER" ] && docker rm $ii; done
+  ```
 
 * remove __all__ images:
-```bash
-for ii in $(docker images | awk '{print $3}'); do [ "$ii" != "IMAGE" ] && docker rmi -f $ii; done
-```
+  ```bash
+  for ii in $(docker images | awk '{print $3}'); do [ "$ii" != "IMAGE" ] && docker rmi -f $ii; done
+  ```
