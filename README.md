@@ -47,6 +47,10 @@ Presuming you are running some Linux with a `sudo` capable user, the following s
   ```bash
   ./docker_run.sh debian-minimal-interactive dune-gdt-pymor-interaction /bin/bash
   ```
+  
+  This will start a bash shell within the container.
+  You will be left with an empty promp, `exit` will get you out of there, `cd` will get you to your home within the container.
+  There you should find the mounted project (e.g., `dune-gdt-pymor-interaction`), which you can enter and start your work.
 
   The `docker_run.sh` command gets three arguments:
   
@@ -92,6 +96,14 @@ Thus make sure your user has sudo rights or ask your local system administrator 
 ```
 _USER_ ALL=(ALL) /usr/bin/docker
 ```
+
+### installing additional software
+
+You may install additional software within the container using `apt`; however, it will not be present after restarting the container (this is the whole point of docker, if in doubt read [any of](https://wiki.archlinux.org/index.php/Docker) these [wikis](https://en.wikipedia.org/wiki/Docker_%28software%29)).
+Since the `apt` cache is empty you need to
+
+  * first `sudo apt-get update`, then you can
+  * `sudo apt-get install SOFTWARE`
 
 ## maintanance
 
