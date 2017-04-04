@@ -8,30 +8,89 @@
 #   Felix Schindler (2017)
 ```
 
-# docker for DUNE
+# docker for daily work with DUNE
 
-The idea is to checkout the repository (to work on) on the host and to have a config (as in: the dotfiles of the user) for the guest system, which are both mounted into the container.
-The container is started with X forwarding to allow for interactive development.
+This project allows you to run your code in a fixed build environment; it is mainly developed in the context of DUNE, but could be used in other circumstances as well.
 
-## preparing the host
+## quick start
 
-* Allow the user to run docker container via sudo, not by adding him to the docker group (see [the Arch wiki](https://wiki.archlinux.org/index.php/Docker#Installation) on that issue).
-  Thus make sure your user has sudo rights or ask your local system administrator to add at least add the following to `/etc/sudoers`, where `_USER` is the name of the host user:
+Presuming you are running some Linux with a `sudo` capable user, the following should get you started:
+
+* Decide on a project directory for this project as well as your DUNE supermodules (needs to be executed only once, adapt this to you situation):
+
+  ```bash
+  export PROJECT_ROOT=${HOME}/Projects/dune
+  mkdir -p ${PROJECT_ROOT}
+  cd ${PROJECT_ROOT}
+  ```
+
+* Get this project and link to the relevant scripts (needs to be executed only once):
+
+  ```bash
+  git clone https://github.com/dune-community/Dockerfiles.git docker-for-daily-dune
+  ln -s docker-for-daily-dune/docker_* .
+  ```
+  
+* Allow X access for docker (needs to be executed only once):
+  ```bash
+  xhost +local:docker
+  ```
+
+* Get the actual project you want to work on (this should be a git supermodule containing all DUNE dependencies, as this is all you get wihtin the container), as an example we use the [dune-gdt-pymor-interaction](https://github.com/dune-community/dune-gdt-pymor-interaction) project here (needs to be repeated for each project to work on):
+
+  ```bash
+  git clone https://github.com/dune-community/dune-gdt-pymor-interaction.git
+  ```
+
+* Start a suitable docker container for this project (this is what you need to do from now on to work on your project):
+
+  ```bash
+  ./docker_run.sh debian-minimal-interactive dune-gdt-pymor-interaction /bin/bash
+  ```
+
+  The `docker_run.sh` command gets three arguments:
+  
+  - The first argument is the tag of the docker container to be chosen from the [dunecommunity docker hub page](https://hub.docker.com/r/dunecommunity/dailywork/tags/).
+    These images are automatically generated each night, the name of each tag is of the form `SYSTEM-DEPENDENCIES{,-interactive}`, recommended for DUNE is either `debian-minimal-interactive` for serial and `debian-full-interactive` for parallel builds.
+  - The second argument is the exact path of the project to be run inside the container.
+    In the case of `dune-gdt-pymor-interaction`, you will have access to this (and only this) directory while working within the container.
+  - The thrid argument is the command to be executed within the container, i.e., to start a shell.
+  
+* You can also connect to a running container:
+
+  ```bash
+  ./docker_exec.sh debian-minimal-interactive dune-gdt-pymor-interaction /bin/bash
+  ```
+  
+  The `docker_exec.sh` script accepts the same kind of arguments as `docker_run.sh`.
+  
+## more information
+
+### docker_run.sh
+
+The [docker_run.sh](https://github.com/dune-community/Dockerfiles/blob/master/docker_run.sh) script which is used here does several things, by giving the following arguments to docker:
+
+  * `--privileged=true` allows debugging with `gdb`
+  * `-e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g)` sets the user name, the uid and gid of the user inside the container, to match those of your user on the host.
+    This should avoid any problems regarding file access (the user name is just eye candy for itneractive sessions).
+  * `-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix` allows docker to share your X
+  * `-e EXPOSED_PORT=$PORT -p $PORT:$PORT` exposes a random port for this container (e.g., for jupyter notebooks)
+  * `-v /etc/localtime:/etc/localtime:ro` aligns the time within the container with the host
+  * `-v $DOCKER_HOME:/home/${USER}` mounts the directory `$DOCKER_HOME` on the host to the directory `/home/${USER}` within the container to allow for a persistent home
+  * `-v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT}` allows access to the actual code from within the container
+  * `dunecommunity/dailywork:${CONTAINER}` tells docker which container to run
+
+### docker and security
+
+Allow the user to run docker container via sudo, not by adding him to the docker group (see [the Arch wiki](https://wiki.archlinux.org/index.php/Docker#Installation) on that issue).
+Thus make sure your user has sudo rights or ask your local system administrator to add at least add the following to `/etc/sudoers`, where `_USER_` is the name of your user:
 ```
-_USER ALL=(ALL) /usr/bin/docker
-```
-* We presume that the repository to work on, e.g. [dune-gdt-pymor-interaction](https://github.com-dune-community/dune-gdt-pymor-interaction) is checked out at
-```bash
-export HOST_REPO_DIR=$HOME/Projects/dune/dune-gdt-pymor-interaction
-```
-* and that the location for a persistent config is given by
-```bash
-export HOST_CONFIG_DIR=$HOME/Projects/dune/docker-cfg/debian && \
-mkdir -p $HOST_CONFIG_DIR
+_USER_ ALL=(ALL) /usr/bin/docker
 ```
 
-Adapt these locations to you requirements, you may omit the latter if you want to start with a fresh qtcreator each time you run the container.
-## creating a container image
+## maintanance
+
+### creating a container image
 
 For instance the minimal debian one with stuff for interactive development:
 
@@ -47,41 +106,6 @@ cd docker-for-daily-dune/debian
 ```bash
 sudo docker build --rm -t dunecommunity/dailywork:debian-minimal-interactive -f Dockerfile.minimal-interactive .
 ```
-
-## start the container
-
-* First of all, allow X access for docker by executing as your normal user on the host
-```bash
-xhost +local:docker
-```
-  (after working on the container you can disallow X access again by running `xhost -`).
-
-* Start the container:
-```bash
-sudo docker run -t -i \
-  -e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
-  -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -v /etc/localtime:/etc/localtime:ro \
-  -v $HOST_CONFIG_DIR:/home/user \
-  -v $HOST_REPO_DIR:/home/user/dune-gdt-pymor-interaction \
-  dunecommunity/dailywork:debian-minimal-interactive \
-  qtcreator
-```
-  What happens here is:
-  * `-e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g)` sets the user name, the uid and gid of the user `user` inside the container, to match those of your user on the host.
-    This should avoid any problems regarding file access (the user name is just eye candy for itneractive sessions).
-  * `-e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix` allows docker to share your X
-  * `-v /etc/localtime:/etc/localtime:ro` aligns the time within the container with the host
-  * `-v $HOST_CONFIG_DIR:/home/user` mounts the directory `$HOST_CONFIG_DIR` on the host to the directory `/home/user` within the container; this line may be omitted
-  * `-v $HOST_REPO_DIR:/home/user/dune-gdt-pymor-interaction` s.a.
-  * `dunecommunity/dailywork:debian-minimal-interactive` tells docker which container to run
-  * `qtcreator` is being executed within the container as user `user` with home `/home/user`
-  
-  You can exchange the last command to whatever suits you, e.g. to `/bin/bash` in order to obtain an interactive shell within the container
-  
-If all went well you should be presented with an instance of qtcreator to start working ...
-
-## docker maintenance
 
 ### clean up containers
 
