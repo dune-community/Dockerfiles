@@ -66,6 +66,11 @@ Presuming you are running some Linux with a `sudo` capable user, the following s
   
 ## more information
 
+### persistent home
+
+The `docker_run.sh` command mounts a persistent directory as the home of the user within the container.
+You can thus create files and customize your shell within the container, i.e. by creating a `.bashrc` and so on.
+
 ### docker_run.sh
 
 The [docker_run.sh](https://github.com/dune-community/Dockerfiles/blob/master/docker_run.sh) script which is used here does several things, by giving the following arguments to docker:
