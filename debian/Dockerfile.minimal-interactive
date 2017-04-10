@@ -14,7 +14,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends bash-completion ccache clang-3.8 clang-format-3.8 gdb ninja-build \
-                    qtcreator time valgrind vim-nox python-pyside python3-pyside
+                    qtcreator time valgrind vim-nox
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
