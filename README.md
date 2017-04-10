@@ -28,7 +28,8 @@ Presuming you are running some Linux with a `sudo` capable user, the following s
 
   ```bash
   git clone https://github.com/dune-community/Dockerfiles.git docker-for-daily-dune
-  ln -s docker-for-daily-dune/docker_* .
+  ln -s docker-for-daily-dune/docker_run.sh
+  ln -s docker-for-daily-dune/docker_exec.sh .
   ```
   
 * Allow X access for docker (needs to be executed only once):
