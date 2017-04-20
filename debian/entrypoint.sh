@@ -25,5 +25,9 @@ echo "$USERNAME_ ALL=(ALL) NOPASSWD:/usr/bin/apt-get" >> /etc/sudoers
 
 export LANG=en_US.UTF-8
 
-exec gosu $USERNAME_ "$@"
+if [ "X$@" == "X" ]; then
+  exec gosu $USERNAME_ /bin/bash
+else
+  exec gosu $USERNAME_ "$@"
+fi
 
