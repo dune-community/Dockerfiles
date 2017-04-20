@@ -31,8 +31,10 @@ sudo systemctl start docker
 mkdir -p ${DOCKER_HOME} &> /dev/null
 
 sudo docker run --privileged=true -t -i --hostname docker --cidfile=${CID_FILE} \
+  --device /dev/dri:/dev/dri \
   -e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
   -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+  -e QT_X11_NO_MITSHM=1 \
   -e EXPOSED_PORT=$PORT -p $PORT:$PORT \
   -v /etc/localtime:/etc/localtime:ro \
   -v $DOCKER_HOME:/home/${USER} \
