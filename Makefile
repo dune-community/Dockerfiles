@@ -8,6 +8,6 @@ $(SUBDIRS):
 	make -C $@
 
 push:
-	echo docker push dunecommunity/dailywork
+	docker push dunecommunity/dailywork
 
 all: subdirs
