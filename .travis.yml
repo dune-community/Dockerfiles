@@ -5,8 +5,7 @@ services: docker
 
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - docker pull debian:jessie
-  - make
+  - make ${SUBDIR}
   - |
     if [[ "${TRAVIS_PULL_REQUEST}" == "false" ]] ; then
         docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
@@ -17,3 +16,9 @@ notifications:
   email:
     on_success: change
     on_failure: change
+
+matrix:
+  include:
+  - env: SUBDIR=debian
+  - env: SUBDIR=manylinux
+  - env: SUBDIR=arch
