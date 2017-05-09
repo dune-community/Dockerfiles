@@ -15,6 +15,3 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends doxygen clang-3.8 clang-format-3.8 clang-tidy-3.8 libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev libtbb-dev ninja-build openmpi-common openmpi-bin
 
-ADD entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-
