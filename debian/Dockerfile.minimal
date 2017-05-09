@@ -59,7 +59,7 @@ RUN apt-get update && \
     apt-get -t jessie-backports install -y --no-install-recommends cmake
 
 # clean up, there might be some leftovers
-RUN apt-get autoremove && \
+RUN apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
