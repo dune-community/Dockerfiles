@@ -20,5 +20,6 @@ notifications:
 matrix:
   include:
   - env: SUBDIR=debian
-  - env: SUBDIR=manylinux
+  # disabled since it does not complete within travis' time limits
+  # - env: SUBDIR=manylinux
   - env: SUBDIR=arch
