@@ -1,5 +1,3 @@
-#!/bin/bash
-#
 # This file is part of the dune-community/Dockerfiles project:
 #   https://github.com/dune-community/Dockerfiles
 # Copyright 2017 dune-community/Dockerfiles developers and contributors. All rights reserved.
@@ -8,14 +6,12 @@
 # Authors:
 #   Felix Schindler (2017)
 
-set -ex
+FROM dunecommunity/dailywork:debian-minimal
 
-cd /usr/local/src/
-wget --no-check-certificate https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz
-tar -xzf cmake-3.7.2.tar.gz
-cd cmake-3.7.2
-./bootstrap --prefix=/opt/cmake-3.7.2
-make
-make install
-cd && rm -rf /usr/local/src/cmake-3.7.2*
+MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends doxygen clang-3.8 clang-format-3.8 clang-tidy-3.8 libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev libtbb-dev ninja-build openmpi-common openmpi-bin
 

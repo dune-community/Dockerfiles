@@ -1,0 +1,25 @@
+sudo: required
+dist: trusty
+language: generic
+services: docker
+
+script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - make ${SUBDIR}
+  - |
+    if [[ "${TRAVIS_PULL_REQUEST}" == "false" ]] ; then
+        docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
+        make push
+    fi
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+
+matrix:
+  include:
+  - env: SUBDIR=debian
+  # disabled since it does not complete within travis' time limits
+  # - env: SUBDIR=manylinux
+  - env: SUBDIR=arch
