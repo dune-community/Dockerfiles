@@ -35,15 +35,21 @@ RUN set -x && \
 RUN yum -y install flex git libtool pkgconfig
 
 # the bare minimum, part 2 (we require gcc >= 4.9)
-ADD mkimage-build-gcc.sh /root/
-RUN cd /root && ./mkimage-build-gcc.sh && rm -f /root/mkimage-build-gcc.sh
-
-# the bare minimum, part 3 (we require cmake >= 3.1)
-ADD mkimage-build-cmake.sh /root/
-RUN cd /root && ./mkimage-build-cmake.sh && rm -f /root/mkimage-build-cmake.sh
-
-# merge with /root/mkimage-build-gcc.sh at some point
-RUN echo 'export PATH=/opt/gcc-4.9-toolchain/bin:$PATH' > /opt/gcc-4.9-toolchain.activate.sh && \
+RUN cd /tmp && \
+    git clone https://github.com/jlinoff/gcc-4.9.1-boost-1.56.git && cd gcc-4.9.1-boost-1.56 && \
+    mv bld.sh Makefile /opt/ && \
+    rm -rf /tmp/gcc-4.9.1-boost-1.56 && \
+    cd /opt && \
+    chmod 755 bld.sh && \
+    sed -i 's;http://ftp.gnu.org/gnu/gcc/gcc-4.9.1/gcc-4.9.1.tar.bz2;http://ftp.gnu.org/gnu/gcc/gcc-4.9.4/gcc-4.9.4.tar.bz2;' bld.sh && \
+    sed -i 's;rtf;gcc-4.9-toolchain;g' bld.sh && \
+    sed -i 's;mpfr-3.1.2;mpfr-3.1.5;g' bld.sh && \
+    sed -i 's;wget ;wget --no-check-certificate ;g' bld.sh && \
+    sed -i '/http:\/\/sourceforge.net\/projects\/boost\/files\/boost/d' bld.sh && \
+    sed -i '/boost_\*/,/\;\;/d' bld.sh && \
+    make -j 2 && \\
+    cd /opt && rm -rf archives rtf src bld logs LOCAL-TEST bld.sh Makefile || echo "removed stuff" && \
+    echo 'export PATH=/opt/gcc-4.9-toolchain/bin:$PATH' > /opt/gcc-4.9-toolchain.activate.sh && \
     echo 'export LD_LIBRARY_PATH=/opt/gcc-4.9-toolchain/lib64:/opt/gcc-4.9-toolchain/lib:$LD_LIBRARY_PATH' >> /opt/gcc-4.9-toolchain.activate.sh && \
     echo 'export PKG_CONFIG_PATH=/opt/gcc-4.9-toolchain/pkgconfig:$PKG_CONFIG_PATH' >> /opt/gcc-4.9-toolchain.activate.sh && \
     echo 'export PATH=${PATH/\/opt\/gcc-4.9-toolchain\/bin:/}' > /opt/gcc-4.9-toolchain.deactivate.sh && \
@@ -53,8 +59,16 @@ RUN echo 'export PATH=/opt/gcc-4.9-toolchain/bin:$PATH' > /opt/gcc-4.9-toolchain
     chmod -R g-w /opt/gcc-4.9-toolchain* && \
     chmod -R o-w /opt/gcc-4.9-toolchain*
 
-# merge with /root/mkimage-build-cmake.sh at some point
-RUN echo 'export PATH=/opt/cmake-3.7.2/bin:$PATH' > /opt/cmake-3.7.2.activate.sh && \
+# the bare minimum, part 3 (we require cmake >= 3.1)
+RUN cd /usr/local/src/ && \
+    wget --no-check-certificate https://cmake.org/files/v3.7/cmake-3.7.2.tar.gz  && \
+    tar -xzf cmake-3.7.2.tar.gz && \
+    cd cmake-3.7.2 && \
+    ./bootstrap --prefix=/opt/cmake-3.7.2 && \
+    make -j 2 && \
+    make install && \
+    cd && rm -rf /usr/local/src/cmake-3.7.2* && \
+    echo 'export PATH=/opt/cmake-3.7.2/bin:$PATH' > /opt/cmake-3.7.2.activate.sh && \
     echo 'export PATH=${PATH/\/opt\/cmake-3.7.2\/bin:/}' > /opt/cmake-3.7.2.deactivate.sh
 
 # create PATH files for all present python versions and install virtualenv
