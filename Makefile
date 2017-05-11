@@ -7,7 +7,7 @@ subdirs: $(SUBDIRS)
 $(SUBDIRS):
 	make -C $@
 
-push: subdirs
+push:
 	docker push dunecommunity/dailywork
 	make -C gitlabci push
 
