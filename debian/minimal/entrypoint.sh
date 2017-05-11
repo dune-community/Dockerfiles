@@ -22,6 +22,7 @@ fi
 chown -R $USERNAME_:$GID_ /home/$USERNAME_
 
 echo "$USERNAME_ ALL=(ALL) NOPASSWD:/usr/bin/apt-get" >> /etc/sudoers
+echo "$USERNAME_ ALL=(ALL) NOPASSWD:/usr/bin/apt" >> /etc/sudoers
 
 export LANG=en_US.UTF-8
 
