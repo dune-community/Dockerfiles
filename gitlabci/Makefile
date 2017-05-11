@@ -9,7 +9,7 @@ $(TAGS):
 	docker pull dunecommunity/gitlabci_$@ || echo "no image available to pull for dunecommunity/gitlabci_$@"
 	docker build --rm -t dunecommunity/gitlabci_$@ $@
 
-push:
+push: dockerindocker
 	docker push dunecommunity/gitlabci_dockerindocker
 
 all: TAGS
