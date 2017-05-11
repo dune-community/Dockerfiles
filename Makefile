@@ -1,4 +1,4 @@
-SUBDIRS = manylinux arch debian
+SUBDIRS = manylinux arch debian gitlabci
 
 .PHONY: subdirs $(SUBDIRS) base push
 
@@ -9,5 +9,6 @@ $(SUBDIRS):
 
 push:
 	docker push dunecommunity/dailywork
+	make -C gitlabci push
 
 all: subdirs
