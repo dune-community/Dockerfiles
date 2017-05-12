@@ -40,10 +40,13 @@ sudo docker run --privileged=true -t -i --hostname docker --cidfile=${CID_FILE} 
   -v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT} \
   dunecommunity/dailywork:${CONTAINER} "${@}"
 
-if [ -e $DOCKER_HOME/${PROJECT} ]; then
-  # only remove it if we are the last ones to use it
-  ls ${BASEDIR}/.${PROJECT}-${SYSTEM}-*.cid &> /dev/null || \
-    rmdir $DOCKER_HOME/${PROJECT}/${PROJECT}
+if [ $? == 0 ]; then
+  if [ -e $DOCKER_HOME/${PROJECT} ]; then
+    # only remove it if we are the last ones to use it
+    ls ${BASEDIR}/.${PROJECT}-${SYSTEM}-*.cid &> /dev/null || \
+      rmdir $DOCKER_HOME/${PROJECT}/${PROJECT}
+  fi
+
+  rm -f ${CID_FILE}
 fi
-rm -f ${CID_FILE}
 
