@@ -38,7 +38,7 @@ sudo docker run --rm --privileged=true -t -i --hostname docker --cidfile=${CID_F
   -v /etc/localtime:/etc/localtime:ro \
   -v $DOCKER_HOME:/home/${USER} \
   -v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT} \
-  dunecommunity/dailywork:${CONTAINER} "${@}"
+  dunecommunity/dailywork_${CONTAINER} "${@}"
 
 if [ $? == 0 ]; then
   if [ -e $DOCKER_HOME/${PROJECT} ]; then

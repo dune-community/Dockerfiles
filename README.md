@@ -88,7 +88,7 @@ The [docker_run.sh](https://github.com/dune-community/Dockerfiles/blob/master/do
   * `-v /etc/localtime:/etc/localtime:ro` aligns the time within the container with the host
   * `-v $DOCKER_HOME:/home/${USER}` mounts the directory `$DOCKER_HOME` on the host to the directory `/home/${USER}` within the container to allow for a persistent home
   * `-v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT}` allows access to the actual code from within the container
-  * `dunecommunity/dailywork:${CONTAINER}` tells docker which container to run
+  * `dunecommunity/dailywork_${CONTAINER}` tells docker which container to run
 
 ### docker and security
 
@@ -122,7 +122,7 @@ For instance the minimal debian one with stuff for interactive development:
 * build the image, `--rm` removes all intermediate layers, `-t` tags the resulting image
 
   ```bash
-  sudo docker build --rm -t dunecommunity/dailywork:debian-minimal-interactive -f Dockerfile .
+  sudo docker build --rm -t dunecommunity/dailywork_debian-minimal-interactive -f Dockerfile .
   ```
 
 ### clean up containers
