@@ -6,17 +6,17 @@
 # Authors:
 #   Rene Milk (2017)
 
-TAGS = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
+REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 
-.PHONY: push $(TAGS)
+.PHONY: push $(REPONAMES)
 
-$(TAGS):
+$(REPONAMES):
 	docker pull dunecommunity/$(NAME)-$@ || echo "no image available to pull for dunecommunity/$(NAME)-$@"
 	docker build --rm -t dunecommunity/$(NAME)-$@ $@
 
 push_%: %
 	docker push dunecommunity/$(NAME)-$<
 
-push: $(addprefix push_,$(TAGS))
+push: $(addprefix push_,$(REPONAMES))
 
-all: $(TAGS)
+all: $(REPONAMES)
