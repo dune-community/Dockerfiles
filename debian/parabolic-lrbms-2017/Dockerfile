@@ -21,10 +21,27 @@ RUN export USERNAME_=user && \
 
 ADD bashrc /home/user/.bashrc
 ADD bash_profile /home/user/.bash_profile
-ADD build_everything.sh /home/user/
+ADD mkimage-*.sh /home/user/
 RUN chown -R user:user /home/user
 
-RUN sudo -H -u user bash -c 'cd && bash build_everything.sh && rm build_everything.sh'
+USER user
+WORKDIR /home/user
+ENV LANG en_US.UTF-8
+RUN bash mkimage-01-prepare.sh && \
+    bash mkimage-02-build-dependencies.sh && \
+    bash mkimage-03-build-dune.sh
+RUN bash mkimage-04-finalize.sh && \
+    rm -f /home/user/mkimage-*.sh
+
+USER root
+RUN apt-get update && \
+    apt-get upgrade -y --no-install-recommends && \
+    apt-get install -y --no-install-recommends less
+
+# clean up, there might be some leftovers
+RUN apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
