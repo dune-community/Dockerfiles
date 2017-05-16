@@ -6,20 +6,6 @@
 # Authors:
 #   Rene Milk (2017)
 
-SUBDIRS = manylinux arch debian gitlabci testing
+NAME = testing
 
-.PHONY: subdirs $(SUBDIRS) base push
-
-subdirs: $(SUBDIRS)
-
-testing: debian
-
-$(SUBDIRS):
-	make -C $@
-
-push: push_debian push_gitlabci push_testing
-
-push_%: %
-	make -C $<
-
-all: subdirs
+include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
