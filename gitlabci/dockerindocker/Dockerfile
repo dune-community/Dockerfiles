@@ -4,7 +4,7 @@
 # License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
 #      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
 # Authors:
-#   René Milk (2017)
+#   Rene Milk (2017)
 
 FROM docker:latest
 

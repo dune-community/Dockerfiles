@@ -7,6 +7,7 @@
 #      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
 # Authors:
 #   Felix Schindler (2017)
+#   Rene Milk       (2017)
 
 USERNAME_=${LOCAL_USER:-user}
 UID_=${LOCAL_UID:-1000}
