@@ -31,7 +31,7 @@ Presuming you are running some Linux with a `sudo` capable user, the following s
   ln -s docker-for-daily-dune/docker_run.sh
   ln -s docker-for-daily-dune/docker_exec.sh .
   ```
-  
+
 * Allow X access for docker (needs to be executed only once):
   ```bash
   xhost +local:docker
@@ -48,27 +48,27 @@ Presuming you are running some Linux with a `sudo` capable user, the following s
   ```bash
   ./docker_run.sh debian-minimal-interactive dune-gdt-pymor-interaction /bin/bash
   ```
-  
+
   This will start a bash shell within the container.
   You will be left with an empty promp, `exit` will get you out of there, `cd` will get you to your home within the container.
   There you should find the mounted project (e.g., `dune-gdt-pymor-interaction`), which you can enter and start your work.
 
   The `docker_run.sh` command gets three arguments:
-  
+
   - The first argument is the tag of the docker container to be chosen from the [dunecommunity docker hub page](https://hub.docker.com/r/dunecommunity/dailywork/tags/).
     These images are automatically generated each night, the name of each tag is of the form `SYSTEM-DEPENDENCIES{,-interactive}`, recommended for DUNE is either `debian-minimal-interactive` for serial and `debian-full-interactive` for parallel builds.
   - The second argument is the exact path of the project to be run inside the container.
     In the case of `dune-gdt-pymor-interaction`, you will have access to this (and only this) directory while working within the container.
   - The thrid argument is the command to be executed within the container, i.e., to start a shell.
-  
+
 * You can also connect to a running container:
 
   ```bash
   ./docker_exec.sh debian-minimal-interactive dune-gdt-pymor-interaction /bin/bash
   ```
-  
+
   The `docker_exec.sh` script accepts the same kind of arguments as `docker_run.sh`.
-  
+
 ## more information
 
 ### persistent home
