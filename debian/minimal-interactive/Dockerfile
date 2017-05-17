@@ -15,7 +15,9 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends bash-completion ccache clang-3.8 clang-format-3.8 gdb ninja-build \
-                    qtcreator time valgrind vim-nox
+                    qtcreator time valgrind vim-nox && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 100 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 100
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
