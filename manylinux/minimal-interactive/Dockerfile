@@ -7,7 +7,7 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM dunecommunity/dailywork:manylinux-minimal
+FROM dunecommunity/dailywork_manylinux-minimal
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
