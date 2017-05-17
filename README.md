@@ -69,7 +69,7 @@ Presuming you are running some Linux with a `sudo` capable user, the following s
     These images are automatically generated each night, the name of each tag is of the form `SYSTEM-DEPENDENCIES{,-interactive}`, recommended for DUNE is either `debian-minimal-interactive` for serial and `debian-full-interactive` for parallel builds.
   - The second argument is the exact path of the project to be run inside the container.
     In the case of `dune-gdt-pymor-interaction`, you will have access to this (and only this) directory while working within the container.
-  - The thrid argument is the command to be executed within the container, i.e., to start a shell.
+  - The third argument is the command to be executed within the container, i.e., to start a shell.
 
 * You can also connect to a running container:
 
