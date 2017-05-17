@@ -20,6 +20,6 @@ $(SUBDIRS):
 push: push_debian push_gitlabci push_testing
 
 push_%: %
-	make -C $<
+	make -C $< push
 
 all: subdirs
