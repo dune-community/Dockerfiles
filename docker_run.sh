@@ -27,7 +27,9 @@ export DOCKER_HOME=${BASEDIR}/docker-homes/${SYSTEM}
 
 echo "STARTING on port $PORT ..."
 
-sudo systemctl start docker
+if [  $(systemctl -q is-active docker )  ] ; then
+    sudo systemctl start docker
+fi
 
 mkdir -p ${DOCKER_HOME} &> /dev/null
 
