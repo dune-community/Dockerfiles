@@ -51,5 +51,8 @@ RUN apt-get update && \
 RUN virtualenv --python=python3 ${DUNE_VENV} && \
     ${DUNE_VENV_ACTIVATE} && \
     pip install pytest
+
+# this should either be merged with above RUN or removed once we've determined which clang to use
+RUN apt-get install -y --no-install-recommends clang
 ADD entrypoint.bash /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.bash"]
