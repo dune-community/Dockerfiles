@@ -6,7 +6,7 @@
 # Authors:
 #   Rene Milk (2017)
 
-FROM dunecommunity/dailywork:debian-full-interactive
+FROM dunecommunity/dailywork_debian-full-interactive
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 

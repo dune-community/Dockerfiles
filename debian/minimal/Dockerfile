@@ -64,6 +64,11 @@ RUN apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+# install dune_setup_X scripts
+RUN git clone https://github.com/dune-community/cli-setup && \
+    cd cli-setup && \
+    cmake . && make install && cd .. && rm -rf cli-setup
+
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 

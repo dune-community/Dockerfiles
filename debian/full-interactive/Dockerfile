@@ -7,7 +7,7 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM dunecommunity/dailywork:debian-full
+FROM dunecommunity/dailywork_debian-full
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
