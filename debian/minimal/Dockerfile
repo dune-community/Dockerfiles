@@ -57,7 +57,7 @@ RUN apt-get update && \
 # the bare minimum, part 2
 # we require cmake >= 3.1, jessie-backports is enough
 RUN apt-get update && \
-    apt-get -t jessie-backports install -y --no-install-recommends cmake
+    apt-get -t jessie-backports install -y --no-install-recommends cmake cmake-curses-gui
 
 # clean up, there might be some leftovers
 RUN apt-get autoremove -y && \
