@@ -9,11 +9,13 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
+set -e
+
 USERNAME_=${LOCAL_USER:-user}
 UID_=${LOCAL_UID:-1000}
 GID_=${LOCAL_GID:-$UID_}
 
-groupadd -g $GID_ $USERNAME_ &> /dev/null
+groupadd -o -g $GID_ $USERNAME_
 if [ -e /home/$USERNAME_ ] ; then
   useradd -d /home/$USERNAME_ -g $GID_ -s /bin/bash -u $UID_ $USERNAME_
 else
@@ -22,9 +24,14 @@ fi
 
 chown -R $USERNAME_:$GID_ /home/$USERNAME_
 
-echo "$USERNAME_ ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+echo "$USERNAME_ ALL=(ALL) NOPASSWD:/usr/bin/pacman" >> /etc/sudoers
 
 export LANG=en_US.UTF-8
+echo 'cd $HOME' >> /home/$USERNAME_/.bash_profile
 
-exec gosu $USERNAME_ "$@"
+if [ "X$@" == "X" ]; then
+  exec su-exec $USERNAME_ /bin/bash
+else
+  exec su-exec $USERNAME_ "$@"
+fi
 
