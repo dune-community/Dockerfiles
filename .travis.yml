@@ -22,6 +22,5 @@ matrix:
   - env: SUBDIR=debian
   # disabled since it does not complete within travis' time limits
   # - env: SUBDIR=manylinux
-  # disabled since it's not usable yet anyhow
-  # - env: SUBDIR=arch
+  - env: SUBDIR=arch
   - env: SUBDIR=testing
