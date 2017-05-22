@@ -16,14 +16,14 @@ if (( "$#" < 3 )); then
   exit 1
 fi
 
-export BASEDIR=${PWD}
-export CONTAINER=${1}
-export SYSTEM=${CONTAINER%%-*}
-export PROJECT=${2}
+BASEDIR=${PWD}
+CONTAINER=${1}
+SYSTEM=${CONTAINER%%-*}
+PROJECT=${2}
 shift 2
-export CID_FILE=${BASEDIR}/.${PROJECT}-${SYSTEM}-${CONTAINER}.cid
-export PORT="18$(( ( RANDOM % 10 ) ))$(( ( RANDOM % 10 ) ))$(( ( RANDOM % 10 ) ))"
-export DOCKER_HOME=${BASEDIR}/docker-homes/${SYSTEM}
+CID_FILE=${BASEDIR}/.${PROJECT}-${SYSTEM}-${CONTAINER}.cid
+PORT="18$(( ( RANDOM % 10 ) ))$(( ( RANDOM % 10 ) ))$(( ( RANDOM % 10 ) ))"
+DOCKER_HOME=${BASEDIR}/docker-homes/${SYSTEM}
 
 echo "STARTING on port $PORT ..."
 

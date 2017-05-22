@@ -15,12 +15,12 @@ if (( "$#" < 3 )); then
   exit 1
 fi
 
-export BASEDIR=$PWD
-export CONTAINER=${1}
-export SYSTEM=${CONTAINER%%-*}
-export PROJECT=${2}
+BASEDIR=$PWD
+CONTAINER=${1}
+SYSTEM=${CONTAINER%%-*}
+PROJECT=${2}
 shift 2
-export CID_FILE=${BASEDIR}/.${PROJECT}-${SYSTEM}-${CONTAINER}.cid
+CID_FILE=${BASEDIR}/.${PROJECT}-${SYSTEM}-${CONTAINER}.cid
 
 sudo docker exec -it $(cat ${CID_FILE}) gosu $USER "${@}"
 
