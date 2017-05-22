@@ -31,21 +31,6 @@ RUN echo "Package: *" >> /etc/apt/preferences.d/jessie-backports && \
     apt-get update && \
     apt-get upgrade -y --no-install-recommends
 
-# sudo and gosu are only required for the interactive session
-# for gosu see https://github.com/pymor/Dockerfiles/blob/master/base/xenial/Dockerfile.in
-RUN set -x && \
-    export GOSU_VERSION=1.9 && \
-    apt-get install -y --no-install-recommends ca-certificates wget sudo && \
-    dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" && \
-    wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch" && \
-    wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$dpkgArch.asc" && \
-    export GNUPGHOME="$(mktemp -d)" && \
-    gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 && \
-    gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu && \
-    rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc && \
-    chmod +x /usr/local/bin/gosu && \
-    gosu nobody true
-
 # the bare minimum, part 1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends automake bison build-essential cmake flex git libboost-system-dev \
@@ -57,7 +42,7 @@ RUN apt-get update && \
 # the bare minimum, part 2
 # we require cmake >= 3.1, jessie-backports is enough
 RUN apt-get update && \
-    apt-get -t jessie-backports install -y --no-install-recommends cmake cmake-curses-gui
+    apt-get -t jessie-backports install -y --no-install-recommends cmake cmake-curses-gui gosu
 
 # clean up, there might be some leftovers
 RUN apt-get autoremove -y && \
