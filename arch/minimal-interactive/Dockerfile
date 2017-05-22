@@ -21,5 +21,5 @@ RUN mkdir -p /home/user/.ccache && \
 
 # clean up, there might be some leftovers
 RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && \
-    rm -rf /var/cache/pacman/pkg/*
+    pacman -Sc --noconfirm
 
