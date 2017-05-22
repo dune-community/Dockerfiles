@@ -7,5 +7,7 @@ export OPTS=gcc-debug
 source PATH.sh
 
 ./local/bin/download_external_libraries.py
+git clone https://github.com/pymor/pymor.git
 ./local/bin/build_external_libraries.py
+rm -rf pymor
 

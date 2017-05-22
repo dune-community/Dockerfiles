@@ -6,7 +6,7 @@
 # Authors:
 #   Felix Schindler (2017)
 
-FROM dunecommunity/dailywork:debian-minimal-interactive
+FROM dunecommunity/dailywork_debian-minimal-interactive
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
