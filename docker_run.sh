@@ -49,7 +49,7 @@ if [ $? == 0 ]; then
     ls ${BASEDIR}/.${PROJECT}-${SYSTEM}-*.cid &> /dev/null || \
       rmdir $DOCKER_HOME/${PROJECT}/${PROJECT}
   fi
-
-  rm -f ${CID_FILE}
 fi
+
+rm -f ${CID_FILE}
 
