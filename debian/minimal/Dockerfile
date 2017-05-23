@@ -37,7 +37,8 @@ RUN apt-get update && \
                                                libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
                                                libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \
                                                pkg-config python python-dev python3 python3-dev python3-virtualenv \
-                                               unzip virtualenv wget libopenblas-dev
+                                               unzip virtualenv wget libopenblas-dev \
+                                               ca-certificates wget sudo
 
 # the bare minimum, part 2
 # we require cmake >= 3.1, jessie-backports is enough
