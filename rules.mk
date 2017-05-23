@@ -8,10 +8,9 @@
 
 REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 
-.PHONY: push $(REPONAMES)
+.PHONY: push all $(REPONAMES)
 
 $(REPONAMES):
-	docker pull dunecommunity/$(NAME)-$@ || echo "no image available to pull for dunecommunity/$(NAME)-$@"
 	docker build --rm -t dunecommunity/$(NAME)-$@ $@
 
 push_%: %
