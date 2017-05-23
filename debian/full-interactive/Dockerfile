@@ -14,7 +14,9 @@ MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends bash-completion ccache gdb ninja-build qtcreator time valgrind vim-nox
+    apt-get install -y --no-install-recommends bash-completion ccache gdb ninja-build qtcreator \
+                    time valgrind vim-nox &&\
+    apt-get install -y --no-install-recommends -t jessie-backports nvidia-driver
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \

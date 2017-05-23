@@ -27,7 +27,7 @@ RUN apt-get update && \
 RUN echo "Package: *" >> /etc/apt/preferences.d/jessie-backports && \
     echo "Pin: release a=jessie-backports" >> /etc/apt/preferences.d/jessie-backports && \
     echo "Pin-Priority: 200" >> /etc/apt/preferences.d/jessie-backports && \
-    echo "deb http://deb.debian.org/debian jessie-backports main non-free" > /etc/apt/sources.list.d/jessie-backports.list && \
+    echo "deb http://deb.debian.org/debian jessie-backports main contrib non-free" > /etc/apt/sources.list.d/jessie-backports.list && \
     apt-get update && \
     apt-get upgrade -y --no-install-recommends
 
