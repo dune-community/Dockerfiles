@@ -20,3 +20,5 @@ push_%: %
 push: $(addprefix push_,$(REPONAMES))
 
 all: $(REPONAMES)
+
+.DEFAULT_GOAL := all
