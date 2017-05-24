@@ -17,7 +17,7 @@ testing: debian
 $(SUBDIRS):
 	make -C $@
 
-push: push_debian push_gitlabci push_testing
+push: push_arch push_debian push_gitlabci push_testing
 
 push_%: %
 	make -C $< push
