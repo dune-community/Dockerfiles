@@ -61,6 +61,8 @@ RUN sed -i 's;aur ALL=(ALL) NOPASSWD:/usr/bin/pacman;;g' /etc/sudoers && \
     userdel aur && \
     rm -rf /var/aur
 
+RUN cd /usr/local/bin && ln -s $(which su-exec) gosu
+
 # clean up, there might be some leftovers
 RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && \
     pacman -Sc --noconfirm
