@@ -1,0 +1,28 @@
+[ -z "$PS1" ] && return
+
+export HISTSIZE=10000
+export HISTFILESIZE=${HISTSIZE}
+export HISTCONTROL=ignoreboth
+shopt -s cdspell
+shopt -s histappend
+shopt -s checkwinsize
+shopt -s cmdhist
+shopt -s dotglob
+shopt -s expand_aliases
+shopt -s extglob
+shopt -s hostcomplete
+shopt -s nocaseglob
+
+source /usr/share/git/completion/git-prompt.sh
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+
+alias ls='ls --time-style=+"%d.%m.%Y %H:%M" --color=auto'
+alias ll='ls -hl  --time-style=+"%d.%m.%Y %H:%M" --color=auto'
+alias la='ls -lah --time-style=+"%d.%m.%Y %H:%M" --color=auto'
+alias grep='grep -n'
+alias psa='ps -Af | \grep -v grep | \grep'
+
+export LANG=en_US.UTF-8
+export QT_QPA_PLATFORMTHEME="qt5ct"
+

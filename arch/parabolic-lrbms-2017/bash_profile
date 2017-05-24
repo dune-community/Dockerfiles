@@ -1,0 +1,7 @@
+cd $HOME
+source .bashrc
+cd parabolic-lrbms-2017-code
+source PATH.sh
+mkdir -p scripts
+cd scripts
+
