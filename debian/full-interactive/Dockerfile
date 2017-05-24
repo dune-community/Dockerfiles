@@ -15,7 +15,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends bash-completion ccache gdb ninja-build qtcreator \
-                    time valgrind vim-nox &&\
+                    time valgrind vim-nox libnotify-bin &&\
     apt-get install -y --no-install-recommends -t jessie-backports nvidia-driver && \
     wget http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
         dpkg -i /tmp/fira.deb && \
