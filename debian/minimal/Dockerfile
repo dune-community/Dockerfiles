@@ -33,7 +33,7 @@ RUN echo "Package: *" >> /etc/apt/preferences.d/jessie-backports && \
 
 # the bare minimum, part 1
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends automake bison build-essential cmake flex git libboost-system-dev \
+    apt-get install -y --no-install-recommends automake bison build-essential cmake flex gfortran git libboost-system-dev \
                                                libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
                                                libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \
                                                pkg-config python python-dev python3 python3-dev python3-virtualenv \
