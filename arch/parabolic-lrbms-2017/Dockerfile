@@ -10,6 +10,9 @@ FROM dunecommunity/dailywork_arch-minimal-interactive
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
+RUN pacman -Syyuu --noconfirm && \
+    pacman -S --noconfirm less
+
 RUN export USERNAME_=user && \
     export UID_=1000 && \
     export GID_=$UID_ && \
@@ -33,8 +36,6 @@ RUN bash mkimage-04-finalize.sh && \
     rm -f /home/user/mkimage-*.sh
 
 USER root
-RUN pacman -Syyuu --noconfirm && \
-    pacman -S --noconfirm less
 
 # clean up, there might be some leftovers
 RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && \
