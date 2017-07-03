@@ -48,14 +48,17 @@ RUN cd ${TL_TMP_DIR} && git clone https://github.com/mikael-s-persson/templight-
     make -j "$(cat /proc/cpuinfo | grep -c '^processor')" install && \
     rm -fr ${TL_TMP_DIR}/*
 
-RUN apt-get install -y --no-install-recommends libgraphviz-dev libyaml-cpp-dev libqt5gui5 qt5-qmake  qtbase5-dev &&\
+RUN apt-get install -y --no-install-recommends kcachegrind libgraphviz-dev libyaml-cpp-dev libqt5gui5 qt5-qmake  qtbase5-dev &&\
     cd ${TL_TMP_DIR} && \
     git clone https://github.com/schulmar/Templar templar && \
     cd templar && \
     git checkout feature/templight2 && \
     git submodule update --init && \
     cmake . && \
-    make install
+    make && \
+    install -m 755 Templar /usr/local/bin && \
+    rm -fr ${TL_TMP_DIR}
+
     # clean up, there might be some leftovers
 RUN apt-get autoremove -y && \
     apt-get clean && \
