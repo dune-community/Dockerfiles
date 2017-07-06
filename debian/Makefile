@@ -10,6 +10,7 @@ minimal-interactive: minimal
 full: minimal
 full-interactive: full
 full-clion: full-interactive
+full-templight: full-interactive
 
 NAME = dailywork_debian
 
