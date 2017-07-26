@@ -14,6 +14,9 @@ subdirs: $(SUBDIRS)
 
 testing: debian
 
+travis_debian:
+	make -C debian travis
+
 $(SUBDIRS):
 	make -C $@
 

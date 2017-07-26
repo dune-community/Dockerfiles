@@ -15,3 +15,5 @@ full-templight: full-interactive
 NAME = dailywork_debian
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
+
+travis: full-clion minimal-interactive
