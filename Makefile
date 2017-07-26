@@ -17,6 +17,9 @@ testing: debian
 travis_debian:
 	make -C debian travis
 
+travis_debian_push:
+	make -C debian travis_push
+
 $(SUBDIRS):
 	make -C $@
 
