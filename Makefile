@@ -8,22 +8,22 @@
 
 SUBDIRS = manylinux arch debian gitlabci testing
 
-.PHONY: subdirs $(SUBDIRS) base push
+.PHONY: subdirs $(SUBDIRS) base push debian_*
 
 subdirs: $(SUBDIRS)
 
-testing: debian
-
-travis_debian:
-	make -C debian travis
-
-travis_debian_push:
-	make -C debian travis_push
+testing: debian_full
 
 $(SUBDIRS):
 	make -C $@
 
+debian_%:
+	make -C debian $*
+
 push: push_arch push_debian push_gitlabci push_testing
+
+push_debian_travis: debian_travis
+	make -C debian travis_push
 
 push_%: %
 	make -C $< push

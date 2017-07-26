@@ -17,4 +17,5 @@ NAME = dailywork_debian
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
 
 travis: full-clion minimal-interactive
+# 'wrong' order to not match implicit included rules
 travis_push: push_full-clion push_full-interactive push_full push_minimal-interactive push_minimal
