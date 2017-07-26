@@ -25,31 +25,40 @@ CID_FILE=${BASEDIR}/.${PROJECT}-${SYSTEM}-${CONTAINER}.cid
 PORT="18$(( ( RANDOM % 10 ) ))$(( ( RANDOM % 10 ) ))$(( ( RANDOM % 10 ) ))"
 DOCKER_HOME=${BASEDIR}/docker-homes/${SYSTEM}
 
-echo "STARTING on port $PORT ..."
+if [ -e ${CID_FILE} ]; then
 
-if [  $(systemctl -q is-active docker )  ] ; then
+  echo "A docker container for ${PROJECT} based on dunecommunity/dailywork_${CONTAINER} is already running."
+  echo "Execute the following command to connect to it (docker_exec.sh is provided alongside this file):"
+  echo "  docker_exec.sh ${CONTAINER} ${PROJECT} ${@}"
+
+else
+
+  if systemctl status docker | grep running &> /dev/null; then
+    echo -n "Starting "
+  else
+    echo -n "Starting docker "
     sudo systemctl start docker
-fi
-
-mkdir -p ${DOCKER_HOME} &> /dev/null
-
-sudo docker run --rm --privileged=true -t -i --hostname docker --cidfile=${CID_FILE} \
-  -e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
-  -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
-  -e QT_X11_NO_MITSHM=1 \
-  -e EXPOSED_PORT=$PORT -p $PORT:$PORT \
-  -v /etc/localtime:/etc/localtime:ro \
-  -v $DOCKER_HOME:/home/${USER} \
-  -v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT} \
-  dunecommunity/dailywork_${CONTAINER} "${@}"
-
-if [ $? == 0 ]; then
-  if [ -e $DOCKER_HOME/${PROJECT} ]; then
-    # only remove it if we are the last ones to use it
-    ls ${BASEDIR}/.${PROJECT}-${SYSTEM}-*.cid &> /dev/null || \
-      rmdir $DOCKER_HOME/${PROJECT}/${PROJECT}
+    echo -n "and "
   fi
+
+  echo "a docker container for ${PROJECT} based on dunecommunity/dailywork_${CONTAINER} on port $PORT ..."
+
+  mkdir -p ${DOCKER_HOME} &> /dev/null
+
+  sudo docker run --rm --privileged=true -t -i --hostname docker --cidfile=${CID_FILE} \
+    -e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
+    -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e QT_X11_NO_MITSHM=1 \
+    -e EXPOSED_PORT=$PORT -p $PORT:$PORT \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v $DOCKER_HOME:/home/${USER} \
+    -v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT} \
+    dunecommunity/dailywork_${CONTAINER} "${@}"
+
+  if [ -d $DOCKER_HOME/${PROJECT} ]; then
+    [ "$(ls -A $DOCKER_HOME/${PROJECT})" ] || rmdir $DOCKER_HOME/${PROJECT}
+  fi
+
+  rm -f ${CID_FILE}
+
 fi
-
-rm -f ${CID_FILE}
-
