@@ -8,4 +8,6 @@
 
 FROM docker:latest
 
-RUN apk update && apk add git python3 python
+RUN apk update && apk add git python3 python py-pip py3-pip && \
+    pip install docker && pip3 install docker
+
