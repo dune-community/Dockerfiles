@@ -27,8 +27,11 @@ DOCKER_HOME=${BASEDIR}/docker-homes/${SYSTEM}
 
 if [ -e ${CID_FILE} ]; then
 
-  echo "A docker container for ${PROJECT} based on dunecommunity/dailywork_${CONTAINER} is already running."
-  echo "Execute the following command to connect to it (docker_exec.sh is provided alongside this file):"
+  echo "A docker container for"
+  echo "  ${PROJECT}"
+  echo "  based on dunecommunity/dailywork_${CONTAINER}"
+  echo "is already running. Execute the following command to connect to it"
+  echo "(docker_exec.sh is provided alongside this file):"
   echo "  docker_exec.sh ${CONTAINER} ${PROJECT} ${@}"
 
 else
@@ -41,7 +44,10 @@ else
     echo -n "and "
   fi
 
-  echo "a docker container for ${PROJECT} based on dunecommunity/dailywork_${CONTAINER} on port $PORT ..."
+  echo "a docker container"
+  echo "  for ${PROJECT}"
+  echo "  based on dunecommunity/dailywork_${CONTAINER}"
+  echo "  on port $PORT"
 
   mkdir -p ${DOCKER_HOME} &> /dev/null
 
