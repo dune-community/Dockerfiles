@@ -95,7 +95,7 @@ The [docker_run.sh](https://github.com/dune-community/Dockerfiles/blob/master/do
 ### docker and security
 
 Allow the user to run docker container via sudo, not by adding him to the docker group (see [the Arch wiki](https://wiki.archlinux.org/index.php/Docker#Installation) on that issue).
-Thus make sure your user has sudo rights or ask your local system administrator to add at least add the following to `/etc/sudoers`, where `_USER_` is the name of your user:
+Thus make sure your user has sudo rights or ask your local system administrator to add at least the following to `/etc/sudoers`, where `_USER_` is the name of your user:
 ```
 _USER_ ALL=(ALL) /usr/bin/docker
 ```
@@ -114,17 +114,26 @@ Since the `apt` cache is empty you need to
 
 For instance the minimal debian one with stuff for interactive development:
 
-* get the repo, enter the right directory
+* get the repo
 
   ```bash
   git clone https://github.com/dune-community/dockerfiles.git docker-for-daily-dune && \
-  cd docker-for-daily-dune/debian/minimal-interactive
   ```
 
-* build the image, `--rm` removes all intermediate layers, `-t` tags the resulting image
+* enter the right directory, build the image manually (`-t` tags the resulting image, the tag `:custom-build` can be omitted, defaults to `:latest`)
 
   ```bash
-  sudo docker build --rm -t dunecommunity/dailywork_debian-minimal-interactive -f Dockerfile .
+  cd docker-for-daily-dune/debian/minimal-interactive
+  sudo docker build --rm -t dunecommunity/dailywork_debian-minimal-interactive:custom-build -f Dockerfile .
+  ```
+  
+  or
+  
+* use make
+  
+  ```bash
+  cd docker-for-daily-dune/
+  sudo make debian-minimal-interactive
   ```
 
 ### clean up containers
