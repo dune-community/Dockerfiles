@@ -12,6 +12,7 @@ REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile)))
 
 $(REPONAMES):
 	docker build --rm -t dunecommunity/$(NAME)-$@ $@
+	docker build --rm -t dunecommunity/$(NAME)-$@:$(shell git describe --tags --dirty --broken --always --long) $@
 
 push_%: %
 	docker push dunecommunity/$(NAME)-$<
