@@ -11,12 +11,16 @@ FROM dunecommunity/dailywork_arch-minimal
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
-RUN cd /tmp && \
-    wget http://repos.schindlerfamily.de/manjaro/scientific-computing/clang38-3.8.1-2-x86_64.pkg.tar.xz http://repos.schindlerfamily.de/manjaro/scientific-computing/llvm-libs38-3.8.1-2-x86_64.pkg.tar.xz && \
-    pacman --noconfirm -U clang38-3.8.1-2-x86_64.pkg.tar.xz llvm-libs38-3.8.1-2-x86_64.pkg.tar.xz && \
-    rm clang38-3.8.1-2-x86_64.pkg.tar.xz llvm-libs38-3.8.1-2-x86_64.pkg.tar.xz
-RUN pacman -Syyuu --noconfirm && \
-    pacman -S --noconfirm ack bash-completion ccache faenza-icon-theme gdb ninja ttf-ubuntu-font-family qt5ct qtcreator vim
+RUN echo "" >> /etc/pacman.conf && \
+    echo "[aur]" >> /etc/pacman.conf && \
+    echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf && \
+    echo "Server = http://repos.schindlerfamily.de/arch/aur" >> /etc/pacman.conf && \
+    echo "" >> /etc/pacman.conf && \
+    echo "[scientific-computing]" >> /etc/pacman.conf && \
+    echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf && \
+    echo "Server = http://repos.schindlerfamily.de/arch/scientific-computing" >> /etc/pacman.conf && \
+    pacman -Syuu --noconfirm && \
+    pacman -S --noconfirm ack bash-completion ccache clang38 faenza-icon-theme gdb ninja qt5ct qtcreator42 ttf-ubuntu-font-family vim
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
