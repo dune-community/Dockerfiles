@@ -36,8 +36,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends automake bison build-essential cmake flex gfortran git libboost-system-dev \
                                                libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
                                                libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \
-                                               pkg-config python python-dev python3 python3-dev python3-virtualenv \
-                                               unzip virtualenv wget libopenblas-dev \
+                                               pkg-config python python-dev python-pip python3 python3-dev \
+                                               python3-pip python3-virtualenv unzip virtualenv wget libopenblas-dev \
                                                ca-certificates wget sudo
 
 # the bare minimum, part 2
