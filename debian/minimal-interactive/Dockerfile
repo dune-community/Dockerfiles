@@ -35,3 +35,5 @@ RUN apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+#libclang python bindings cannot find this on their own
+ENV DXT_LIBCLANG_SO /usr/lib/llvm-3.8/lib/libclang.so.1

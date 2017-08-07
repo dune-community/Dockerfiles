@@ -20,3 +20,5 @@ RUN apt-get update && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 100
 
+#libclang python bindings cannot find this on their own
+ENV DXT_LIBCLANG_SO /usr/lib/llvm-3.8/lib/libclang.so.1
