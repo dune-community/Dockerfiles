@@ -14,9 +14,8 @@ MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends bash-completion ccache gdb ninja-build qtcreator \
-                    time valgrind less vim-nox libnotify-bin openssh-server ruby ruby-dev &&\
-    apt-get install -y --no-install-recommends -t jessie-backports nvidia-driver && \
+    apt-get install -y --no-install-recommends nvidia-driver bash-completion ccache gdb ninja-build qtcreator \
+                    time valgrind less vim-nox libnotify-bin openssh-server ruby ruby-dev && \
     wget http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
         dpkg -i /tmp/fira.deb && \
         rm /tmp/fira.deb && \
@@ -31,7 +30,7 @@ RUN cd /tmp && \
     wget http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb
-RUN git clone git://github.com/rkitover/vimpager /tmp/vimpager && \ 
+RUN git clone git://github.com/rkitover/vimpager /tmp/vimpager && \
     cd /tmp/vimpager && \
     make install-deb && \
     cd && rm -r /tmp/vimpager

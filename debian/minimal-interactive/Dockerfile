@@ -14,11 +14,10 @@ MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends bash-completion ccache clang-3.8 clang-format-3.8 gdb ninja-build \
+    apt-get install -y --no-install-recommends  nvidia-driver bash-completion ccache clang-3.8 clang-format-3.8 gdb ninja-build \
                     qtcreator time valgrind vim-nox && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 100 && \
-    apt-get install -y --no-install-recommends -t jessie-backports nvidia-driver && \
     echo ' . /usr/share/bash-completion/bash_completion ' >>  /etc/bash.bashrc
 
 RUN mkdir -p /home/user/.ccache && \

@@ -7,7 +7,8 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM debian:jessie
+# aka debian:9 (released June '17)
+FROM debian:stretch
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
@@ -22,28 +23,24 @@ RUN apt-get update && \
     export LANG=en_US.UTF-8 && \
     dpkg-reconfigure locales
 
-# we require jessie-backports for some packages (see below), but we only allow them in manual installs
+# we require stretch-backports for some packages (see below), but we only allow them in manual installs
 # the upgrade should thus be a noop
-RUN echo "Package: *" >> /etc/apt/preferences.d/jessie-backports && \
-    echo "Pin: release a=jessie-backports" >> /etc/apt/preferences.d/jessie-backports && \
-    echo "Pin-Priority: 200" >> /etc/apt/preferences.d/jessie-backports && \
-    echo "deb http://deb.debian.org/debian jessie-backports main contrib non-free" > /etc/apt/sources.list.d/jessie-backports.list && \
+RUN echo "Package: *" >> /etc/apt/preferences.d/stretch-backports && \
+    echo "Pin: release a=stretch-backports" >> /etc/apt/preferences.d/stretch-backports && \
+    echo "Pin-Priority: 200" >> /etc/apt/preferences.d/stretch-backports && \
+    echo "deb http://httpredir.debian.org/debian stretch-backports main contrib non-free" > /etc/apt/sources.list.d/stretch-backports.list && \
+    echo "deb http://httpredir.debian.org/debian/ stretch contrib non-free" > /etc/apt/sources.list.d/stretch-nonfree.list && \
     apt-get update && \
     apt-get upgrade -y --no-install-recommends
 
-# the bare minimum, part 1
+# the bare minimum
 RUN apt-get update && \
     apt-get install -y --no-install-recommends automake bison build-essential cmake flex gfortran git libboost-system-dev \
                                                libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
                                                libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \
                                                pkg-config python python-dev python-pip python3 python3-dev \
                                                python3-pip python3-virtualenv unzip virtualenv wget libopenblas-dev \
-                                               ca-certificates wget sudo
-
-# the bare minimum, part 2
-# we require cmake >= 3.1, jessie-backports is enough
-RUN apt-get update && \
-    apt-get -t jessie-backports install -y --no-install-recommends cmake cmake-curses-gui gosu
+                                               ca-certificates wget sudo cmake cmake-curses-gui gosu
 
 # clean up, there might be some leftovers
 RUN apt-get autoremove -y && \
