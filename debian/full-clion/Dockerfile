@@ -10,6 +10,9 @@ FROM dunecommunity/dailywork_debian-full-interactive
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 
+ENV ALLINEA_VERSION=6.1 \
+    PATH=/opt/allinea/bin:${PATH}
+
 RUN apt-get update && \
     apt-get install -t jessie-backports -yq --no-install-recommends openjdk-8-jdk  && \
     apt-get install -yq --no-install-recommends libxext6 libxrender1 libxtst6 libxi6 && \
@@ -20,4 +23,9 @@ RUN apt-get update && \
     ln -s /opt/ide/bin/clion.sh /usr/local/bin/clion && \
     apt-get autoremove -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    mkdir /tmp/allinea/ && \
+    wget -qO- http://content.allinea.com/downloads/allinea-forge-${ALLINEA_VERSION}-Ubuntu-14.04-x86_64.tar \
+        | tar x --strip-components=1 -C /tmp/allinea && \
+    /tmp/allinea/textinstall.sh --accept-licence  /opt/allinea/ 1> /dev/null && \
+    rm -rf /tmp/allinea
