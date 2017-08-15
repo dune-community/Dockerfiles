@@ -18,7 +18,8 @@ RUN apt-get update && \
                     qtcreator time valgrind vim-nox && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.8 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.8 100 && \
-    apt-get install -y --no-install-recommends -t jessie-backports nvidia-driver
+    apt-get install -y --no-install-recommends -t jessie-backports nvidia-driver && \
+    echo ' . /usr/share/bash-completion/bash_completion ' >>  /etc/bash.bashrc
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
