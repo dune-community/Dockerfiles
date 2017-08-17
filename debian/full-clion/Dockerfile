@@ -11,6 +11,7 @@ FROM dunecommunity/dailywork_debian-full-interactive
 MAINTAINER René Milk <rene.milk@wwu.de>
 
 ENV ALLINEA_VERSION=6.1 \
+    ALLINEA_LICENCE_FILE=${HOME}/.config/allinea/Licence \
     PATH=/opt/allinea/bin:${PATH}
 
 RUN apt-get update && \
