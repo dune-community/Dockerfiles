@@ -15,11 +15,12 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends bash-completion ccache gdb ninja-build qtcreator \
-                    time valgrind vim-nox libnotify-bin openssh-server &&\
+                    time valgrind vim-nox libnotify-bin openssh-server ruby ruby-dev &&\
     apt-get install -y --no-install-recommends -t jessie-backports nvidia-driver && \
     wget http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
         dpkg -i /tmp/fira.deb && \
-        rm /tmp/fira.deb
+        rm /tmp/fira.deb && \
+    gem install travis
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
