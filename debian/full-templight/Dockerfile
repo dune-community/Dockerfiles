@@ -21,6 +21,7 @@ ENV TL_LLVM_REV 290370
 ENV TL_CLANG_REV 290373
 ENV TL_REV 0738fa15ef7e24c5864c95e02d53c6f2e98f160b
 ENV TL_TOOLS_REV cd3828bbc85faa3de5a05a9ccfc9ea27518af7d5
+ENV CMAKE_CMD "cmake -DCMAKE_BUILD_TYPE=Release -GNinja"
 
 RUN mkdir -p ${TL_TMP_DIR} && cd ${TL_TMP_DIR} && \
     svn co -r ${TL_LLVM_REV} http://llvm.org/svn/llvm-project/llvm/trunk llvm && \
@@ -36,16 +37,16 @@ RUN mkdir -p ${TL_TMP_DIR} && cd ${TL_TMP_DIR} && \
     cd ${TL_TMP_DIR} && \
     mkdir build && \
     cd build && \
-    cmake -DCMAKE_BUILD_TYPE=Release ../llvm/ && \
-    make -j "$(cat /proc/cpuinfo | grep -c '^processor')" check install && \
+    ${CMAKE_CMD} -DLLVM_BUILD_TESTS=0 ../llvm/ && \
+    ninja install && \
     rm -fr ${TL_TMP_DIR}/*
 
 RUN cd ${TL_TMP_DIR} && git clone https://github.com/mikael-s-persson/templight-tools && cd templight-tools && git reset --hard ${TL_TOOLS_REV} && \
     cd ${TL_TMP_DIR}/templight-tools && \
     mkdir build && \
     cd build && \
-    cmake -DCMAKE_BUILD_TYPE=Release ../ && \
-    make -j "$(cat /proc/cpuinfo | grep -c '^processor')" install && \
+    ${CMAKE_CMD} ../ && \
+    ninja install && \
     rm -fr ${TL_TMP_DIR}/*
 
 RUN apt-get install -y --no-install-recommends kcachegrind libgraphviz-dev libyaml-cpp-dev libqt5gui5 qt5-qmake  qtbase5-dev &&\
@@ -54,8 +55,8 @@ RUN apt-get install -y --no-install-recommends kcachegrind libgraphviz-dev libya
     cd templar && \
     git checkout feature/templight2 && \
     git submodule update --init && \
-    cmake . && \
-    make && \
+    ${CMAKE_CMD} . && \
+    ninja && \
     install -m 755 Templar /usr/local/bin && \
     rm -fr ${TL_TMP_DIR}
 
