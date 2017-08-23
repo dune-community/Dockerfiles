@@ -19,7 +19,7 @@ RUN apt-get update && \
     apt-get install -yq --no-install-recommends libxext6 libxrender1 libxtst6 libxi6 && \
     apt-get remove -yq qtcreator && \
     mkdir -p /opt/ide && \
-    wget -qO- https://download.jetbrains.com/cpp/CLion-2017.2.tar.gz | \
+    wget -qO- https://download.jetbrains.com/cpp/CLion-2017.2.1.tar.gz | \
         tar zx --strip-components=1 -C /opt/ide && \
     ln -s /opt/ide/bin/clion.sh /usr/local/bin/clion && \
     apt-get autoremove -y && \
