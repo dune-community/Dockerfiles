@@ -7,6 +7,7 @@
 #   Rene Milk (2017)
 
 minimal-interactive: minimal
+docs: minimal
 full: minimal
 full-interactive: full
 full-clion: full-interactive
@@ -16,6 +17,6 @@ NAME = dailywork_debian
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
 
-travis: full-clion minimal-interactive
+travis: full-clion minimal-interactive docs
 # 'wrong' order to not match implicit included rules
-travis_push: push_full-clion push_full-interactive push_full push_minimal-interactive push_minimal
+travis_push: push_full-clion push_full-interactive push_full push_minimal-interactive push_minimal push_docs
