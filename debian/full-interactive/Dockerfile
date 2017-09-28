@@ -24,7 +24,7 @@ RUN apt-get update && \
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
     cd /usr/local/bin && \
-    for ii in cc clang clang-3.8 clang++-3.8 cpp cpp-4.9 g++ g++-4.9 gcc ; do ln -s $(which ccache) $ii; done
+    for ii in cc clang clang-3.9 clang++-3.9 cpp cpp-6 g++ g++-6 gcc ; do ln -s $(which ccache) $ii; done
 
 RUN cd /tmp && \
     wget http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
