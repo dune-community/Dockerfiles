@@ -55,3 +55,4 @@ RUN git clone https://github.com/dune-community/cli-setup && \
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
+ENV DXT_EXTERNAL_LIBS debian__minimal

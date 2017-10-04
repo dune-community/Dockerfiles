@@ -92,3 +92,4 @@ RUN yum -y remove dpkg gnupg2 texinfo && \
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
+ENV DXT_EXTERNAL_LIBS manylinux__minimal

@@ -70,3 +70,4 @@ RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && \
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
+ENV DXT_EXTERNAL_LIBS arch__minimal

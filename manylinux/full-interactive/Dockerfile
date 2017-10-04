@@ -43,3 +43,4 @@ RUN mkdir -p /home/user/.ccache && \
 # clean up, there might be some leftovers
 RUN yum clean all
 
+ENV DXT_EXTERNAL_LIBS manylinux__full

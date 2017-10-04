@@ -22,3 +22,5 @@ RUN apt-get update && \
 RUN apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+ENV DXT_EXTERNAL_LIBS debian__minimal

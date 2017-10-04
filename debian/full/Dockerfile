@@ -22,3 +22,5 @@ RUN apt-get update && \
 
 #libclang python bindings cannot find this on their own
 ENV DXT_LIBCLANG_SO /usr/lib/llvm-3.9/lib/libclang.so.1
+
+ENV DXT_EXTERNAL_LIBS debian__full

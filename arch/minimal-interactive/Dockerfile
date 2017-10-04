@@ -31,3 +31,4 @@ RUN mkdir -p /home/user/.ccache && \
 RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && \
     pacman -Sc --noconfirm
 
+ENV DXT_EXTERNAL_LIBS arch__minimal
