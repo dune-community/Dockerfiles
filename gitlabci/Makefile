@@ -6,6 +6,6 @@
 # Authors:
 #   Rene Milk (2017)
 
-NAME = gitlabci_dockerindocker
+NAME = gitlabci
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
