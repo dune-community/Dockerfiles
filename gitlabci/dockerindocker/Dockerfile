@@ -8,8 +8,8 @@
 
 FROM docker:latest
 
-RUN apk update && apk add git python3 python py-pip py3-pip && \
-    pip install docker && pip3 install docker
+RUN apk update && apk add git make python3 python py-pip py3-pip && \
+    pip install docker && pip3 install docker jinja2 docopt
 
 ENV DXT_EXTERNAL_LIBS debian__dind
 
