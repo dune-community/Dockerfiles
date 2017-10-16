@@ -14,7 +14,7 @@ MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends bash-completion ccache libc++1 clang-3.9 clang-format-3.9 gdb ninja-build \
+    apt-get install -y --no-install-recommends bash-completion ccache libc++1 clang-3.9 clang-format-3.9 gdb less ninja-build \
                     qtcreator time valgrind vim-nox && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.9 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.9 100 && \
