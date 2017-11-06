@@ -7,37 +7,9 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
+FROM dunecommunity/dailywork_debian-interactive as interactive
 FROM dunecommunity/dailywork_debian-full
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
-
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends bash-completion ccache gdb ninja-build qtcreator \
-                    time valgrind less vim-nox libnotify-bin openssh-server ruby ruby-dev && \
-    wget http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
-        dpkg -i /tmp/fira.deb && \
-        rm /tmp/fira.deb && \
-    gem install travis
-
-RUN mkdir -p /home/user/.ccache && \
-    echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
-    cd /usr/local/bin && \
-    for ii in cc clang clang-3.9 clang++-3.9 cpp cpp-6 g++ g++-6 gcc ; do ln -s $(which ccache) $ii; done
-
-RUN cd /tmp && \
-    wget http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
-    dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
-    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb
-RUN git clone git://github.com/rkitover/vimpager /tmp/vimpager && \
-    cd /tmp/vimpager && \
-    make install-deb && \
-    cd && rm -r /tmp/vimpager
-
-# clean up, there might be some leftovers
-RUN apt-get autoremove -y && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
 
 ENV DXT_EXTERNAL_LIBS debian__full

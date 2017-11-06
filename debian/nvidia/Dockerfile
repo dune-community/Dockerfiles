@@ -4,21 +4,15 @@
 # License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
 #      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
 # Authors:
-#   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM dunecommunity/dailywork_debian-minimal
+FROM debian:stretch
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 
-ENV DEBIAN_FRONTEND noninteractive
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        texlive-latex-base python3-sphinx python-sphinx \
-        inkscape texlive-latex-extra && \
+ONBUILD RUN echo "deb http://deb.debian.org/debian/ stretch contrib non-free" > /etc/apt/sources.list.d/stretch-nonfree.list && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends nvidia-driver && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-ENV DXT_EXTERNAL_LIBS debian__minimal

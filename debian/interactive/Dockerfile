@@ -1,0 +1,48 @@
+# This file is part of the dune-community/Dockerfiles project:
+#   https://github.com/dune-community/Dockerfiles
+# Copyright 2017 dune-community/Dockerfiles developers and contributors. All rights reserved.
+# License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
+#      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
+# Authors:
+#   Rene Milk       (2017)
+
+FROM debian:stretch
+
+MAINTAINER René Milk <rene.milk@wwu.de>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+ONBUILD RUN apt-get update && \
+    apt-get install -y --no-install-recommends bash-completion ccache libc++1 clang-3.9 clang-format-3.9 gdb ninja-build \
+                    qtcreator git time valgrind vim-nox wget build-essential cmake \
+    less libnotify-bin openssh-server ruby ruby-dev && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.9 100 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.9 100 && \
+    echo ' . /usr/share/bash-completion/bash_completion ' >>  /etc/bash.bashrc && \
+    wget http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
+        dpkg -i /tmp/fira.deb && \
+        rm /tmp/fira.deb && \
+    gem install travis && \
+    apt remove -y ruby-dev
+
+ONBUILD RUN mkdir -p /home/user/.ccache && \
+    echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
+    cd /usr/local/bin && \
+    for ii in cc cpp clang clang++ clang-3.9 clang++-3.9 cpp-6 g++ g++-6 gcc ; do ln -s $(which ccache) $ii; done
+
+ONBUILD RUN cd /tmp && \
+    wget http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
+    dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
+    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb
+ONBUILD RUN git clone git://github.com/rkitover/vimpager /tmp/vimpager && \
+    cd /tmp/vimpager && \
+    make install-deb && \
+    cd && rm -r /tmp/vimpager
+
+# clean up, there might be some leftovers
+ONBUILD RUN apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+#libclang python bindings cannot find this on their own
+ONBUILD ENV DXT_LIBCLANG_SO /usr/lib/llvm-3.9/lib/libclang.so.1
