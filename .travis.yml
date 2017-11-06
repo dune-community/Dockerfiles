@@ -3,6 +3,12 @@ dist: trusty
 language: generic
 services: docker
 
+# auto-updates docker engine
+addons:
+  apt:
+    packages:
+      - docker-ce
+
 script:
   - sudo service docker restart
   - cd ${TRAVIS_BUILD_DIR}
