@@ -20,7 +20,8 @@ ENV CMAKE_CMD "cmake -DCMAKE_BUILD_TYPE=Release -GNinja"
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends subversion libboost-program-options-dev \
-        libboost-test-dev python3-dev git ca-certificates cmake ninja-build build-essential && \
+        libboost-filesystem-dev libboost-system-dev libboost-test-dev python3-dev \
+        git ca-certificates cmake ninja-build build-essential && \
     mkdir -p ${TL_TMP_DIR} && cd ${TL_TMP_DIR} && \
     svn co -r ${TL_LLVM_REV} http://llvm.org/svn/llvm-project/llvm/trunk llvm && \
     cd ${TL_TMP_DIR}/llvm/tools && \

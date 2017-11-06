@@ -6,7 +6,7 @@
 # Authors:
 #   Rene Milk (2017)
 
-FROM dunecommunity/dailywork_debian-full
+FROM dunecommunity/debian-full
 MAINTAINER rene.milk@wwu.de
 
 ENV HOME=/root

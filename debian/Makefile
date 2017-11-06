@@ -16,7 +16,7 @@ full-clion: full-interactive clion
 full-clion-nvidia: full-clion nvidia
 full-templight: full-interactive templight
 
-NAME = dailywork_debian
+NAME = debian
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
 

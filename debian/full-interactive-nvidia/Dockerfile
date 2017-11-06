@@ -6,9 +6,9 @@
 # Authors:
 #   Rene Milk       (2017)
 
-FROM dunecommunity/dailywork_debian-nvidia as nvidia
-FROM dunecommunity/dailywork_debian-interactive as interactive
-FROM dunecommunity/dailywork_debian-full
+FROM dunecommunity/debian-nvidia as nvidia
+FROM dunecommunity/debian-interactive as interactive
+FROM dunecommunity/debian-full
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 

@@ -29,7 +29,7 @@ if [ -e ${CID_FILE} ]; then
 
   echo "A docker container for"
   echo "  ${PROJECT}"
-  echo "  based on dunecommunity/dailywork_${CONTAINER}"
+  echo "  based on dunecommunity/${CONTAINER}"
   echo "is already running. Execute the following command to connect to it"
   echo "(docker_exec.sh is provided alongside this file):"
   echo "  docker_exec.sh ${CONTAINER} ${PROJECT} ${@}"
@@ -46,7 +46,7 @@ else
 
   echo "a docker container"
   echo "  for ${PROJECT}"
-  echo "  based on dunecommunity/dailywork_${CONTAINER}"
+  echo "  based on dunecommunity/${CONTAINER}"
   echo "  on port $PORT"
 
   mkdir -p ${DOCKER_HOME} &> /dev/null
@@ -59,7 +59,7 @@ else
     -v /etc/localtime:/etc/localtime:ro \
     -v $DOCKER_HOME:/home/${USER} \
     -v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT} \
-    dunecommunity/dailywork_${CONTAINER} "${@}"
+    dunecommunity/${CONTAINER} "${@}"
 
   if [ -d $DOCKER_HOME/${PROJECT} ]; then
     [ "$(ls -A $DOCKER_HOME/${PROJECT})" ] || rmdir $DOCKER_HOME/${PROJECT}
