@@ -3,14 +3,25 @@ dist: trusty
 language: generic
 services: docker
 
+# auto-updates docker engine
+addons:
+  apt:
+    packages:
+      - docker-ce
+
 script:
+  - sudo service docker restart
   - cd ${TRAVIS_BUILD_DIR}
   - travis_wait 45 make ${SUBDIR}
-  - |
-    if [[ "${TRAVIS_PULL_REQUEST}" == "false" ]] ; then
-        docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
-        make push_${SUBDIR}
-    fi
+
+before_deploy:
+  - docker login --username=$DOCKER_HUB_USERNAME --password=$DOCKER_HUB_PASSWORD
+
+deploy:
+  provider: script
+  script: make push_${SUBDIR}
+  on:
+    branch: master
 
 notifications:
   email:

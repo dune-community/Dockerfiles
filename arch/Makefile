@@ -8,6 +8,6 @@
 
 minimal-interactive: minimal
 
-NAME = dailywork_arch
+NAME = arch
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
