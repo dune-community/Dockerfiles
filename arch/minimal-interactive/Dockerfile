@@ -16,11 +16,8 @@ RUN echo "" >> /etc/pacman.conf && \
     echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf && \
     echo "Server = http://repos.schindlerfamily.de/arch/aur" >> /etc/pacman.conf && \
     echo "" >> /etc/pacman.conf && \
-    echo "[scientific-computing]" >> /etc/pacman.conf && \
-    echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf && \
-    echo "Server = http://repos.schindlerfamily.de/arch/scientific-computing" >> /etc/pacman.conf && \
     pacman -Syuu --noconfirm && \
-    pacman -S --noconfirm ack bash-completion ccache clang38 faenza-icon-theme gdb ninja qt5ct qtcreator42 ttf-ubuntu-font-family vim
+    pacman -S --noconfirm ack bash-completion ccache clang39-provides faenza-icon-theme gdb ninja qt5ct qtcreator42 ttf-ubuntu-font-family vim
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
