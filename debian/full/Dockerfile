@@ -16,7 +16,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get install -y --no-install-recommends doxygen libc++-dev clang-3.9 clang-format-3.9 clang-tidy-3.9 \
         libalberta-dev libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev libtbb-dev \
-        ninja-build openmpi-common openmpi-bin libqhull-dev liblpsolve55-dev liblapacke-dev && \
+        ninja-build openmpi-common openmpi-bin libqhull-dev liblpsolve55-dev liblapacke-dev ssh && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.9 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.9 100
 
