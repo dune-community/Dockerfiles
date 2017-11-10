@@ -11,7 +11,7 @@ REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile.in)))
 .PHONY: push all $(REPONAMES)
 
 $(REPONAMES):
-	m4 -I ${PWD}/include $@/Dockerfile.in > $@/Dockerfile
+	m4 -I ./include $@/Dockerfile.in > $@/Dockerfile
 	docker build --rm -t dunecommunity/$(NAME)-$@ $@
 	docker build --rm -t dunecommunity/$(NAME)-$@:$(shell git describe --tags --dirty --always --long) $@
 
