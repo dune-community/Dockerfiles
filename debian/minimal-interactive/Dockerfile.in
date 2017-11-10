@@ -4,12 +4,12 @@
 # License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
 #      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
 # Authors:
-#   Rene Milk (2017)
+#   Felix Schindler (2017)
+#   Rene Milk       (2017)
 
-FROM dunecommunity/debian-clion as clion
-FROM dunecommunity/debian-interactive as interactive
-FROM dunecommunity/debian-full
+FROM dunecommunity/debian-minimal
+include(interactive)
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 
-COPY --from=clion /opt/* /opt/
+

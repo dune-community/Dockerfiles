@@ -6,9 +6,9 @@
 # Authors:
 #   Rene Milk       (2017)
 
-FROM dunecommunity/debian-nvidia as nvidia
-FROM dunecommunity/debian-interactive as interactive
 FROM dunecommunity/debian-full
+include(clion)
+include(interactive)
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 

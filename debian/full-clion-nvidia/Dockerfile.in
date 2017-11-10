@@ -6,14 +6,13 @@
 # Authors:
 #   Rene Milk       (2017)
 
-FROM dunecommunity/debian-nvidia as nvidia
-FROM dunecommunity/debian-clion as clion
-FROM dunecommunity/debian-interactive as interactive
 FROM dunecommunity/debian-full
+include(nvidia)
+include(clion)
+include(interactive)
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 
-COPY --from=clion /opt/* /opt/
 
 
 

@@ -4,12 +4,11 @@
 # License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
 #      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
 # Authors:
-#   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM dunecommunity/debian-interactive as interactive
 FROM dunecommunity/debian-full
+include(nvidia)
+include(interactive)
 
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+MAINTAINER René Milk <rene.milk@wwu.de>
 
-ENV DXT_EXTERNAL_LIBS debian__full
