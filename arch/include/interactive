@@ -1,3 +1,4 @@
+
 # This file is part of the dune-community/Dockerfiles project:
 #   https://github.com/dune-community/Dockerfiles
 # Copyright 2017 dune-community/Dockerfiles developers and contributors. All rights reserved.
@@ -7,9 +8,6 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM dunecommunity/arch-minimal
-
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
 RUN echo "" >> /etc/pacman.conf && \
     echo "[aur]" >> /etc/pacman.conf && \

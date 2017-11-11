@@ -6,10 +6,6 @@
 # Authors:
 #   Rene Milk       (2017)
 
-FROM debian:stretch as this
-
-MAINTAINER René Milk <rene.milk@wwu.de>
-
 ENV ALLINEA_VERSION=6.1 \
     ALLINEA_LICENCE_FILE=${HOME}/.config/allinea/Licence \
     PATH=/opt/allinea/bin:${PATH}
@@ -27,6 +23,5 @@ RUN apt-get update && \
     wget -qO- http://content.allinea.com/downloads/allinea-forge-${ALLINEA_VERSION}-Ubuntu-14.04-x86_64.tar \
         | tar x --strip-components=1 -C /tmp/allinea && \
     /tmp/allinea/textinstall.sh --accept-licence  /opt/allinea/ 1> /dev/null && \
-    rm -rf /tmp/allinea
-
-ONBUILD RUN ln -s /opt/ide/bin/clion.sh /usr/local/bin/clion
+    rm -rf /tmp/allinea && \
+    ln -s /opt/ide/bin/clion.sh /usr/local/bin/clion
