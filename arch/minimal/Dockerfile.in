@@ -13,8 +13,12 @@ MAINTAINER Felix Schindler <felix.schindler@wwu.de>
 
 # init and update
 RUN pacman -Sc --noconfirm && \
+    mkdir -p /root/.gnupg/dirmngr-cache.d && \
+    chmod 700 /root/.gnupg && \
     touch /root/.gnupg/dirmngr_ldapservers.conf && \
-    dirmngr && \
+    echo "keyserver pool.sks-keyservers.net:80" > /root/.gnupg/dirmngr.conf && \
+    gpg -k && \
+    dirmngr < /dev/null && \
     pacman-key --init && \
     pacman-key --populate archlinux && \
     pacman-key --refresh-keys && \
