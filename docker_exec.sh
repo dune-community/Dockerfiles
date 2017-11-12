@@ -17,10 +17,9 @@ fi
 
 BASEDIR=$PWD
 CONTAINER=${1}
-SYSTEM=${CONTAINER%%-*}
 PROJECT=${2}
 shift 2
-CID_FILE=${BASEDIR}/.${PROJECT}-${SYSTEM}-${CONTAINER}.cid
+CID_FILE=${BASEDIR}/.${PROJECT}-${CONTAINER}.cid
 
 sudo docker exec -it $(cat ${CID_FILE}) gosu $USER "${@}"
 
