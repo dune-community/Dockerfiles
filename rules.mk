@@ -10,7 +10,7 @@ THISDIR=$(dir $(lastword $(MAKEFILE_LIST)))
 
 REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile.in)))
 
-.PHONY: push all $(REPONAMES)
+.PHONY: push all $(REPONAMES) readme
 
 $(REPONAMES):
 	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
@@ -19,7 +19,7 @@ $(REPONAMES):
 		-D IMAGE="$(IMAGE)" \
 		-D GITREV=$(GITREV) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
-	docker build --rm -t dunecommunity/$(IMAGE):$(GITREV) $@
+	docker build -t dunecommunity/$(IMAGE):$(GITREV) $@
 	docker tag dunecommunity/$(IMAGE):$(GITREV) dunecommunity/$(IMAGE):latest
 
 push_%: %
@@ -28,5 +28,12 @@ push_%: %
 push: $(addprefix push_,$(REPONAMES))
 
 all: $(REPONAMES)
+
+readme:
+	m4 -d -D REPONAMES="$(REPONAMES)" -I$(THISDIR)/include -I ./include \
+		-D BASENAME=$(NAME) $(THISDIR)/include/readme.m4 \
+	  > README.md
+	# emulate autoconf quadrigraphs to escape m4's quoting hell wrt [,]
+	sed -i -e 's/@<:@/[/g' -e 's/@>:@/]/g' README.md
 
 .DEFAULT_GOAL := all

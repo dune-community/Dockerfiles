@@ -16,6 +16,7 @@ testing: debian_full
 
 $(SUBDIRS):
 	make -C $@
+	make -C $@ readme
 
 debian_%:
 	make -C debian $*
