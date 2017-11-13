@@ -10,5 +10,3 @@ include(m4sugar.m4)
 # output to stdout
 m4_divert_push(1)dnl
 m4_foreach_w(REPO, REPONAMES, section(REPO))
-
-#[![](https://images.microbadger.com/badges/image/dunecommunity/debian-full.svg)](https://microbadger.com/images/dunecommunity/debian-full "Get your own image badge on microbadger.com")

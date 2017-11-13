@@ -11,5 +11,3 @@
 | debian-full-interactive-nvidia | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-full-interactive-nvidia.svg)](http://microbadger.com/images/dunecommunity/debian-full-interactive-nvidia "debian-full-interactive-nvidia layer") |
 | debian-docs | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-docs.svg)](http://microbadger.com/images/dunecommunity/debian-docs "debian-docs layer") |
 
-
-#[![](https://images.microbadger.com/badges/image/dunecommunity/debian-full.svg)](https://microbadger.com/images/dunecommunity/debian-full "Get your own image badge on microbadger.com")
