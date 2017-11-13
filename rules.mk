@@ -12,18 +12,22 @@ REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile.in)))
 
 .PHONY: push all $(REPONAMES) readme
 
-$(REPONAMES):
+check_client:
+	@$(DOCKER_SUDO) docker info > /dev/null  || \
+	  (echo "cannot connect to docker client. export DOCKER_SUDO=sudo ?" ; exit 1)
+
+$(REPONAMES): check_client
 	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
 	$(eval IMAGE=$(NAME)-$@)
 	m4 -D BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		-D IMAGE="$(IMAGE)" \
 		-D GITREV=$(GITREV) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
-	docker build -t dunecommunity/$(IMAGE):$(GITREV) $@
-	docker tag dunecommunity/$(IMAGE):$(GITREV) dunecommunity/$(IMAGE):latest
+	$(DOCKER_SUDO) docker build -t dunecommunity/$(IMAGE):$(GITREV) $@
+	$(DOCKER_SUDO) docker tag dunecommunity/$(IMAGE):$(GITREV) dunecommunity/$(IMAGE):latest
 
 push_%: %
-	docker push dunecommunity/$(NAME)-$<
+	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$<
 
 push: $(addprefix push_,$(REPONAMES))
 
