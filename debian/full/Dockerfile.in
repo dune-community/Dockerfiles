@@ -10,6 +10,7 @@
 FROM dunecommunity/debian-minimal
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+include(labels)
 
 ENV DEBIAN_FRONTEND noninteractive
 

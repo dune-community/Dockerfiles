@@ -8,8 +8,10 @@
 #   Felix Schindler (2017)
 
 FROM dunecommunity/debian-full
-include(templight)
 
 MAINTAINER René Milk <rene.milk@wwu.de>
+include(labels)
+
+include(templight)
 
 ENV DXT_EXTERNAL_LIBS debian__full

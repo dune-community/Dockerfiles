@@ -7,7 +7,9 @@
 #   Rene Milk (2017)
 
 FROM dunecommunity/debian-full
+
 MAINTAINER rene.milk@wwu.de
+include(labels)
 
 ENV HOME=/root
 ENV DEBIAN_FRONTEND=noninteractive \

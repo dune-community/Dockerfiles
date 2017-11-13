@@ -9,7 +9,8 @@
 
 FROM dunecommunity/dailywork_manylinux-minimal
 
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+MAINTAINER René Milk <rene.milk@wwu.de>
+include(labels)
 
 # do not install SuperLU-devel
 RUN yum -y install bash-completion blas-devel ccache doxygen gdb lapack-devel openmpi-devel vim-enhanced wget

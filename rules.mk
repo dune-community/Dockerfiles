@@ -6,14 +6,21 @@
 # Authors:
 #   Rene Milk (2017)
 
+THISDIR=$(dir $(lastword $(MAKEFILE_LIST)))
+
 REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile.in)))
 
 .PHONY: push all $(REPONAMES)
 
 $(REPONAMES):
-	m4 -I ./include $@/Dockerfile.in > $@/Dockerfile
-	docker build --rm -t dunecommunity/$(NAME)-$@ $@
-	docker build --rm -t dunecommunity/$(NAME)-$@:$(shell git describe --tags --dirty --always --long) $@
+	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
+	$(eval IMAGE=$(NAME)-$@)
+	m4 -D BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
+		-D IMAGE="$(IMAGE)" \
+		-D GITREV=$(GITREV) \
+		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
+	docker build --rm -t dunecommunity/$(IMAGE):$(GITREV) $@
+	docker tag dunecommunity/$(IMAGE):$(GITREV) dunecommunity/$(IMAGE):latest
 
 push_%: %
 	docker push dunecommunity/$(NAME)-$<

@@ -10,7 +10,8 @@
 # aka debian:9 (released June '17)
 FROM debian:stretch
 
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+MAINTAINER René Milk <rene.milk@wwu.de>
+include(labels)
 
 ENV DEBIAN_FRONTEND noninteractive
 

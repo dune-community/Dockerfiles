@@ -10,6 +10,7 @@
 FROM dunecommunity/dailywork_manylinux-minimal
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+include(labels)
 
 RUN yum -y install bash-completion ccache gdb vim-enhanced wget
 

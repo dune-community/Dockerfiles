@@ -8,8 +8,9 @@
 #   Rene Milk       (2017)
 
 FROM dunecommunity/debian-minimal
-include(interactive)
 
 MAINTAINER René Milk <rene.milk@wwu.de>
+include(labels)
 
+include(interactive)
 

@@ -7,8 +7,10 @@
 #   Rene Milk       (2017)
 
 FROM dunecommunity/debian-full
-include(interactive)
 
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+MAINTAINER René Milk <rene.milk@wwu.de>
+include(labels)
+
+include(interactive)
 
 ENV DXT_EXTERNAL_LIBS debian__full

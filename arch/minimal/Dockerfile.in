@@ -10,6 +10,7 @@
 FROM base/devel
 
 MAINTAINER Felix Schindler <felix.schindler@wwu.de>
+include(labels)
 
 # init and update
 RUN pacman -Sc --noconfirm && \
