@@ -13,7 +13,7 @@ FROM debian:stretch
 ENV DEBIAN_FRONTEND=noninteractive \
     APT_INSTALL="apt-get install -qqy --no-install-recommends" \
     APT_UPDATE="apt-get update -qq" \
-    DXT_EXTERNAL_LIBS=debian__minimal
+    DXT_ENVIRONMENT=debian-minimal
 
 # we require stretch-backports for some packages (see below), but we only allow them in manual installs
 # the upgrade should thus be a noop

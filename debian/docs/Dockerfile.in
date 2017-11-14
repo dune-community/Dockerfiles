@@ -10,7 +10,7 @@
 FROM dunecommunity/debian-minimal
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    DXT_EXTERNAL_LIBS=debian__minimal
+    DXT_ENVIRONMENT=debian-minimal
 
 RUN ${APT_UPDATE} && \
     ${APT_INSTALL} \
