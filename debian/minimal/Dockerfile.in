@@ -12,7 +12,8 @@ FROM debian:stretch
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive \
+    APT_INSTALL="apt-get install -q -y --no-install-recommends"
 
 # we require stretch-backports for some packages (see below), but we only allow them in manual installs
 # the upgrade should thus be a noop
@@ -21,7 +22,7 @@ RUN apt-get update && \
     apt-get upgrade -y --no-install-recommends && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
-    apt-get install -y --no-install-recommends locales && \
+    ${APT_INSTALL} locales && \
     export LANG=en_US.UTF-8 && \
     dpkg-reconfigure locales && \
     echo "Package: *" >> /etc/apt/preferences.d/stretch-backports && \
@@ -30,7 +31,7 @@ RUN apt-get update && \
     echo "deb http://deb.debian.org/debian stretch-backports main contrib non-free" > /etc/apt/sources.list.d/stretch-backports.list && \
     echo "deb http://deb.debian.org/debian/ stretch contrib non-free" > /etc/apt/sources.list.d/stretch-nonfree.list && \
     apt-get update && \
-    apt-get install -y --no-install-recommends automake bison build-essential cmake flex gfortran git libboost-system-dev \
+    ${APT_INSTALL} automake bison build-essential cmake flex gfortran git libboost-system-dev \
                                                libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
                                                libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \
                                                pkg-config python python-dev python-pip python3 python3-dev \

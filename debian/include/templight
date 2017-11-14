@@ -14,7 +14,7 @@ ENV TL_TMP_DIR="/tmp/templight" \
     CMAKE_CMD="cmake -DCMAKE_BUILD_TYPE=Release -GNinja"
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends subversion libboost-program-options-dev \
+    ${APT_INSTALL} subversion libboost-program-options-dev \
         libboost-filesystem-dev libboost-system-dev libboost-test-dev python3-dev \
         git ca-certificates cmake ninja-build build-essential && \
     mkdir -p ${TL_TMP_DIR} && cd ${TL_TMP_DIR} && \
@@ -41,7 +41,7 @@ RUN apt-get update && \
     ${CMAKE_CMD} ../ && \
     ninja install && \
     rm -fr ${TL_TMP_DIR}/* && \
-    apt-get install -y --no-install-recommends kcachegrind libgraphviz-dev libyaml-cpp-dev libqt5gui5 qt5-qmake  qtbase5-dev &&\
+    ${APT_INSTALL} kcachegrind libgraphviz-dev libyaml-cpp-dev libqt5gui5 qt5-qmake  qtbase5-dev &&\
     cd ${TL_TMP_DIR} && \
     git clone https://github.com/schulmar/Templar templar && \
     cd templar && \

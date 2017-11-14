@@ -11,7 +11,7 @@ ENV ALLINEA_VERSION=6.1 \
     PATH=/opt/allinea/bin:${PATH}
 
 RUN apt-get update && \
-    apt-get install -yq --no-install-recommends wget openjdk-8-jdk libxext6 libxrender1 libxtst6 libxi6 && \
+    ${APT_INSTALL} wget openjdk-8-jdk libxext6 libxrender1 libxtst6 libxi6 && \
     apt-get remove -yq qtcreator && \
     mkdir -p /opt/ide && \
     wget -qO- https://download.jetbrains.com/cpp/CLion-2017.2.3.tar.gz | \
