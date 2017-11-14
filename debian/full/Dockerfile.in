@@ -9,8 +9,6 @@
 
 FROM dunecommunity/debian-minimal
 
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
-
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_LIBCLANG_SO=/usr/lib/llvm-3.9/lib/libclang.so.1 \
     DXT_EXTERNAL_LIBS=debian__full

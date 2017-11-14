@@ -10,8 +10,6 @@
 # aka debian:9 (released June '17)
 FROM debian:stretch
 
-MAINTAINER René Milk <rene.milk@wwu.de>
-
 ENV DEBIAN_FRONTEND=noninteractive \
     APT_INSTALL="apt-get install -qqy --no-install-recommends" \
     APT_UPDATE="apt-get update -qq" \

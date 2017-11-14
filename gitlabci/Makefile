@@ -7,5 +7,6 @@
 #   Rene Milk (2017)
 
 NAME = gitlabci
+AUTHOR = rene.milk@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk

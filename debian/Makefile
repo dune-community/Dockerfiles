@@ -17,6 +17,7 @@ full-clion-nvidia: full-clion
 full-templight: full-interactive
 
 NAME = debian
+AUTHOR = rene.milk@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
 

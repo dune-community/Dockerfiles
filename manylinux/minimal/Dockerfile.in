@@ -9,9 +9,6 @@
 
 FROM quay.io/pypa/manylinux1_x86_64
 
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
-include(labels)
-
 # locale is mainly required for the interactive session
 RUN localedef -v -c -i en_US -f UTF-8 en_US.UTF-8 && \
     localedef -v -c -i de_DE -f UTF-8 de_DE.UTF-8 || \
@@ -94,3 +91,5 @@ ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 ENV DXT_EXTERNAL_LIBS manylinux__minimal
+
+include(labels)

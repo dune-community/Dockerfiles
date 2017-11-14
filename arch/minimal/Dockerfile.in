@@ -9,9 +9,6 @@
 
 FROM base/devel
 
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
-include(labels)
-
 # init and update
 RUN pacman -Sc --noconfirm && \
     pacman -Sy && \
@@ -82,3 +79,4 @@ ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 ENV DXT_EXTERNAL_LIBS arch__minimal
+include(labels)

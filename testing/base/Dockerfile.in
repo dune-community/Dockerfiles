@@ -8,9 +8,6 @@
 
 FROM dunecommunity/debian-full
 
-MAINTAINER rene.milk@wwu.de
-include(labels)
-
 ENV HOME=/root
 ENV DEBIAN_FRONTEND=noninteractive \
     SUPERDIR=${HOME}/src
@@ -55,3 +52,5 @@ RUN virtualenv --python=python3 ${DUNE_VENV} && \
     pip install pytest
 ADD entrypoint.bash /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.bash"]
+
+include(labels)

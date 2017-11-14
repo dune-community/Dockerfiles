@@ -9,7 +9,5 @@
 
 FROM dunecommunity/arch-minimal
 
-MAINTAINER Felix Schindler <felix.schindler@wwu.de>
-include(labels)
-
 include(interactive)
+include(labels)

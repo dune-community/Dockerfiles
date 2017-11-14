@@ -1,6 +1,7 @@
 # see http://label-schema.org/rc1/#build-time-labels
 LABEL org.label-schema.build-date=BUILD_DATE \
-          org.label-schema.name="IMAGE" \
+          org.label-schema.name=IMAGE \
+          org.label-schema.maintainer=AUTHOR \
           org.label-schema.description="Dev setup for dune modules" \
           org.label-schema.url="https://github.com/dune-community" \
           org.label-schema.vcs-ref=GITREV \

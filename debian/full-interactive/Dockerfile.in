@@ -8,7 +8,5 @@
 
 FROM dunecommunity/debian-full
 
-MAINTAINER René Milk <rene.milk@wwu.de>
-
 include(interactive)
 include(labels)

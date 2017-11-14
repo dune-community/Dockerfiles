@@ -9,8 +9,6 @@
 
 FROM dunecommunity/debian-minimal
 
-MAINTAINER René Milk <rene.milk@wwu.de>
-
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_EXTERNAL_LIBS=debian__minimal
 

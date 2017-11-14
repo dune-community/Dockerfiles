@@ -22,6 +22,7 @@ $(REPONAMES): check_client
 	$(eval REPO=dunecommunity/$(IMAGE))
 	m4 -D BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		-D IMAGE="$(IMAGE)" \
+		-D AUTHOR="$(AUTHOR)" \
 		-D GITREV=$(GITREV) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
 	cd $@ && $(DOCKER_SUDO) docker build -t $(REPO):$(GITREV) .

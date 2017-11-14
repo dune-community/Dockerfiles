@@ -9,9 +9,6 @@
 
 FROM dunecommunity/dailywork_manylinux-minimal
 
-MAINTAINER René Milk <rene.milk@wwu.de>
-include(labels)
-
 # do not install SuperLU-devel
 RUN yum -y install bash-completion blas-devel ccache doxygen gdb lapack-devel openmpi-devel vim-enhanced wget
 
@@ -45,3 +42,5 @@ RUN mkdir -p /home/user/.ccache && \
 RUN yum clean all
 
 ENV DXT_EXTERNAL_LIBS manylinux__full
+
+include(labels)

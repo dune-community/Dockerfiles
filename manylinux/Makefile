@@ -10,5 +10,6 @@ minimal-interactive: minimal
 full-interactive: minimal-interactive
 
 NAME = dailywork_manylinux
+AUTHOR = felix.schindler@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk

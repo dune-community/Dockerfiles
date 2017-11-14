@@ -9,5 +9,6 @@
 minimal-interactive: minimal
 
 NAME = arch
+AUTHOR = felix.schindler@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
