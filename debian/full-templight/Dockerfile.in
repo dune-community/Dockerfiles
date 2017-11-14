@@ -10,8 +10,9 @@
 FROM dunecommunity/debian-full
 
 MAINTAINER René Milk <rene.milk@wwu.de>
-include(labels)
 
 include(templight)
 
 ENV DXT_EXTERNAL_LIBS debian__full
+
+include(labels)

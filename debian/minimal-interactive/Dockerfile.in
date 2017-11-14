@@ -10,7 +10,6 @@
 FROM dunecommunity/debian-minimal
 
 MAINTAINER René Milk <rene.milk@wwu.de>
-include(labels)
 
 include(interactive)
-
+include(labels)

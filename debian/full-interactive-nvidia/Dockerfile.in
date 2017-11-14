@@ -9,8 +9,8 @@
 FROM dunecommunity/debian-full
 
 MAINTAINER René Milk <rene.milk@wwu.de>
-include(labels)
 
 include(nvidia)
 include(interactive)
 
+include(labels)

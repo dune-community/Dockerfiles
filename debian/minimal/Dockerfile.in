@@ -11,7 +11,6 @@
 FROM debian:stretch
 
 MAINTAINER René Milk <rene.milk@wwu.de>
-include(labels)
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -48,3 +47,5 @@ ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 ENV DXT_EXTERNAL_LIBS debian__minimal
+
+include(labels)
