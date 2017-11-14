@@ -8,7 +8,7 @@
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && \
+RUN ${APT_UPDATE} && \
     ${APT_INSTALL} bash-completion ccache libc++1 clang-3.9 clang-format-3.9 gdb ninja-build \
                     qtcreator git time valgrind vim-nox wget build-essential cmake \
     less libnotify-bin openssh-server ruby ruby-dev && \

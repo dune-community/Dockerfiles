@@ -13,13 +13,14 @@ FROM debian:stretch
 MAINTAINER René Milk <rene.milk@wwu.de>
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    APT_INSTALL="apt-get install -q -y --no-install-recommends"
+    APT_INSTALL="apt-get install -q -y --no-install-recommends" \
+    APT_UPDATE="apt-get update -qq"
 
 # we require stretch-backports for some packages (see below), but we only allow them in manual installs
 # the upgrade should thus be a noop
 # locale is mainly required for the interactive session
-RUN apt-get update && \
-    apt-get upgrade -y --no-install-recommends && \
+RUN ${APT_UPDATE} && \
+    apt-get upgrade -qy --no-install-recommends && \
     echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && \
     echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
     ${APT_INSTALL} locales && \
@@ -30,7 +31,7 @@ RUN apt-get update && \
     echo "Pin-Priority: 200" >> /etc/apt/preferences.d/stretch-backports && \
     echo "deb http://deb.debian.org/debian stretch-backports main contrib non-free" > /etc/apt/sources.list.d/stretch-backports.list && \
     echo "deb http://deb.debian.org/debian/ stretch contrib non-free" > /etc/apt/sources.list.d/stretch-nonfree.list && \
-    apt-get update && \
+    ${APT_UPDATE} && \
     ${APT_INSTALL} automake bison build-essential cmake flex gfortran git libboost-system-dev \
                                                libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
                                                libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \

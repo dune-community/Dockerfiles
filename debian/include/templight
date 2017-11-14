@@ -13,7 +13,7 @@ ENV TL_TMP_DIR="/tmp/templight" \
     TL_TOOLS_REV=cd3828bbc85faa3de5a05a9ccfc9ea27518af7d5 \
     CMAKE_CMD="cmake -DCMAKE_BUILD_TYPE=Release -GNinja"
 
-RUN apt-get update && \
+RUN ${APT_UPDATE} && \
     ${APT_INSTALL} subversion libboost-program-options-dev \
         libboost-filesystem-dev libboost-system-dev libboost-test-dev python3-dev \
         git ca-certificates cmake ninja-build build-essential && \

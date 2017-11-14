@@ -13,7 +13,7 @@ MAINTAINER René Milk <rene.milk@wwu.de>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && \
+RUN ${APT_UPDATE} && \
     ${APT_INSTALL} \
         texlive-latex-base python3-sphinx python-sphinx \
         inkscape texlive-latex-extra && \

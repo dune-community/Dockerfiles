@@ -7,7 +7,7 @@
 #   Rene Milk       (2017)
 
 RUN echo "deb http://deb.debian.org/debian/ stretch contrib non-free" > /etc/apt/sources.list.d/stretch-nonfree.list && \
-    apt-get update && \
+    ${APT_UPDATE} && \
     ${APT_INSTALL} nvidia-driver && \
     apt-get autoremove -y && \
     apt-get clean && \
