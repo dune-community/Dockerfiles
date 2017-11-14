@@ -1,9 +1,9 @@
 # see http://label-schema.org/rc1/#build-time-labels
 LABEL org.label-schema.build-date=BUILD_DATE \
           org.label-schema.name="IMAGE" \
-          org.label-schema.description="Example project description in 300 chars or less" \
+          org.label-schema.description="Dev setup for dune modules" \
           org.label-schema.url="https://github.com/dune-community" \
           org.label-schema.vcs-ref=GITREV \
           org.label-schema.vcs-url="https://github.com/dune-community/Dockerfiles" \
           org.label-schema.schema-version="1.0" \
-          org.label-schema.schema-version="https://github.com/dune-community/Dockerfiles/blob/master/README.md"
+          org.label-schema.usage="https://github.com/dune-community/Dockerfiles/blob/master/README.md"
