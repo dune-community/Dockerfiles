@@ -19,12 +19,13 @@ check_client:
 $(REPONAMES): check_client
 	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
 	$(eval IMAGE=$(NAME)-$@)
+	$(eval REPO=dunecommunity/$(IMAGE))
 	m4 -D BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		-D IMAGE="$(IMAGE)" \
 		-D GITREV=$(GITREV) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
-	cd $@ && $(DOCKER_SUDO) docker build -t dunecommunity/$(IMAGE):$(GITREV) .
-	$(DOCKER_SUDO) docker tag dunecommunity/$(IMAGE):$(GITREV) dunecommunity/$(IMAGE):latest
+	cd $@ && $(DOCKER_SUDO) docker build -t $(REPO):$(GITREV) .
+	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
 push_%: %
 	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$<
