@@ -19,9 +19,11 @@ RUN apt-get update && \
         libalberta-dev libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev libtbb-dev \
         ninja-build openmpi-common openmpi-bin libqhull-dev liblpsolve55-dev liblapacke-dev ssh && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.9 100 && \
-    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.9 100
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.9 100 && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 #libclang python bindings cannot find this on their own
-ENV DXT_LIBCLANG_SO /usr/lib/llvm-3.9/lib/libclang.so.1
-
-ENV DXT_EXTERNAL_LIBS debian__full
+ENV DXT_LIBCLANG_SO /usr/lib/llvm-3.9/lib/libclang.so.1 \
+    DXT_EXTERNAL_LIBS debian__full

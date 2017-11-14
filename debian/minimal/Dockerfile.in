@@ -31,8 +31,6 @@ RUN apt-get update && \
     echo "deb http://deb.debian.org/debian stretch-backports main contrib non-free" > /etc/apt/sources.list.d/stretch-backports.list && \
     echo "deb http://deb.debian.org/debian/ stretch contrib non-free" > /etc/apt/sources.list.d/stretch-nonfree.list && \
     apt-get update && \
-    apt-get upgrade -y --no-install-recommends && \
-    apt-get update && \
     apt-get install -y --no-install-recommends automake bison build-essential cmake flex gfortran git libboost-system-dev \
                                                libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
                                                libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \

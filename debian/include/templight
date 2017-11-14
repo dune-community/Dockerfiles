@@ -6,12 +6,12 @@
 # Authors:
 #   Rene Milk       (2017)
 
-ENV TL_TMP_DIR "/tmp/templight"
-ENV TL_LLVM_REV 290370
-ENV TL_CLANG_REV 290373
-ENV TL_REV 0738fa15ef7e24c5864c95e02d53c6f2e98f160b
-ENV TL_TOOLS_REV cd3828bbc85faa3de5a05a9ccfc9ea27518af7d5
-ENV CMAKE_CMD "cmake -DCMAKE_BUILD_TYPE=Release -GNinja"
+ENV TL_TMP_DIR="/tmp/templight" \
+    TL_LLVM_REV=290370 \
+    TL_CLANG_REV=290373 \
+    TL_REV=0738fa15ef7e24c5864c95e02d53c6f2e98f160b \
+    TL_TOOLS_REV=cd3828bbc85faa3de5a05a9ccfc9ea27518af7d5 \
+    CMAKE_CMD="cmake -DCMAKE_BUILD_TYPE=Release -GNinja"
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends subversion libboost-program-options-dev \
@@ -53,4 +53,4 @@ RUN apt-get update && \
     rm -fr ${TL_TMP_DIR} && \
     apt-get autoremove -y && \
     apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* /tmp/*
