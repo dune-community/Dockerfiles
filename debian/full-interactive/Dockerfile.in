@@ -11,7 +11,4 @@ FROM dunecommunity/debian-full
 MAINTAINER René Milk <rene.milk@wwu.de>
 
 include(interactive)
-
-ENV DXT_EXTERNAL_LIBS debian__full
-
 include(labels)

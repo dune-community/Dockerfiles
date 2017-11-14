@@ -6,7 +6,8 @@
 # Authors:
 #   Rene Milk       (2017)
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive \
+    DXT_LIBCLANG_SO=/usr/lib/llvm-3.9/lib/libclang.so.1
 
 RUN ${APT_UPDATE} && \
     ${APT_INSTALL} bash-completion ccache libc++1 clang-3.9 clang-format-3.9 gdb ninja-build \
@@ -15,7 +16,7 @@ RUN ${APT_UPDATE} && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.9 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.9 100 && \
     echo ' . /usr/share/bash-completion/bash_completion ' >>  /etc/bash.bashrc && \
-    wget http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
+    wget -q http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
         dpkg -i /tmp/fira.deb && \
         rm /tmp/fira.deb && \
     gem install travis && \
@@ -25,7 +26,7 @@ RUN ${APT_UPDATE} && \
     cd /usr/local/bin && \
     for ii in cc cpp clang clang++ clang-3.9 clang++-3.9 cpp-6 g++ g++-6 gcc ; do ln -s $(which ccache) $ii; done && \
     cd /tmp && \
-    wget http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
+    wget -q http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     git clone git://github.com/rkitover/vimpager /tmp/vimpager && \
@@ -35,6 +36,3 @@ RUN ${APT_UPDATE} && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-#libclang python bindings cannot find this on their own
-ENV DXT_LIBCLANG_SO /usr/lib/llvm-3.9/lib/libclang.so.1

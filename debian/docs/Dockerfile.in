@@ -11,7 +11,8 @@ FROM dunecommunity/debian-minimal
 
 MAINTAINER René Milk <rene.milk@wwu.de>
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive \
+    DXT_EXTERNAL_LIBS=debian__minimal
 
 RUN ${APT_UPDATE} && \
     ${APT_INSTALL} \
@@ -20,7 +21,5 @@ RUN ${APT_UPDATE} && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-
-ENV DXT_EXTERNAL_LIBS debian__minimal
 
 include(labels)
