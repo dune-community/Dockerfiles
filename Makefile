@@ -30,3 +30,6 @@ push_%: %
 	make -C $< push
 
 all: subdirs
+
+dockerignore:
+	find . -mindepth 2 -name .dockerignore  | xargs -I{} cp -f .dockerignore {}

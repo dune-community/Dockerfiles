@@ -23,7 +23,7 @@ $(REPONAMES): check_client
 		-D IMAGE="$(IMAGE)" \
 		-D GITREV=$(GITREV) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
-	$(DOCKER_SUDO) docker build -t dunecommunity/$(IMAGE):$(GITREV) $@
+	cd $@ && $(DOCKER_SUDO) docker build -t dunecommunity/$(IMAGE):$(GITREV) .
 	$(DOCKER_SUDO) docker tag dunecommunity/$(IMAGE):$(GITREV) dunecommunity/$(IMAGE):latest
 
 push_%: %
