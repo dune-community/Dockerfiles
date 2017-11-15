@@ -9,5 +9,11 @@
 
 FROM dunecommunity/arch-minimal
 
+ENV DXT_ENVIRONMENT arch-minimal-interactive
+
 include(interactive)
 include(labels)
+
+# clean up, there might be some leftovers
+RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && pacman -Sc --noconfirm
+

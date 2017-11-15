@@ -31,8 +31,12 @@ RUN pacman -Sc --noconfirm && \
     pacman-key --refresh-keys && \
     pacman -Syyuu --noconfirm
 
+ENV PACMAN_INSTALL="pacman -S --noconfirm " \
+    PACMAN_UPDATE="pacman -Syuu --noconfirm " \
+    DXT_ENVIRONMENT=arch-minimal
+
 # locale is mainly required for the interactive session
-RUN pacman -S --noconfirm glibc sed && \
+RUN ${PACMAN_INSTALL} glibc sed && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen && \
@@ -42,7 +46,7 @@ RUN pacman -S --noconfirm glibc sed && \
     echo "LC_TIME=de_DE.UTF-8" > /etc/locale.conf
 
 # the bare minimum, part 1, (base-devel) is contained in the base/devel image
-RUN pacman -S --noconfirm blas boost boost-libs git cmake python2 python python2-virtualenv python-virtualenv sudo unzip wget
+RUN ${PACMAN_INSTALL} blas boost boost-libs git cmake python2 python python2-virtualenv python-virtualenv sudo unzip wget
 
 # the bare minimum, part 2, python-3.4 superlu suexec (for the interactive session)
 RUN useradd -r -s /bin/bash -d /var/aur aur
@@ -72,11 +76,10 @@ RUN sed -i 's;aur ALL=(ALL) NOPASSWD:/usr/bin/pacman;;g' /etc/sudoers && \
 RUN cd /usr/local/bin && ln -s $(which su-exec) gosu && ln -s /usr/bin/vendor_perl/ack .
 
 # clean up, there might be some leftovers
-RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && \
-    pacman -Sc --noconfirm
+RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && pacman -Sc --noconfirm
 
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
-ENV DXT_ENVIRONMENT arch-minimal
 include(labels)
+
