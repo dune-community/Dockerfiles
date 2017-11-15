@@ -4,13 +4,17 @@
 # License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
 #      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
 # Authors:
-#   Rene Milk (2017)
+#   Rene Milk       (2017)
+#   Felix Schindler (2017)
 
-minimal-interactive: minimal
+FROM dunecommunity/arch-minimal
 
-full: minimal
+ENV DXT_ENVIRONMENT arch-full
 
-NAME = arch
-AUTHOR = felix.schindler@wwu.de
+RUN ${PACMAN_INSTALL} lapacke
 
-include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
+include(labels)
+
+# clean up, there might be some leftovers
+RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && pacman -Sc --noconfirm
+
