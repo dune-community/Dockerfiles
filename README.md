@@ -57,7 +57,7 @@ Presuming you are running some Linux with a `sudo` capable user, the following s
 
   The `docker_run.sh` command gets three arguments:
 
-  - The first argument is the tag of the docker container to be chosen from the [dunecommunity docker hub page](https://hub.docker.com/r/dunecommunity/dailywork/tags/).
+  - The first argument is the tag of the docker container to be chosen from the [dunecommunity docker hub page](https://hub.docker.com/r/dunecommunity).
     These images are automatically generated each night, the name of each tag is of the form `SYSTEM-DEPENDENCIES{,-interactive}`, recommended for DUNE is either `debian-minimal-interactive` for serial and `debian-full-interactive` for parallel builds.
   - The second argument is the exact path of the project to be run inside the container.
     In the case of `dune-gdt-pymor-interaction`, you will have access to this (and only this) directory while working within the container.
@@ -90,7 +90,7 @@ The [docker_run.sh](https://github.com/dune-community/Dockerfiles/blob/master/do
   * `-v /etc/localtime:/etc/localtime:ro` aligns the time within the container with the host
   * `-v $DOCKER_HOME:/home/${USER}` mounts the directory `$DOCKER_HOME` on the host to the directory `/home/${USER}` within the container to allow for a persistent home
   * `-v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT}` allows access to the actual code from within the container
-  * `dunecommunity/dailywork_${CONTAINER}` tells docker which container to run
+  * `dunecommunity/${CONTAINER}` tells docker which container to run
 
 ### docker and security
 
@@ -124,7 +124,7 @@ For instance the minimal debian one with stuff for interactive development:
 
   ```bash
   cd docker-for-daily-dune/debian/minimal-interactive
-  sudo docker build --rm -t dunecommunity/dailywork_debian-minimal-interactive:custom-build -f Dockerfile .
+  sudo docker build --rm -t dunecommunity/debian-minimal-interactive:custom-build -f Dockerfile .
   ```
   
   or
