@@ -24,10 +24,12 @@ notifications:
     on_success: change
     on_failure: change
 
-matrix:
-  include:
-  - env: SUBDIR=debian_travis
+env:
+  global:
+    - DOCKER_QUIET=-q
+  matrix:
+    - SUBDIR=debian_travis
   # disabled since it does not complete within travis' time limits
-  # - env: SUBDIR=manylinux
-  - env: SUBDIR=arch
-  - env: SUBDIR=testing
+  # - SUBDIR=manylinux
+    - SUBDIR=arch
+    - SUBDIR=testing
