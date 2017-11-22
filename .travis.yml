@@ -20,7 +20,6 @@ before_deploy:
 deploy:
   provider: script
   script: make push_${SUBDIR}
-  skip_cleanup: true
   on:
     branch: master
 
