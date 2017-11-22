@@ -29,7 +29,6 @@ env:
     - DOCKER_QUIET=-q
   matrix:
     - SUBDIR=debian_travis
-  # disabled since it does not complete within travis' time limits
-  # - SUBDIR=manylinux
+    - SUBDIR=manylinux
     - SUBDIR=arch
     - SUBDIR=testing
