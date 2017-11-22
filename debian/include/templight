@@ -6,6 +6,8 @@
 # Authors:
 #   Rene Milk       (2017)
 
+include(global_macros)
+
 ENV TL_TMP_DIR="/tmp/templight" \
     TL_LLVM_REV=290370 \
     TL_CLANG_REV=290373 \
@@ -13,10 +15,10 @@ ENV TL_TMP_DIR="/tmp/templight" \
     TL_TOOLS_REV=cd3828bbc85faa3de5a05a9ccfc9ea27518af7d5 \
     CMAKE_CMD="cmake -DCMAKE_BUILD_TYPE=Release -GNinja"
 
-RUN ${APT_UPDATE} && \
-    ${APT_INSTALL} subversion libboost-program-options-dev \
+RUN APT_UPDATE APT_REDIRECT && \
+    APT_INSTALL subversion libboost-program-options-dev \
         libboost-filesystem-dev libboost-system-dev libboost-test-dev python3-dev \
-        git ca-certificates cmake ninja-build build-essential && \
+        git ca-certificates cmake ninja-build build-essential APT_REDIRECT && \
     mkdir -p ${TL_TMP_DIR} && cd ${TL_TMP_DIR} && \
     svn co -r ${TL_LLVM_REV} http://llvm.org/svn/llvm-project/llvm/trunk llvm && \
     cd ${TL_TMP_DIR}/llvm/tools && \
@@ -41,7 +43,7 @@ RUN ${APT_UPDATE} && \
     ${CMAKE_CMD} ../ && \
     ninja install && \
     rm -fr ${TL_TMP_DIR}/* && \
-    ${APT_INSTALL} kcachegrind libgraphviz-dev libyaml-cpp-dev libqt5gui5 qt5-qmake  qtbase5-dev &&\
+    APT_INSTALL kcachegrind libgraphviz-dev libyaml-cpp-dev libqt5gui5 qt5-qmake  qtbase5-dev APT_REDIRECT &&\
     cd ${TL_TMP_DIR} && \
     git clone https://github.com/schulmar/Templar templar && \
     cd templar && \

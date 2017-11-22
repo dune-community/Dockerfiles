@@ -6,13 +6,15 @@
 # Authors:
 #   Rene Milk       (2017)
 
+include(global_macros)
+
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_LIBCLANG_SO=/usr/lib/llvm-3.9/lib/libclang.so.1
 
-RUN ${APT_UPDATE} && \
-    ${APT_INSTALL} bash-completion ccache libc++1 clang-3.9 clang-format-3.9 gdb ninja-build \
+RUN APT_UPDATE APT_REDIRECT && \
+    APT_INSTALL bash-completion ccache libc++1 clang-3.9 clang-format-3.9 gdb ninja-build \
                     qtcreator git time valgrind vim-nox wget build-essential cmake \
-    less libnotify-bin openssh-server ruby ruby-dev && \
+    less libnotify-bin openssh-server ruby ruby-dev APT_REDIRECT && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.9 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.9 100 && \
     echo ' . /usr/share/bash-completion/bash_completion ' >>  /etc/bash.bashrc && \
