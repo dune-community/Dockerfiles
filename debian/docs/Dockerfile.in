@@ -7,16 +7,18 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
+include(global_macros)
+
 FROM dunecommunity/debian-minimal
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal
 
-RUN ${APT_UPDATE} && \
-    ${APT_INSTALL} \
+RUN APT_UPDATE APT_REDIRECT && \
+    APT_INSTALL \
         texlive-latex-base python3-sphinx python-sphinx \
-        inkscape texlive-latex-extra && \
-    apt-get autoremove -y && \
+        inkscape texlive-latex-extra APT_REDIRECT && \
+    apt-get autoremove -y APT_REDIRECT && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
