@@ -34,14 +34,14 @@ RUN APT_UPDATE APT_REDIRECT && \
     mkdir build && \
     cd build && \
     ${CMAKE_CMD} -DLLVM_BUILD_TESTS=0 ../llvm/ && \
-    ninja install && \
+    ninja install APT_REDIRECT && \
     rm -fr ${TL_TMP_DIR}/* && \
     cd ${TL_TMP_DIR} && git clone https://github.com/mikael-s-persson/templight-tools && cd templight-tools && git reset --hard ${TL_TOOLS_REV} && \
     cd ${TL_TMP_DIR}/templight-tools && \
     mkdir build && \
     cd build && \
     ${CMAKE_CMD} ../ && \
-    ninja install && \
+    ninja install APT_REDIRECT && \
     rm -fr ${TL_TMP_DIR}/* && \
     APT_INSTALL kcachegrind libgraphviz-dev libyaml-cpp-dev libqt5gui5 qt5-qmake  qtbase5-dev APT_REDIRECT &&\
     cd ${TL_TMP_DIR} && \
@@ -50,7 +50,7 @@ RUN APT_UPDATE APT_REDIRECT && \
     git checkout feature/templight2 && \
     git submodule update --init && \
     ${CMAKE_CMD} . && \
-    ninja && \
+    ninja APT_REDIRECT && \
     install -m 755 Templar /usr/local/bin && \
     rm -fr ${TL_TMP_DIR} && \
     apt-get autoremove -y && \
