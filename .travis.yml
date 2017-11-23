@@ -27,6 +27,7 @@ notifications:
 env:
   global:
     - DOCKER_QUIET=-q
+    - DOCKER_PRUNE=1
   matrix:
     - SUBDIR=debian_travis
     - SUBDIR=manylinux
