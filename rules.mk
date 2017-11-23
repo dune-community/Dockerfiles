@@ -29,8 +29,8 @@ $(REPONAMES): check_client
 	cd $@ && $(DOCKER_SUDO) docker build ${DOCKER_QUIET} -t $(REPO):$(GITREV) .
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
-push_%: %
-	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$<
+push_%:
+	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*
 
 push: $(addprefix push_,$(REPONAMES))
 
