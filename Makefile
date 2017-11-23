@@ -23,7 +23,7 @@ debian_%:
 
 push: push_arch push_debian push_gitlabci push_testing
 
-push_debian_travis: debian_travis
+push_debian_travis:
 	make -C debian travis_push
 
 push_%: %
