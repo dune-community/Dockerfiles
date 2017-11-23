@@ -25,7 +25,7 @@ $(REPONAMES): check_client
 		-D AUTHOR="$(AUTHOR)" \
 		-D GITREV=$(GITREV) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
-	[ ${DOCKER_PRUNE} ] && docker system prune -f
+	(test -n "${DOCKER_PRUNE}" && docker system prune -f) || true
 	cd $@ && $(DOCKER_SUDO) docker build ${DOCKER_QUIET} -t $(REPO):$(GITREV) .
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
