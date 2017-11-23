@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 dist: trusty
 language: generic
 services: docker
@@ -10,7 +10,6 @@ addons:
       - docker-ce
 
 script:
-  - sudo service docker restart
   - cd ${TRAVIS_BUILD_DIR}
   - travis_wait 45 make ${SUBDIR}
   - |
