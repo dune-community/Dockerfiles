@@ -21,6 +21,6 @@ AUTHOR = rene.milk@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
 
-travis: full-clion-nvidia full-interactive-nvidia minimal-interactive-nvidia
+travis: docs full-clion-nvidia full-interactive-nvidia minimal-interactive-nvidia
 # 'wrong' order to not match implicit included rules
 travis_push: push_full-clion push_full-interactive push_full push_minimal-interactive push_minimal push_docs
