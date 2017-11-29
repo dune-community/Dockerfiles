@@ -102,11 +102,23 @@ _USER_ ALL=(ALL) /usr/bin/docker
 
 ### installing additional software
 
-You may install additional software within the container using `apt`; however, it will not be present after restarting the container (this is the whole point of docker, if in doubt read [any of](https://wiki.archlinux.org/index.php/Docker) these [wikis](https://en.wikipedia.org/wiki/Docker_%28software%29)).
+You may install additional software within the container; however, it will not be present after restarting the container (this is the whole point of docker, if in doubt read [any of](https://wiki.archlinux.org/index.php/Docker) these [wikis](https://en.wikipedia.org/wiki/Docker_%28software%29)).
+The package manager depends on the docker image:
+For **debian-** based images, use
+
+* `sudo apt update` to initialize the cache/refresh the list of available software
+* `sudo apt upgrade` to update already installed software (usually not required)
+* `sudo apt search <name>` to search for software
+* `sudo apt install <name>` to install software
+
+For **arch-** based images, use
+
 Since the `apt` cache is empty you need to
 
-  * first `sudo apt-get update`, then you can
-  * `sudo apt-get install SOFTWARE`
+* `sudo pacman -Sy` to initialize the cache/refresh the list of available software
+* `sudo pacman -Syuu` to update already installed software (usually not required)
+* `sudo pacman -Ss <name>` to search for software
+* `sudo pacman -S <name>` to install software
 
 ## maintanance
 
@@ -117,7 +129,7 @@ For instance the minimal debian one with stuff for interactive development:
 * get the repo
 
   ```bash
-  git clone https://github.com/dune-community/dockerfiles.git docker-for-daily-dune && \
+  git clone https://github.com/dune-community/dockerfiles.git docker-for-daily-dune
   ```
 
 * enter the right directory, build the image manually (`-t` tags the resulting image, the tag `:custom-build` can be omitted, defaults to `:latest`)
