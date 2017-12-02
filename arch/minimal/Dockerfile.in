@@ -46,7 +46,8 @@ RUN ${PACMAN_INSTALL} glibc sed && \
     echo "LC_TIME=de_DE.UTF-8" > /etc/locale.conf
 
 # the bare minimum, part 1, (base-devel) is contained in the base/devel image
-RUN ${PACMAN_INSTALL} blas boost boost-libs git cmake python2 python python2-virtualenv python-virtualenv sudo unzip wget
+RUN ${PACMAN_INSTALL} blas boost boost-libs git cmake python2 python python-setuptools \
+    python2-setuptools python2-virtualenv python-virtualenv sudo unzip wget
 
 # the bare minimum, part 2, python-3.4 superlu suexec (for the interactive session)
 RUN useradd -r -s /bin/bash -d /var/aur aur
