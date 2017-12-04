@@ -136,7 +136,7 @@ For instance the minimal debian one with stuff for interactive development:
 
   ```bash
   cd docker-for-daily-dune/debian/minimal-interactive
-  sudo docker build --rm -t dunecommunity/debian-minimal-interactive:custom-build -f Dockerfile .
+  sudo docker build --rm=true --force-rm=true -t dunecommunity/debian-minimal-interactive:custom-build -f Dockerfile .
   ```
   
   or
