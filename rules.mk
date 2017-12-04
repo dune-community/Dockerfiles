@@ -26,7 +26,7 @@ $(REPONAMES): check_client
 		-D GITREV=$(GITREV) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
 	(test -n "${DOCKER_PRUNE}" && docker system prune -f) || true
-	cd $@ && $(DOCKER_SUDO) docker build ${DOCKER_QUIET} -t $(REPO):$(GITREV) .
+	cd $@ && $(DOCKER_SUDO) docker build --rm=true --force-rm=true ${DOCKER_QUIET} -t $(REPO):$(GITREV) .
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
 push_%:
