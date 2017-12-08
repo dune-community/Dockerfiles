@@ -1,0 +1,36 @@
+# This file is part of the dune-community/Dockerfiles project:
+#   https://github.com/dune-community/Dockerfiles
+# Copyright 2017 dune-community/Dockerfiles developers and contributors. All rights reserved.
+# License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
+#      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
+# Authors:
+#   Rene Milk       (2017)
+#   Felix Schindler (2017)
+
+FROM dunecommunity/debian-full
+
+ENV POLLYDIR=/src/polly
+ENV LLVM_SRC=${POLLYDIR}/llvm \
+    POLLY_SRC=${LLVM_SRC}/tools/polly \
+    CLANG_SRC=${LLVM_SRC}/tools/clang \
+    LLVM_BUILD=${POLLYDIR}/llvm_build
+
+RUN APT_UPDATE APT_REDIRECT && \
+    apt remove libllvm3.9 -y APT_REDIRECT && \
+    apt autoremove -y APT_REDIRECT && \
+    APT_INSTALL time APT_REDIRECT  && \
+    mkdir -p $POLLYDIR && \
+    cd $POLLYDIR && \
+    git clone http://llvm.org/git/llvm.git ${LLVM_SRC} && \
+    git clone http://llvm.org/git/polly.git ${POLLY_SRC} && \
+    git clone http://llvm.org/git/clang.git ${CLANG_SRC} && \
+    mkdir -p ${LLVM_BUILD} && \
+    cd ${LLVM_BUILD} && \
+    cmake ${LLVM_SRC} -GNinja && \
+    ninja -j4 && \
+    ninja check-all && \
+    cd $POLLYDIR/llvm_build && \
+    make install && \
+    rm -rf ${POLLYDIR}
+
+include(labels)
