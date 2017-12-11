@@ -55,6 +55,8 @@ else
     -e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
     -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e QT_X11_NO_MITSHM=1 \
+    -e QT_SCALE_FACTOR=${QT_SCALE_FACTOR:-1} \
+    -e GDK_DPI_SCALE=${GDK_DPI_SCALE:-1} \
     -e EXPOSED_PORT=$PORT -p $PORT:$PORT \
     -v /etc/localtime:/etc/localtime:ro \
     -v $DOCKER_HOME:/home/${USER} \
