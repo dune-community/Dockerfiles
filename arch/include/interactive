@@ -15,7 +15,7 @@ RUN echo "" >> /etc/pacman.conf && \
     echo "Server = http://repos.schindlerfamily.de/arch/aur" >> /etc/pacman.conf && \
     echo "" >> /etc/pacman.conf && \
     ${PACMAN_UPDATE} && \
-    ${PACMAN_INSTALL} ack bash-completion ccache clang39-provides faenza-icon-theme gdb ninja qt5ct qtcreator42 ttf-ubuntu-font-family vim
+    ${PACMAN_INSTALL} ack bash-completion ccache clang39-provides faenza-icon-theme gdb ninja qt5ct qtcreator42 ttf-ubuntu-font-family valgrind312 vim
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
