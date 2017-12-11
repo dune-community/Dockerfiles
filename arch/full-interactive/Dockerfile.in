@@ -8,8 +8,6 @@
 
 FROM dunecommunity/arch-full
 
-ENV DXT_ENVIRONMENT arch-full-interactive
-
 include(interactive)
 include(labels)
 

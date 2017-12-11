@@ -9,8 +9,6 @@
 
 FROM dunecommunity/arch-minimal
 
-ENV DXT_ENVIRONMENT arch-minimal-interactive
-
 include(interactive)
 include(labels)
 
