@@ -32,7 +32,7 @@ RUN APT_UPDATE APT_REDIRECT && \
     ninja -j4 && \
     ninja check-all && \
     cd $POLLYDIR/llvm_build && \
-    make install && \
+    ninja install && \
     rm -rf ${POLLYDIR}
 
 include(labels)
