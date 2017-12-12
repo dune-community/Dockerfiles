@@ -9,12 +9,7 @@
 #   Rene Milk       (2017)
 
 
-RUN echo "" >> /etc/pacman.conf && \
-    echo "[aur]" >> /etc/pacman.conf && \
-    echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf && \
-    echo "Server = http://repos.schindlerfamily.de/arch/aur" >> /etc/pacman.conf && \
-    echo "" >> /etc/pacman.conf && \
-    ${PACMAN_UPDATE} && \
+RUN ${PACMAN_UPDATE} && \
     ${PACMAN_INSTALL} ack bash-completion ccache clang39-provides faenza-icon-theme gdb ninja qt5ct qtcreator42 ttf-ubuntu-font-family valgrind312 vim
 
 RUN mkdir -p /home/user/.ccache && \

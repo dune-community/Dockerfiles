@@ -28,12 +28,18 @@ RUN pacman -Sc --noconfirm && \
     pacman-key --refresh-keys && \
     pacman -Syy --noconfirm archlinux-keyring && \
     pacman-key --populate archlinux && \
-    pacman-key --refresh-keys && \
-    pacman -Syyuu --noconfirm
+    pacman-key --refresh-keys
 
 ENV PACMAN_INSTALL="pacman -S --noconfirm " \
     PACMAN_UPDATE="pacman -Syuu --noconfirm " \
     DXT_ENVIRONMENT=arch-minimal
+
+RUN echo "" >> /etc/pacman.conf && \
+    echo "[aur]" >> /etc/pacman.conf && \
+    echo "SigLevel = Optional TrustAll" >> /etc/pacman.conf && \
+    echo "Server = http://repos.schindlerfamily.de/arch/aur" >> /etc/pacman.conf && \
+    echo "" >> /etc/pacman.conf && \
+    ${PACMAN_UPDATE}
 
 # locale is mainly required for the interactive session
 RUN ${PACMAN_INSTALL} glibc sed && \
@@ -45,34 +51,9 @@ RUN ${PACMAN_INSTALL} glibc sed && \
     echo "LC_ALL=en_US.UTF-8" > /etc/locale.conf && \
     echo "LC_TIME=de_DE.UTF-8" > /etc/locale.conf
 
-# the bare minimum, part 1, (base-devel) is contained in the base/devel image
-RUN ${PACMAN_INSTALL} blas boost boost-libs git cmake python2 python python-setuptools \
-    python2-setuptools python2-virtualenv python-virtualenv sudo unzip wget
-
-# the bare minimum, part 2, python-3.4 superlu suexec (for the interactive session)
-RUN useradd -r -s /bin/bash -d /var/aur aur
-RUN echo "aur ALL=(ALL) NOPASSWD:/usr/bin/pacman" >> /etc/sudoers
-USER aur
-RUN cd /tmp && \
-    wget --no-check-certificate https://aur.archlinux.org/cgit/aur.git/snapshot/suexec.tar.gz && \
-    tar -xzf suexec.tar.gz && \
-    cd suexec && \
-    makepkg -si --noconfirm
-RUN cd /tmp && \
-    wget --no-check-certificate https://aur.archlinux.org/cgit/aur.git/snapshot/python34.tar.gz && \
-    tar -xzf python34.tar.gz && \
-    cd python34 && \
-    sed -i 's/openssl-1.0/openssl/g' PKGBUILD && \
-    makepkg -si --noconfirm
-RUN cd /tmp && \
-wget --no-check-certificate https://aur.archlinux.org/cgit/aur.git/snapshot/superlu.tar.gz && \
-tar -xzf superlu.tar.gz && \
-cd superlu && \
-makepkg -si --noconfirm
-USER root
-RUN sed -i 's;aur ALL=(ALL) NOPASSWD:/usr/bin/pacman;;g' /etc/sudoers && \
-    userdel aur && \
-    rm -rf /var/aur
+# the bare minimum, (base-devel) is contained in the base/devel image
+RUN ${PACMAN_INSTALL} blas boost boost-libs git cmake python2 python python34 python-setuptools \
+    python2-setuptools python2-virtualenv python-virtualenv sudo suexec superlu unzip wget
 
 RUN cd /usr/local/bin && ln -s $(which su-exec) gosu && ln -s /usr/bin/vendor_perl/ack .
 
