@@ -20,6 +20,8 @@ else
   useradd -md /home/$USERNAME_ -g $GID_ -s /bin/bash -u $UID_ $USERNAME_
 fi
 
+export ALLINEA_LICENCE_FILE=/home/$USERNAME_/.config/allinea/Licence \
+
 chown -R $USERNAME_:$GID_ /home/$USERNAME_
 
 echo "$USERNAME_ ALL=(ALL) NOPASSWD:/usr/bin/apt-get" >> /etc/sudoers

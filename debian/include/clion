@@ -9,14 +9,13 @@
 include(global_macros)
 
 ENV ALLINEA_VERSION=6.1 \
-    ALLINEA_LICENCE_FILE=${HOME}/.config/allinea/Licence \
     PATH=/opt/allinea/bin:${PATH}
 
 RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL wget openjdk-8-jdk libxext6 libxrender1 libxtst6 libxi6 APT_REDIRECT && \
     apt-get remove -yq qtcreator && \
     mkdir -p /opt/ide && \
-    wget -qO- https://download.jetbrains.com/cpp/CLion-2017.2.3.tar.gz | \
+    wget -qO- https://download.jetbrains.com/cpp/CLion-2017.3.tar.gz | \
         tar zx --strip-components=1 -C /opt/ide && \
     apt-get autoremove -y && \
     apt-get clean && \
