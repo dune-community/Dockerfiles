@@ -8,9 +8,11 @@
 
 include(global_macros)
 
+# ASAN docs: https://github.com/google/sanitizers/wiki/AddressSanitizerFlags
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_LIBCLANG_SO=/usr/lib/llvm-3.9/lib/libclang.so.1 \
-    ASAN_SYMBOLIZER_PATH=/usr/bin/asan_symbolize-3.9
+    ASAN_SYMBOLIZER_PATH=/usr/bin/asan_symbolize-3.9 \
+    ASAN_OPTIONS=check_initialization_order=1:detect_leaks=0:abort_on_error=1
 
 RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL bash-completion ccache libc++1 clang-3.9 clang-format-3.9 gdb ninja-build \
