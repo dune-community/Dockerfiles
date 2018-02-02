@@ -8,19 +8,20 @@
 
 include(global_macros)
 
+ENV CLANG_VERSION=3.9
 # ASAN docs: https://github.com/google/sanitizers/wiki/AddressSanitizerFlags
 ENV DEBIAN_FRONTEND=noninteractive \
-    DXT_LIBCLANG_SO=/usr/lib/llvm-3.9/lib/libclang.so.1 \
-    ASAN_SYMBOLIZER_PATH=/usr/bin/asan_symbolize-3.9 \
-    ASAN_OPTIONS=check_initialization_order=1:detect_leaks=0:abort_on_error=1 \
-    LLVM_CONFIG_BINARY=/usr/bin/llvm-config-3.9
+    DXT_LIBCLANG_SO=/usr/lib/llvm-${CLANG_VERSION}/lib/libclang.so.1 \
+    ASAN_SYMBOLIZER_PATH=/usr/bin/asan_symbolize-${CLANG_VERSION} \
+    ASAN_OPTIONS=check_initialization_order=1:detect_leaks=0:abort_on_error=1
 
 RUN APT_UPDATE APT_REDIRECT && \
-    APT_INSTALL bash-completion ccache libc++1 llvm-3.9 clang-3.9 clang-format-3.9 gdb ninja-build \
+    APT_INSTALL bash-completion ccache libc++1 libclang-${CLANG_VERSION}-dev llvm-${CLANG_VERSION} clang-${CLANG_VERSION} \
+                    clang-format-${CLANG_VERSION} gdb ninja-build \
                     qtcreator git time valgrind vim-nox wget build-essential cmake \
-    less libnotify-bin openssh-server ruby ruby-dev APT_REDIRECT && \
-    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-3.9 100 && \
-    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-3.9 100 && \
+                    less libnotify-bin openssh-server ruby ruby-dev APT_REDIRECT && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 100 && \
     echo ' . /usr/share/bash-completion/bash_completion ' >>  /etc/bash.bashrc && \
     wget -q http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
         dpkg -i /tmp/fira.deb APT_REDIRECT && \
@@ -30,7 +31,7 @@ RUN APT_UPDATE APT_REDIRECT && \
     mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
     cd /usr/local/bin && \
-    for ii in cc cpp clang clang++ clang-3.9 clang++-3.9 cpp-6 g++ g++-6 gcc ; do ln -s $(which ccache) $ii; done && \
+    for ii in cc cpp clang clang++ clang-${CLANG_VERSION} clang++-${CLANG_VERSION} cpp-6 g++ g++-6 gcc ; do ln -s $(which ccache) $ii; done && \
     cd /tmp && \
     wget -q http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb APT_REDIRECT && \

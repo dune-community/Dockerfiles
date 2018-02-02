@@ -1,0 +1,22 @@
+# This file is part of the dune-community/Dockerfiles project:
+#   https://github.com/dune-community/Dockerfiles
+# Copyright 2017 dune-community/Dockerfiles developers and contributors. All rights reserved.
+# License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
+#      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
+# Authors:
+#   Rene Milk       (2017)
+
+include(global_macros)
+
+ENV LLVM_CONFIG_BINARY=/usr/bin/llvm-config-${CLANG_VERSION} \
+    STANDARDESE_DIR=/tmp/st
+
+RUN APT_UPDATE APT_REDIRECT && \
+    APT_INSTALL libclang-${CLANG_VERSION}-dev llvm-${CLANG_VERSION} \
+        libboost-program-options1.62-dev APT_REDIRECT && \
+    git clone https://github.com/foonathan/standardese ${STANDARDESE_DIR} && \
+    mkdir ${STANDARDESE_DIR}/build && \
+    cd ${STANDARDESE_DIR}/build && \
+    cmake .. -DLLVM_CONFIG_BINARY=${LLVM_CONFIG_BINARY} && \
+    make -j2 && \
+    install -m 755 -s tool/standardese /usr/local/bin
