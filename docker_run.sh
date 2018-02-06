@@ -19,6 +19,10 @@ fi
 BASEDIR=${PWD}
 CONTAINER=${1}
 SYSTEM=${CONTAINER%%-*}
+if echo $CONTAINER | xargs python -c "import sys; sys.exit('/' in sys.argv[1])" ; then
+  # the container name does not have a prefix, assume it is from dunecommunity/
+  export CONTAINER="dunecommunity/${CONTAINER}"
+fi
 PROJECT=${2}
 shift 2
 CID_FILE=${BASEDIR}/.${PROJECT}-${CONTAINER//\//_}.cid
@@ -29,7 +33,7 @@ if [ -e ${CID_FILE} ]; then
 
   echo "A docker container for"
   echo "  ${PROJECT}"
-  echo "  based on dunecommunity/${CONTAINER}"
+  echo "  based on ${CONTAINER}"
   echo "is already running. Execute the following command to connect to it"
   echo "(docker_exec.sh is provided alongside this file):"
   echo "  docker_exec.sh ${CONTAINER} ${PROJECT} ${@}"
@@ -46,7 +50,7 @@ else
 
   echo "a docker container"
   echo "  for ${PROJECT}"
-  echo "  based on dunecommunity/${CONTAINER}"
+  echo "  based on ${CONTAINER}"
   echo "  on port $PORT"
 
   mkdir -p ${DOCKER_HOME} &> /dev/null
@@ -61,7 +65,7 @@ else
     -v /etc/localtime:/etc/localtime:ro \
     -v $DOCKER_HOME:/home/${USER} \
     -v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT} \
-    dunecommunity/${CONTAINER} "${@}"
+    ${CONTAINER} "${@}"
 
   if [ -d $DOCKER_HOME/${PROJECT} ]; then
     [ "$(ls -A $DOCKER_HOME/${PROJECT})" ] || rmdir $DOCKER_HOME/${PROJECT}

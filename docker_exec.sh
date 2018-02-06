@@ -17,6 +17,10 @@ fi
 
 BASEDIR=$PWD
 CONTAINER=${1}
+if echo $CONTAINER | xargs python -c "import sys; sys.exit('/' in sys.argv[1])" ; then
+  # the container name does not have a prefix, assume it is from dunecommunity/
+  export CONTAINER="dunecommunity/${CONTAINER}"
+fi
 PROJECT=${2}
 shift 2
 CID_FILE=${BASEDIR}/.${PROJECT}-${CONTAINER//\//_}.cid
