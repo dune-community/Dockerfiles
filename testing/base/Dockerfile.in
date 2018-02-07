@@ -18,8 +18,6 @@ ENV PATH=${SUPERDIR}/local/bin:$PATH \
     DUNE_BUILD_DIR=${HOME}/dune_build/ \
     CLANG_FORMAT='/usr/bin/clang-format-3.9' \
     OPT="-O0" \
-    DUNE_VENV=${HOME}/venv \
-    DUNE_VENV_ACTIVATE=". ${HOME}/venv/bin/activate" \
     PATH=/usr/lib/ccache:${PATH} \
     OPTS=config.opts/travis.ninja \
     GCOV=/usr/bin/gcov \
@@ -36,8 +34,7 @@ RUN apt-get update && \
     apt-get install -y software-properties-common && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
-            python-virtualenv python-pytest python-pip \
-            python3-virtualenv python3-pytest python3-pip \
+            python-pip python3-pip \
             python3-requests openssh-client \
             python-setuptools python3-setuptools  \
             lcov git  wget unzip curl \
@@ -47,9 +44,6 @@ RUN apt-get update && \
     mkdir -p ~/.ssh/ && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && \
     git config --global push.default simple
 
-RUN virtualenv --python=python3 ${DUNE_VENV} && \
-    ${DUNE_VENV_ACTIVATE} && \
-    pip install pytest
 ADD entrypoint.bash /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.bash"]
 

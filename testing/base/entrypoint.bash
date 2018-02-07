@@ -2,7 +2,5 @@
 
 set -e
 
-${DUNE_VENV_ACTIVATE}
-
 "$@"
 
