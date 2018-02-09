@@ -32,12 +32,11 @@ RUN APT_UPDATE APT_REDIRECT && \
     echo "deb http://deb.debian.org/debian/ stretch contrib non-free" > /etc/apt/sources.list.d/stretch-nonfree.list && \
     APT_UPDATE APT_REDIRECT && \
     APT_INSTALL automake bison build-essential cmake flex gfortran git libboost-system-dev \
-                                               libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
-                                               libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \
-                                               pkg-config python python-dev python-pip python3 python3-dev \
-                                               libgraphviz-dev \
-                                               python3-pip python3-virtualenv unzip virtualenv wget libopenblas-dev \
-                                               ca-certificates wget sudo cmake cmake-curses-gui gosu APT_REDIRECT && \
+                libboost-thread-dev libboost-filesystem-dev libboost-date-time-dev \
+                libboost-timer-dev libboost-chrono-dev libsuperlu-dev libtool \
+                pkg-config python3 python3-dev libgraphviz-dev python3-tk \
+                python3-pip python3-virtualenv unzip virtualenv wget libopenblas-dev \
+                ca-certificates wget sudo cmake cmake-curses-gui gosu APT_REDIRECT && \
     apt-get autoremove -y APT_REDIRECT && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
