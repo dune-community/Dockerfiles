@@ -16,18 +16,17 @@ ENV PATH=${SUPERDIR}/local/bin:$PATH \
     LD_LIBRARY_PATH=${SUPERDIR}/local/lib64:${SUPERDIR}/local/lib:$LD_LIBRARY_PATH \
     PKG_CONFIG_PATH=${SUPERDIR}/local/lib64/pkgconfig:${SUPERDIR}/local/lib/pkgconfig:${SUPERDIR}/local/share/pkgconfig:$PKG_CONFIG_PATH \
     DUNE_BUILD_DIR=${HOME}/dune_build/ \
-    CLANG_FORMAT='/usr/bin/clang-format-3.9' \
+    CLANG_FORMAT='/usr/bin/clang-format-${CLANG_VERSION}' \
     OPT="-O0" \
     PATH=/usr/lib/ccache:${PATH} \
     OPTS=config.opts/travis.ninja \
     GCOV=/usr/bin/gcov \
     SRC_DCTRL=${SUPERDIR}/dune-common/bin/dunecontrol \
-    BUILD_CMD="ninja -k 10000 -j 2"
+    BUILD_CMD="ninja -v -k 10000 -j 1"
 ENV INSTALL_DIR=${HOME}/dune \
     CTEST_OUTPUT_ON_FAILURE=1 \
     DCTL_ARGS="--builddir=${DUNE_BUILD_DIR} "
-ENV DBG="${DCTL_ARGS} --opts=${SUPERDIR}/config.opts/travis.ninja"
-ENV BLD="${DBG}"
+ENV BLD="${DCTL_ARGS} --opts=${SUPERDIR}/config.opts/travis.ninja"
 
 
 RUN apt-get update && \
