@@ -11,7 +11,7 @@ FROM dunecommunity/arch-minimal
 
 ENV DXT_ENVIRONMENT arch-full
 
-RUN ${PACMAN_INSTALL} eigen lapacke
+RUN ${PACMAN_INSTALL} eigen lapacke intel-tbb
 
 include(labels)
 
