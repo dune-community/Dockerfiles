@@ -6,15 +6,12 @@
 # Authors:
 #   Rene Milk (2017)
 
-FROM dunecommunity/debian-full
+FROM dunecommunity/arch-full
 
 include(environment)
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-            python3-pip python3-requests openssh-client \
-            python3-setuptools wget unzip curl \
-            rsync doxygen texlive-latex-base doxygen-latex && \
+RUN ${PACMAN_UPDATE} && \
+    ${PACMAN_INSTALL} ninja texlive-bin texlive-core rsync openssh doxygen && \
     mkdir -p ~/.ssh/ && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && \
     git config --global push.default simple
 

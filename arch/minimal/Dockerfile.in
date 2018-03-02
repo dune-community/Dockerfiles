@@ -11,7 +11,7 @@ FROM base/devel
 
 # init and update
 RUN pacman -Sc --noconfirm && \
-    pacman -Sy && \
+    pacman -Syuu --noconfirm && \
     pacman -S --noconfirm wget && \
     cd /tmp && wget https://archive.archlinux.org/packages/g/gnupg/gnupg-2.1.16-2-x86_64.pkg.tar.xz && \
     pacman -U --noconfirm gnupg-2.1.16-2-x86_64.pkg.tar.xz && \
