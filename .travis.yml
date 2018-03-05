@@ -32,3 +32,8 @@ env:
     - SUBDIR=manylinux
     - SUBDIR=arch
     - SUBDIR=testing
+
+matrix:
+  allow_failures:
+  # see https://github.com/dune-community/Dockerfiles/issues/12
+    - env: SUBDIR=manylinux
