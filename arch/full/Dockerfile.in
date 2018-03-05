@@ -11,10 +11,9 @@ FROM dunecommunity/arch-minimal
 
 ENV DXT_ENVIRONMENT arch-full
 
-RUN ${PACMAN_INSTALL} eigen lapacke intel-tbb
+RUN ${PACMAN_INSTALL} alberta-wo-fem eigen lapacke intel-tbb
 
 include(labels)
 
 # clean up, there might be some leftovers
 RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && pacman -Sc --noconfirm
-
