@@ -9,10 +9,14 @@
 
 FROM base/devel
 
+ENV PACMAN_INSTALL="pacman -S --noconfirm " \
+    PACMAN_UPDATE="pacman -Syuu --noconfirm " \
+    DXT_ENVIRONMENT=arch-minimal
+
 # init and update
 RUN pacman -Sc --noconfirm && \
-    pacman -Syuu --noconfirm && \
-    pacman -S --noconfirm wget && \
+    ${PACMAN_UPDATE} && \
+    ${PACMAN_INSTALL} wget && \
     cd /tmp && wget https://archive.archlinux.org/packages/g/gnupg/gnupg-2.1.16-2-x86_64.pkg.tar.xz && \
     pacman -U --noconfirm gnupg-2.1.16-2-x86_64.pkg.tar.xz && \
     sed -i 's/#IgnorePkg   =/IgnorePkg    = gnupg/g' /etc/pacman.conf && \
@@ -29,10 +33,6 @@ RUN pacman -Sc --noconfirm && \
     pacman -Syy --noconfirm archlinux-keyring && \
     pacman-key --populate archlinux && \
     pacman-key --refresh-keys
-
-ENV PACMAN_INSTALL="pacman -S --noconfirm " \
-    PACMAN_UPDATE="pacman -Syuu --noconfirm " \
-    DXT_ENVIRONMENT=arch-minimal
 
 RUN echo "" >> /etc/pacman.conf && \
     echo "[aur]" >> /etc/pacman.conf && \
