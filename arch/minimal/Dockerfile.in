@@ -16,6 +16,9 @@ ENV PACMAN_INSTALL="pacman -S --noconfirm " \
 # init and update
 RUN pacman -Sc --noconfirm && \
     ${PACMAN_UPDATE} && \
+    ${PACMAN_INSTALL} reflector && \
+    reflector --country 'Germany' --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && \
+    ${PACMAN_UPDATE} && \
     ${PACMAN_INSTALL} wget && \
     cd /tmp && wget https://archive.archlinux.org/packages/g/gnupg/gnupg-2.1.16-2-x86_64.pkg.tar.xz && \
     pacman -U --noconfirm gnupg-2.1.16-2-x86_64.pkg.tar.xz && \
