@@ -9,26 +9,25 @@
 include(global_macros)
 
 ENV TL_TMP_DIR="/tmp/templight" \
-    TL_LLVM_REV=290370 \
-    TL_CLANG_REV=290373 \
-    TL_REV=0738fa15ef7e24c5864c95e02d53c6f2e98f160b \
-    TL_TOOLS_REV=cd3828bbc85faa3de5a05a9ccfc9ea27518af7d5 \
-    CMAKE_CMD="cmake -DCMAKE_BUILD_TYPE=Release -GNinja"
+    TL_LLVM_REV=release_60 \
+    TL_CLANG_REV=release_60 \
+    TL_REV=release_60 \
+    TL_TOOLS_REV=2b2322b \
+    CMAKE_CMD="cmake -DCMAKE_BUILD_TYPE=Release -GNinja" \
+    TL_CLONE="git clone --depth=1 --recurse-submodules"
 
 RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL subversion libboost-program-options-dev \
         libboost-filesystem-dev libboost-system-dev libboost-test-dev python3-dev \
         git ca-certificates cmake ninja-build build-essential APT_REDIRECT && \
     mkdir -p ${TL_TMP_DIR} && cd ${TL_TMP_DIR} && \
-    svn co -r ${TL_LLVM_REV} http://llvm.org/svn/llvm-project/llvm/trunk llvm && \
+    ${TL_CLONE} --branch=${TL_LLVM_REV} https://github.com/llvm-mirror/llvm llvm && \
     cd ${TL_TMP_DIR}/llvm/tools && \
-    svn co -r ${TL_CLANG_REV} http://llvm.org/svn/llvm-project/cfe/trunk clang && \
+    ${TL_CLONE} --branch=${TL_CLANG_REV} https://github.com/llvm-mirror/clang clang && \
     cd ${TL_TMP_DIR}/llvm/tools/clang/tools && \
     mkdir templight && \
-    git clone https://github.com/mikael-s-persson/templight && \
-    cd templight && \
-    git reset --hard ${TL_REV} && \
-    cd ${TL_TMP_DIR}/llvm/tools/clang && svn patch tools/templight/templight_clang_patch.diff && \
+    ${TL_CLONE} --branch=${TL_REV} https://github.com/mikael-s-persson/templight && \
+    cd ${TL_TMP_DIR}/llvm/tools/clang && patch -p0 <  tools/templight/templight_clang_patch.diff && \
     echo "add_subdirectory(templight)" >> ${TL_TMP_DIR}/llvm/tools/clang/tools/CMakeLists.txt && \
     cd ${TL_TMP_DIR} && \
     mkdir build && \
