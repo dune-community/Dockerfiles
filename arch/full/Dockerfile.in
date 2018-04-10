@@ -12,7 +12,7 @@ FROM dunecommunity/arch-minimal
 ENV DXT_ENVIRONMENT arch-full
 
 RUN ${PACMAN_UPDATE} && \
-    ${PACMAN_INSTALL} alberta-wo-fem eigen lapacke intel-tbb openmpi
+    ${PACMAN_INSTALL} alberta-wo-fem eigen gcc-fortran lapacke intel-tbb openmpi
 
 include(labels)
 
