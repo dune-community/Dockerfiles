@@ -10,5 +10,4 @@ FROM dunecommunity/debian-full
 
 include(clion)
 include(interactive)
-include(standardese)
 include(labels)
