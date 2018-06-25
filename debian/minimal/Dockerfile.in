@@ -13,7 +13,8 @@ include(global_macros)
 FROM debian:stretch
 
 ENV DEBIAN_FRONTEND=noninteractive \
-    DXT_ENVIRONMENT=debian-minimal
+    DXT_ENVIRONMENT=debian-minimal \
+    TRAVIS=1
 
 # we require stretch-backports for some packages (see below), but we only allow them in manual installs
 # the upgrade should thus be a noop
