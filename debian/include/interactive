@@ -8,7 +8,7 @@
 
 include(global_macros)
 
-ENV CLANG_VERSION=3.9
+
 # ASAN docs: https://github.com/google/sanitizers/wiki/AddressSanitizerFlags
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_LIBCLANG_SO=/usr/lib/llvm-${CLANG_VERSION}/lib/libclang.so.1 \
