@@ -7,7 +7,7 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM base/devel
+FROM base/devel:2018.04.01
 
 ENV PACMAN_INSTALL="pacman -S --noconfirm " \
     PACMAN_UPDATE="pacman -Syuu --noconfirm " \
