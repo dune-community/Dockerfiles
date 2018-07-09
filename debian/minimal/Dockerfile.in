@@ -14,7 +14,6 @@ FROM debian:stretch
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal \
-    TRAVIS=1 \
     CLANG_VERSION=3.9
 
 # we require stretch-backports for some packages (see below), but we only allow them in manual installs
