@@ -9,7 +9,7 @@
 
 include(global_macros)
 
-FROM dunecommunity/debian-minimal
+include(minimal)
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal

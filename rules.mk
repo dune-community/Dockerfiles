@@ -20,13 +20,16 @@ $(REPONAMES): check_client
 	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
 	$(eval IMAGE=$(NAME)-$@)
 	$(eval REPO=dunecommunity/$(IMAGE))
+	tar --create --file $@_context.tar -C $@/../common_context .
 	m4 -D BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		-D IMAGE="$(IMAGE)" \
 		-D AUTHOR="$(AUTHOR)" \
 		-D GITREV=$(GITREV) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
 	(test -n "${DOCKER_PRUNE}" && docker system prune -f) || true
-	cd $@ && $(DOCKER_SUDO) docker build --rm=true --force-rm=true ${DOCKER_QUIET} -t $(REPO):$(GITREV) .
+	tar --append --file $@_context.tar -C $@ .
+	cd $@ && cat ../$@_context.tar | $(DOCKER_SUDO) docker build --rm=true --force-rm=true ${DOCKER_QUIET} \
+		-t $(REPO):$(GITREV) -
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
 push_%:
