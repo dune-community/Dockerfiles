@@ -6,16 +6,6 @@
 # Authors:
 #   Rene Milk (2017)
 
-minimal-interactive: minimal
-minimal-interactive-nvidia: minimal-interactive
-docs: minimal
-full: minimal
-full-interactive: full
-full-interactive-nvidia: full-interactive
-full-clion: full-interactive
-full-clion-nvidia: full-clion
-full-templight: full-interactive
-
 NAME = debian
 AUTHOR = rene.milk@wwu.de
 
