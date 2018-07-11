@@ -1,0 +1,10 @@
+include(global_macros)
+
+ENV ALLINEA_VERSION=6.1 \
+    PATH=/opt/allinea/bin:${PATH}
+
+RUN mkdir /tmp/allinea/ && \
+    wget -qO- http://content.allinea.com/downloads/allinea-forge-${ALLINEA_VERSION}-Ubuntu-14.04-x86_64.tar \
+        | tar x --strip-components=1 -C /tmp/allinea APT_REDIRECT && \
+    /tmp/allinea/textinstall.sh --accept-licence  /opt/allinea/ APT_REDIRECT && \
+    rm -rf /tmp/allinea

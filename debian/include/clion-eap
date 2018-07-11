@@ -13,7 +13,7 @@ RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL python3-setuptools cython3 wget openjdk-8-jdk libxext6 libxrender1 libxtst6 libxi6 APT_REDIRECT && \
     apt-get remove -yq qtcreator && \
     mkdir -p /opt/clion && \
-    wget -qO- https://download.jetbrains.com/cpp/CLion-2018.1.5.tar.gz | \
+    wget -qO- https://download.jetbrains.com/cpp/CLion-182.3569.10.tar.gz | \
         tar zx --strip-components=1 -C /opt/clion && \
     ln -s /opt/clion/bin/clion.sh /usr/local/bin/clion && \
     mkdir -p /opt/pycharm && \
