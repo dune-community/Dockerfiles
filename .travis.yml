@@ -29,6 +29,7 @@ env:
     - DOCKER_PRUNE=1
   matrix:
     - SUBDIR=debian_travis
+    - SUBDIR=debian_unstable_travis
     - SUBDIR=manylinux
     - SUBDIR=arch
     - SUBDIR=testing

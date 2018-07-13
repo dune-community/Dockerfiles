@@ -25,11 +25,12 @@ $(REPONAMES): check_client
 		-D IMAGE="$(IMAGE)" \
 		-D AUTHOR="$(AUTHOR)" \
 		-D GITREV=$(GITREV) \
-		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile
+		-D DEBIANVERSION=$(DEBIANVERSION) \
+		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile.generated.$(DEBIANVERSION)
 	(test -n "${DOCKER_PRUNE}" && docker system prune -f) || true
 	tar --append --file $@_context.tar -C $@ .
 	cd $@ && cat ../$@_context.tar | $(DOCKER_SUDO) docker build --rm=true --force-rm=true ${DOCKER_QUIET} \
-		-t $(REPO):$(GITREV) -
+		-t $(REPO):$(GITREV) -f Dockerfile.generated.$(DEBIANVERSION) -
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
 push_%:
