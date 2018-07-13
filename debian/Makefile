@@ -18,7 +18,7 @@ $(UNSTABLES): NAME=debian-unstable
 $(UNSTABLES): unstable-% : %
 unstable: $(UNSTABLES)
 
-TRAVIS = minimal-interactive full-interactive full-clion full-clion-nvidia full-interactive-nvidia minimal-interactive-nvidia
+TRAVIS = minimal-interactive full minimal full-interactive full-clion full-clion-nvidia full-interactive-nvidia minimal-interactive-nvidia
 travis: docs $(TRAVIS)
 unstable_travis: $(addprefix unstable-,$(TRAVIS))
 # 'wrong' order to not match implicit included rules

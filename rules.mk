@@ -20,17 +20,19 @@ $(REPONAMES): check_client
 	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
 	$(eval IMAGE=$(NAME)-$@)
 	$(eval REPO=dunecommunity/$(IMAGE))
-	tar --create --file $@_context.tar -C $@/../common_context .
+	$(eval DF=Dockerfile.generated.$(DEBIANVERSION))
+	$(eval CTX=$@_$(DEBIANVERSION)_context.tar)
+	tar --create --file $(CTX) -C $@/../common_context .
 	m4 -D BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		-D IMAGE="$(IMAGE)" \
 		-D AUTHOR="$(AUTHOR)" \
 		-D GITREV=$(GITREV) \
 		-D DEBIANVERSION=$(DEBIANVERSION) \
-		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/Dockerfile.generated.$(DEBIANVERSION)
+		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/$(DF)
 	(test -n "${DOCKER_PRUNE}" && docker system prune -f) || true
-	tar --append --file $@_context.tar -C $@ .
-	cd $@ && cat ../$@_context.tar | $(DOCKER_SUDO) docker build --rm=true --force-rm=true ${DOCKER_QUIET} \
-		-t $(REPO):$(GITREV) -f Dockerfile.generated.$(DEBIANVERSION) -
+	tar --append --file $(CTX) -C $@ .
+	cd $@ && cat ../$(CTX) | $(DOCKER_SUDO) docker build --rm=true --force-rm=true ${DOCKER_QUIET} \
+		-t $(REPO):$(GITREV) -f $(DF) -
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
 push_%:
