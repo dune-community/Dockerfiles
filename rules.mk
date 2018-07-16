@@ -9,6 +9,8 @@
 THISDIR=$(dir $(lastword $(MAKEFILE_LIST)))
 
 REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile.in)))
+DOCKER_NOCACHE=
+BUILD_CMD=$(DOCKER_SUDO) docker build ${DOCKER_NOCACHE} --rm=true ${DOCKER_QUIET}
 
 .PHONY: push all $(REPONAMES) readme
 
@@ -31,7 +33,7 @@ $(REPONAMES): check_client
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/$(DF)
 	(test -n "${DOCKER_PRUNE}" && docker system prune -f) || true
 	tar --append --file $(CTX) -C $@ .
-	cd $@ && cat ../$(CTX) | $(DOCKER_SUDO) docker build --rm=true --force-rm=true ${DOCKER_QUIET} \
+	cd $@ && cat ../$(CTX) | $(BUILD_CMD) \
 		-t $(REPO):$(GITREV) -f $(DF) -
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
