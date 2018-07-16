@@ -7,6 +7,6 @@
 #   Rene Milk       (2017)
 
 include(full)
-include(clion)
 include(interactive)
+include(clion)
 include(labels)

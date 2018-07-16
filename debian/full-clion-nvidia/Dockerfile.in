@@ -8,6 +8,6 @@
 
 include(full)
 include(nvidia)
-include(clion)
 include(interactive)
+include(clion)
 include(labels)
