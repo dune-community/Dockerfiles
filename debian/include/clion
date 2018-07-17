@@ -27,4 +27,4 @@ RUN APT_UPDATE APT_REDIRECT && \
 
 RUN echo export PS1='"\033[38;5;27m\]🐳\[$(tput sgr0)\] [\\H] [\\t]\\n\
 \033[38;5;27m\]🐳\[$(tput sgr0)\] [\033[38;5;88m\]\\w\[$(tput sgr0)\]] "' >> /etc/bash.bashrc && \
-    echo 'alias ll="ls -lh --color-auto" && alias la="ls -ah --color-auto"' >> /etc/bash.bashrc
+    echo 'alias ll="ls -lh --color=auto" && alias la="ls -ah --color=auto"' >> /etc/bash.bashrc
