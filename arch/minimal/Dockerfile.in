@@ -11,7 +11,8 @@ FROM base/devel
 
 ENV PACMAN_INSTALL="pacman -S --noconfirm " \
     PACMAN_UPDATE="pacman -Syuu --noconfirm " \
-    DXT_ENVIRONMENT=arch-minimal
+    DXT_ENVIRONMENT=arch-minimal \
+    DXT_DOCKER=1
 
 # init and update
 RUN pacman -Sc --noconfirm && \

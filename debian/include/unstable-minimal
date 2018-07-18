@@ -5,7 +5,8 @@ FROM debian:unstable
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal \
     CLANG_VERSION=7 \
-    GCC_VERSION=8
+    GCC_VERSION=8 \
+    DXT_DOCKER=1
 
 # locale is mainly required for the interactive session
 RUN APT_UPDATE APT_REDIRECT && \
