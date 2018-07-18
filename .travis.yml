@@ -31,10 +31,10 @@ env:
     - SUBDIR=debian_travis
     - SUBDIR=debian_unstable_travis
     - SUBDIR=manylinux
-    - SUBDIR=arch
     - SUBDIR=testing
 
 matrix:
   allow_failures:
   # see https://github.com/dune-community/Dockerfiles/issues/12
     - env: SUBDIR=manylinux
+    - env: SUBDIR=arch
