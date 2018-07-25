@@ -25,6 +25,5 @@ RUN APT_UPDATE APT_REDIRECT && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN echo export PS1='"\033[38;5;27m\]🐳\[$(tput sgr0)\] [\\H] [\\t]\\n\
-\033[38;5;27m\]🐳\[$(tput sgr0)\] [\033[38;5;88m\]\\w\[$(tput sgr0)\]] "' >> /etc/bash.bashrc && \
-    echo 'alias ll="ls -lh --color=auto" && alias la="ls -ah --color=auto"' >> /etc/bash.bashrc
+ADD docker_ps1 /tmp
+RUN cat /tmp/docker_ps1 >> /etc/bash.bashrc
