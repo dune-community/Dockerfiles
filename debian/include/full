@@ -8,10 +8,11 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL doxygen libc++-dev clang-${CLANG_VERSION} clang-format-${CLANG_VERSION} clang-tidy-${CLANG_VERSION} \
         libalberta-dev libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev libtbb-dev \
-        libmumps-scotch-dev python-clang-${CLANG_VERSION} \
+        libmumps-scotch-dev python-clang-${CLANG_VERSION} lcov \
         ninja-build openmpi-common openmpi-bin libqhull-dev liblpsolve55-dev liblapacke-dev ssh APT_REDIRECT && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 100 && \
     apt-get autoremove -y && \
     apt-get clean && \
+    wget https://codecov.io/bash -O /usr/local/bin/codecov && \
     rm -rf /var/lib/apt/lists/*
