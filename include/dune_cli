@@ -1,0 +1,3 @@
+RUN cd /tmp && git clone https://github.com/dune-community/cli-setup && \
+    cd cli-setup && \
+    cmake . && make install && rm -rf /tmp/cli-setup

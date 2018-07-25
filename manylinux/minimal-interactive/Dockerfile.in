@@ -7,16 +7,6 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM dunecommunity/dailywork_manylinux-minimal
-
-RUN yum -y install bash-completion ccache gdb vim-enhanced wget
-
-RUN mkdir -p /home/user/.ccache && \
-    echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
-    cd /usr/local/bin && \
-    for ii in g++ gcc ; do ln -s $(which ccache) $ii; done
-
-# clean up, there might be some leftovers
-RUN yum clean all
-
+include(minimal)
+include(interactive)
 include(labels)
