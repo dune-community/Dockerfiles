@@ -31,10 +31,9 @@ RUN APT_UPDATE APT_REDIRECT && \
     cd cli-setup && \
     cmake . && make install && cd .. && rm -rf cli-setup
 
-RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 40 \
-        --slave /usr/bin/g++ g++ /usr/bin/g++-7 && \
-    update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} 60 \
-        --slave /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION} && \
+RUN update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${GCC_VERSION} 100 \
+        --slave /usr/bin/g++ g++ /usr/bin/g++-${GCC_VERSION} \
+        --slave /usr/bin/gcov gcov /usr/bin/gcov-${GCC_VERSION} && \
     update-alternatives --config gcc
 
 ADD entrypoint.sh /usr/local/bin/
