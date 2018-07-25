@@ -58,11 +58,8 @@ RUN ${PACMAN_INSTALL} glibc sed && \
 # the bare minimum, (base-devel) is contained in the base/devel image
 RUN ${PACMAN_INSTALL} blas boost boost-libs git cmake python2 python python34 python-pip \
     python2-pip python-setuptools python2-setuptools python2-virtualenv python-virtualenv \
-    sudo suexec superlu unzip wget gcc-fortran && \
-    git clone https://github.com/dune-community/cli-setup && \
-    cd cli-setup && \
-    cmake . && make install && cd .. && rm -rf cli-setup
-
+    sudo suexec superlu unzip wget gcc-fortran
+include(dune_cli)
 
 RUN cd /usr/local/bin && ln -s $(which su-exec) gosu && ln -s /usr/bin/vendor_perl/ack .
 
