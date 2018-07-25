@@ -26,5 +26,5 @@ echo "$USERNAME_ ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 export LANG=en_US.UTF-8
 
-exec gosu $USERNAME_ "$@"
+exec scl enable rh-python36 -- gosu $USERNAME_ "$@"
 
