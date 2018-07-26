@@ -22,5 +22,5 @@ RUN APT_UPDATE APT_REDIRECT && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-include(standardese)
+#include(standardese)
 include(labels)
