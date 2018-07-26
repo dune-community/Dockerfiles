@@ -7,6 +7,7 @@
 #   Rene Milk       (2017)
 
 include(global_macros)
+include(interactive)
 
 ENV LLVM_CONFIG_BINARY=/usr/bin/llvm-config-${CLANG_VERSION} \
     STANDARDESE_DIR=/tmp/st
