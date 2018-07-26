@@ -19,14 +19,11 @@ RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL bash-completion ccache libc++1 libclang-${CLANG_VERSION}-dev \
         llvm-${CLANG_VERSION} clang-${CLANG_VERSION} \
         clang-format-${CLANG_VERSION} gdb ninja-build libstdc++6-${GCC_VERSION}-dbg\
-        qtcreator git time valgrind vim-nox wget build-essential cmake \
+        git time valgrind vim-nox wget build-essential cmake \
         less libnotify-bin openssh-server ruby ruby-dev APT_REDIRECT && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 100 && \
     echo ' . /usr/share/bash-completion/bash_completion ' >>  /etc/bash.bashrc && \
-    wget -q http://ftp.de.debian.org/debian/pool/contrib/f/fonts-firacode/fonts-firacode_1.204-2_all.deb -O /tmp/fira.deb &&\
-        dpkg -i /tmp/fira.deb APT_REDIRECT && \
-        rm /tmp/fira.deb && \
     gem install travis && \
     apt remove -y ruby-dev APT_REDIRECT && \
     mkdir -p /home/user/.ccache && \
@@ -35,9 +32,6 @@ RUN APT_UPDATE APT_REDIRECT && \
     for ii in cc cpp clang clang++ clang-${CLANG_VERSION} clang++-${CLANG_VERSION} \
         cpp-${GCC_VERSION} g++ g++-${GCC_VERSION} gcc ; do ln -s $(which ccache) $ii; done && \
     cd /tmp && \
-    wget -q http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
-    dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb APT_REDIRECT && \
-    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     git clone git://github.com/rkitover/vimpager /tmp/vimpager && \
     cd /tmp/vimpager && \
     make install && \

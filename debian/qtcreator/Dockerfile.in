@@ -8,4 +8,5 @@
 
 include(full)
 include(interactive)
+include(qtcreator)
 include(labels)

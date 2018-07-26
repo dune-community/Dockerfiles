@@ -1,0 +1,4 @@
+RUN APT_INSTALL qtcreator && \
+    wget -q http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
+    dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb APT_REDIRECT && \
+    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb 

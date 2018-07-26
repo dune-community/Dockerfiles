@@ -7,6 +7,5 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-include(global_macros)
 include(minimal)
 include(labels)
