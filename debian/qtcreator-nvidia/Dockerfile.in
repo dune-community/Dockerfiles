@@ -9,5 +9,5 @@
 include(full)
 include(nvidia)
 include(interactive)
-include(clion-eap)
+include(qtcreator)
 include(labels)
