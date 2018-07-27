@@ -35,6 +35,5 @@ env:
 
 matrix:
   allow_failures:
-  # see https://github.com/dune-community/Dockerfiles/issues/12
-    - env: SUBDIR=manylinux
+  # see https://github.com/dune-community/Dockerfiles/issues/21
     - env: SUBDIR=arch
