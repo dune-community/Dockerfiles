@@ -16,7 +16,7 @@ UNDERLINE=$(tput smul)
 
 
 export PS1='\[${POWDER_BLUE}\]🐳\[${NORMAL}\][\[${GREEN}\]\H\[${NORMAL}\]] [\[${RED}\]\t\[${NORMAL}\]]
-\[${BLUE}\]🐳\[${NORMAL}\] [\[${BRIGHT}\]\w\[${NORMAL}\]] '
+\[${BLUE}\]🐳\[${NORMAL}\][\[${BRIGHT}\]\w\[${NORMAL}\]] '
 alias ll="ls -lh --color=auto"
 alias llt="ll -tr"
 alias la="ls -ah --color=auto"
