@@ -18,7 +18,7 @@ $(UNSTABLES): NAME=debian-unstable
 $(UNSTABLES): unstable-% : %
 unstable: $(UNSTABLES)
 
-TRAVIS = minimal minimal-interactive full clion clion-nvidia qtcreator qtcreator-nvidia
+TRAVIS = minimal minimal-interactive full clion qtcreator 
 travis: docs $(TRAVIS)
 unstable_travis: $(addprefix unstable-,$(TRAVIS))
 # 'wrong' order to not match implicit included rules
