@@ -29,6 +29,7 @@ echo "$USERNAME_ ALL=(ALL) NOPASSWD:/usr/bin/apt" >> /etc/sudoers
 echo "$USERNAME_ ALL=(ALL) NOPASSWD:/usr/bin/dpkg" >> /etc/sudoers
 
 export LANG=en_US.UTF-8
+echo "127.0.0.1 ${HOSTNAME}" >> /etc/hosts
 
 if [ "X$@" == "X" ]; then
   exec gosu $USERNAME_ /bin/bash
