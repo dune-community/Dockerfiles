@@ -27,6 +27,7 @@ chown -R $USERNAME_:$GID_ /home/$USERNAME_
 echo "$USERNAME_ ALL=(ALL) NOPASSWD:/usr/bin/pacman" >> /etc/sudoers
 
 export LANG=en_US.UTF-8
+echo "127.0.0.1 $HOSTNAME" >> /etc/hosts
 echo 'cd $HOME' >> /home/$USERNAME_/.bash_profile
 
 if [ "X$@" == "X" ]; then
