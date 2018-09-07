@@ -4,7 +4,7 @@ FROM debian:unstable
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal \
-    CLANG_VERSION=7 \
+    CLANG_VERSION=8 \
     GCC_VERSION=8 \
     DXT_DOCKER=1
 

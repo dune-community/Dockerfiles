@@ -1,2 +1,3 @@
 
 ifelse(DEBIANVERSION, `stretch', include(stretch-minimal), include(unstable-minimal))
+ifelse(DEBIANVERSION, `stretch', `define(`LIBCPP_DEV', `libc++-dev')', `define(`LIBCPP_DEV', `libc++-${CLANG_VERSION}-dev')')

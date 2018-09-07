@@ -5,8 +5,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     DXT_LIBCLANG_SO=/usr/lib/llvm-${CLANG_VERSION}/lib/libclang.so.1 \
     DXT_ENVIRONMENT=debian-full
 
+# LIBCPP_DEV is defined in include/minimal because older packages were not versioned
 RUN APT_UPDATE APT_REDIRECT && \
-    APT_INSTALL doxygen libc++-dev clang-${CLANG_VERSION} clang-format-${CLANG_VERSION} \
+    APT_INSTALL doxygen LIBCPP_DEV clang-${CLANG_VERSION} clang-format-${CLANG_VERSION} \
         libalberta-dev libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev \
         libmumps-scotch-dev python-clang-${CLANG_VERSION} lcov curl clang-tidy-${CLANG_VERSION} \
         ninja-build libopenmpi-dev openmpi-common openmpi-bin libqhull-dev libtbb-dev \
