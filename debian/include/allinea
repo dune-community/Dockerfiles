@@ -7,4 +7,6 @@ RUN mkdir /tmp/allinea/ && \
     wget -qO- http://content.allinea.com/downloads/allinea-forge-${ALLINEA_VERSION}-Ubuntu-14.04-x86_64.tar \
         | tar x --strip-components=1 -C /tmp/allinea APT_REDIRECT && \
     /tmp/allinea/textinstall.sh --accept-licence  /opt/allinea/ APT_REDIRECT && \
-    rm -rf /tmp/allinea
+    rm -rf /tmp/allinea && \
+    APT_UPDATE && \
+    APT_INSTALL libtinfo5 APT_REDIRECT 
