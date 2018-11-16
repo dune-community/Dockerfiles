@@ -12,7 +12,7 @@ RUN APT_UPDATE APT_REDIRECT && \
         libalberta-dev libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev \
         libmumps-scotch-dev python-clang-${CLANG_VERSION} lcov curl clang-tidy-${CLANG_VERSION} \
         ninja-build libopenmpi-dev openmpi-common openmpi-bin libqhull-dev libtbb-dev \
-        valgrind-mpi liblpsolve55-dev liblapacke-dev ssh APT_REDIRECT && \
+        valgrind-mpi liblpsolve55-dev liblapacke-dev ssh numactl libtcmalloc-minimal4 APT_REDIRECT && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 100 && \
     apt-get autoremove -y && \
