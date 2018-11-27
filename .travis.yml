@@ -23,15 +23,24 @@ notifications:
     on_success: change
     on_failure: change
 
+stages:
+  - 'Dev Images'
+  - 'Testing Images'
+
 env:
   global:
     - DOCKER_QUIET=-q
     - DOCKER_PRUNE=1
-  matrix:
-    - SUBDIR=debian_travis
-    - SUBDIR=debian_unstable_travis
-    - SUBDIR=manylinux
-    - SUBDIR=testing
+jobs:
+  include:
+    - stage: 'Dev Images'
+      env: SUBDIR=debian_travis
+    - stage: 'Dev Images'
+      env: SUBDIR=debian_unstable_travis
+    - stage: 'Dev Images'
+      env: SUBDIR=manylinux
+    - stage: 'Testing Images'
+      env: SUBDIR=testing
 
 matrix:
   allow_failures:
