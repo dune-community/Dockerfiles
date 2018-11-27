@@ -23,6 +23,7 @@ RUN APT_UPDATE APT_REDIRECT && \
                 ca-certificates libqt5core5a wget sudo cmake \
                 cmake-curses-gui gosu APT_REDIRECT && \
     export LANG=en_US.UTF-8 && \
+    export LC_CTYPE=en_US.UTF-8 && \
     dpkg-reconfigure locales && \
     apt-get autoremove -y APT_REDIRECT && \
     apt-get clean && \

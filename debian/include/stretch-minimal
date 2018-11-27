@@ -18,6 +18,7 @@ RUN APT_UPDATE APT_REDIRECT && \
     echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
     APT_INSTALL locales APT_REDIRECT && \
     export LANG=en_US.UTF-8 && \
+    export LC_CTYPE=en_US.UTF-8 && \
     dpkg-reconfigure locales && \
     echo 'APT::Default-Release "stable";' > /etc/apt/apt.conf.d/default-release && \
     echo "deb http://deb.debian.org/debian stretch-backports main contrib non-free" > /etc/apt/sources.list.d/stretch-backports.list && \
