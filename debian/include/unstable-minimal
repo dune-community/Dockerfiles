@@ -6,7 +6,9 @@ ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal \
     CLANG_VERSION=7 \
     GCC_VERSION=8 \
-    DXT_DOCKER=1
+    DXT_DOCKER=1 \
+    LANG=en_US.UTF-8 \
+    LC_CTYPE=en_US.UTF-8 
 
 # locale is mainly required for the interactive session
 RUN APT_UPDATE APT_REDIRECT && \
@@ -22,8 +24,6 @@ RUN APT_UPDATE APT_REDIRECT && \
                 g++-${GCC_VERSION} gcc-${GCC_VERSION} gfortran-${GCC_VERSION} \
                 ca-certificates libqt5core5a wget sudo cmake \
                 cmake-curses-gui gosu APT_REDIRECT && \
-    export LANG=en_US.UTF-8 && \
-    export LC_CTYPE=en_US.UTF-8 && \
     dpkg-reconfigure locales && \
     apt-get autoremove -y APT_REDIRECT && \
     apt-get clean && \
