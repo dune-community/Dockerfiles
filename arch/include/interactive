@@ -10,11 +10,8 @@
 
 
 RUN ${PACMAN_UPDATE} && \
-    ${PACMAN_INSTALL} ack bash-completion ccache clang39-provides faenza-icon-theme gdb ninja qt5ct \
+    ${PACMAN_INSTALL} ack bash-completion ccache clang faenza-icon-theme gdb ninja qt5ct \
         qtcreator42 ttf-ubuntu-font-family valgrind312 vim ninja
-
-RUN cd /usr/local/bin && \
-    ln -s $(which clang-format) clang-format-3.9
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
