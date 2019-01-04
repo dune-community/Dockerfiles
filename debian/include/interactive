@@ -23,7 +23,7 @@ RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL bash-completion ccache libc++1 libclang-${CLANG_VERSION}-dev \
         llvm-${CLANG_VERSION} clang-${CLANG_VERSION} \
         clang-format-${CLANG_VERSION} gdb ninja-build libstdc++6-${GCC_VERSION}-dbg\
-        ack git git-gui gitk time valgrind vim-nox wget build-essential cmake \
+        ack git time valgrind vim-nox wget build-essential cmake \
         less libnotify-bin openssh-server ruby ruby-dev APT_REDIRECT && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100 && \
     update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 100 && \
