@@ -1,5 +1,5 @@
 RUN cd /tmp && \
-    wget https://download.qt.io/official_releases/qtcreator/4.2/4.2.2/qt-creator-opensource-linux-x86_64-4.2.2.run && \
+    wget http://ftp.fau.de/qtproject/archive/qtcreator/4.2/4.2.2/qt-creator-opensource-linux-x86_64-4.2.2.run && \
     wget https://raw.githubusercontent.com/benlau/qtci/master/bin/extract-qt-installer && \
     chmod 755 extract-qt-installer && \
     ./extract-qt-installer qt-creator-opensource-linux-x86_64-4.2.2.run /usr/local/ && \
