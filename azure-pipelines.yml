@@ -8,7 +8,7 @@ jobs:
       stable:
         SUBDIR: 'debian_travis'
       unstable:
-        SUBDIR: 'unstable_travis'
+        SUBDIR: 'debian_unstable_travis'
       manylinux:
         SUBDIR: 'manylinux'
     maxParallel: 4
