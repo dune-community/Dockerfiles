@@ -14,7 +14,7 @@ ENV PYCHARM_VERSION=2019.1 \
 
 RUN APT_UPDATE APT_REDIRECT && \
     apt dist-upgrade -y && \
-    APT_INSTALL gnome-keyring libsecret-1-0 python3-setuptools cython3 wget openjdk-8-jdk \
+    APT_INSTALL gnome-keyring libsecret-1-0 python3-setuptools cython3 wget JDK \
         libxext6 libxrender1 libxtst6 libxi6 APT_REDIRECT && \
     apt-get remove -yq qtcreator && \
     mkdir -p /opt/clion && \

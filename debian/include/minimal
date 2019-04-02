@@ -1,3 +1,4 @@
 define(`CLANG_FORMAT', `clang-format-6.0')
 ifelse(DEBIANVERSION, `stretch', include(stretch-minimal), include(unstable-minimal))
 ifelse(DEBIANVERSION, `stretch', `define(`LIBCPP_DEV', `libc++-dev')', `define(`LIBCPP_DEV', `libc++-dev')')
+ifelse(DEBIANVERSION, `stretch', `define(`JDK', `openjdk-8-jdk')', `define(`JDK', `openjdk-11-jdk')')
