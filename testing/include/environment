@@ -14,7 +14,7 @@ ENV PATH=${SUPERDIR}/local/bin:$PATH \
     OPTS=config.opts/travis.ninja \
     GCOV=/usr/bin/gcov \
     SRC_DCTRL=${SUPERDIR}/dune-common/bin/dunecontrol \
-    BUILD_CMD="ninja -v -k 10000"
+    BUILD_CMD="ninja -v -j2 -k 10000"
 ENV INSTALL_DIR=${BASEDIR}/dune \
     CTEST_OUTPUT_ON_FAILURE=1 \
     DCTL_ARGS="--builddir=${DUNE_BUILD_DIR} "
