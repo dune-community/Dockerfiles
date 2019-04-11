@@ -51,9 +51,9 @@ RUN ${PACMAN_UPDATE} && \
     echo "LC_ALL=en_US.UTF-8" > /etc/locale.conf && \
     echo "LC_TIME=de_DE.UTF-8" > /etc/locale.conf
 
-# the bare minimum, (base-devel) is contained in the base/devel image
+# the bare minimum
 RUN ${PACMAN_UPDATE} && \
-    ${PACMAN_INSTALL} blas boost boost-libs git cmake python2 python python-pip \
+    ${PACMAN_INSTALL} base-devel make blas boost boost-libs git cmake python2 python python-pip \
     python2-pip python-setuptools python2-setuptools python2-virtualenv python-virtualenv \
     sudo suexec superlu unzip wget gcc-fortran
 include(dune_cli)
