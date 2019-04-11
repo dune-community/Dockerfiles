@@ -61,7 +61,8 @@ include(dune_cli)
 RUN cd /usr/local/bin && ln -s $(which su-exec) gosu && ln -s /usr/bin/vendor_perl/ack .
 
 # clean up, there might be some leftovers
-RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && pacman -Sc --noconfirm
+RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present"
+RUN pacman -Sc --noconfirm || echo "no cache to clear"
 
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
