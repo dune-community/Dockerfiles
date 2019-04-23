@@ -17,4 +17,5 @@ RUN ${PACMAN_UPDATE} && \
 include(labels)
 
 # clean up, there might be some leftovers
-RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && pacman -Sc --noconfirm
+RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present"
+RUN pacman -Sc --noconfirm || echo "no cache to clear"

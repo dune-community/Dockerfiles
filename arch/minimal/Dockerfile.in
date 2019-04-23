@@ -7,7 +7,7 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM base/devel
+FROM archlinux/base
 
 ENV PACMAN_INSTALL="pacman -S --noconfirm " \
     PACMAN_UPDATE="pacman -Syuu --noconfirm " \
@@ -20,11 +20,6 @@ RUN pacman -Sc --noconfirm && \
     ${PACMAN_INSTALL} reflector && \
     reflector --country 'Germany' --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && \
     ${PACMAN_UPDATE} && \
-    ${PACMAN_INSTALL} wget && \
-    cd /tmp && wget https://archive.archlinux.org/packages/g/gnupg/gnupg-2.1.16-2-x86_64.pkg.tar.xz && \
-    pacman -U --noconfirm gnupg-2.1.16-2-x86_64.pkg.tar.xz && \
-    sed -i 's/#IgnorePkg   =/IgnorePkg    = gnupg/g' /etc/pacman.conf && \
-    pacman -Rsc --noconfirm wget && \
     mkdir -p /root/.gnupg/dirmngr-cache.d && \
     chmod 700 /root/.gnupg && \
     touch /root/.gnupg/dirmngr_ldapservers.conf && \
@@ -46,7 +41,8 @@ RUN echo "" >> /etc/pacman.conf && \
     ${PACMAN_UPDATE}
 
 # locale is mainly required for the interactive session
-RUN ${PACMAN_INSTALL} glibc sed && \
+RUN ${PACMAN_UPDATE} && \
+    ${PACMAN_INSTALL} glibc sed && \
     echo "en_US.UTF-8 UTF-8" > /etc/locale.gen && \
     echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
     locale-gen && \
@@ -55,8 +51,9 @@ RUN ${PACMAN_INSTALL} glibc sed && \
     echo "LC_ALL=en_US.UTF-8" > /etc/locale.conf && \
     echo "LC_TIME=de_DE.UTF-8" > /etc/locale.conf
 
-# the bare minimum, (base-devel) is contained in the base/devel image
-RUN ${PACMAN_INSTALL} blas boost boost-libs git cmake python2 python python34 python-pip \
+# the bare minimum
+RUN ${PACMAN_UPDATE} && \
+    ${PACMAN_INSTALL} base-devel make blas boost boost-libs git cmake python2 python python-pip \
     python2-pip python-setuptools python2-setuptools python2-virtualenv python-virtualenv \
     sudo suexec superlu unzip wget gcc-fortran
 include(dune_cli)
@@ -64,7 +61,8 @@ include(dune_cli)
 RUN cd /usr/local/bin && ln -s $(which su-exec) gosu && ln -s /usr/bin/vendor_perl/ack .
 
 # clean up, there might be some leftovers
-RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present" && pacman -Sc --noconfirm
+RUN pacman -Rns --noconfirm $(pacman -Qtdq) || echo "no orphans present"
+RUN pacman -Sc --noconfirm || echo "no cache to clear"
 
 ADD entrypoint.sh /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
