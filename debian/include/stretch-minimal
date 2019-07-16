@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     GCC_VERSION=6 \
     DXT_DOCKER=1 \
     LANG=en_US.UTF-8 \
-    LC_CTYPE=en_US.UTF-8 
+    LC_CTYPE=en_US.UTF-8
 
 # we require stretch-backports for some packages (see below), but we only allow them in manual installs
 # the upgrade should thus be a noop
@@ -20,7 +20,7 @@ RUN APT_UPDATE APT_REDIRECT && \
     echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen && \
     APT_INSTALL locales APT_REDIRECT && \
     dpkg-reconfigure locales && \
-    echo 'APT::Default-Release "stable";' > /etc/apt/apt.conf.d/default-release && \
+    echo 'APT::Default-Release "stretch";' > /etc/apt/apt.conf.d/default-release && \
     echo "deb http://deb.debian.org/debian stretch-backports main contrib non-free" > /etc/apt/sources.list.d/stretch-backports.list && \
     echo "deb http://deb.debian.org/debian/ stretch contrib non-free" > /etc/apt/sources.list.d/stretch-nonfree.list && \
     APT_UPDATE APT_REDIRECT && \
