@@ -26,10 +26,10 @@ arch_%:
 
 push: push_arch push_debian push_gitlabci push_testing
 
-push_debian_travis:
-	make -C debian travis_push
-push_debian_unstable_travis:
-	make -C debian unstable_travis_push
+push_debian_ci:
+	make -C debian ci_push
+push_debian_unstable_ci:
+	make -C debian unstable_ci_push
 
 push_%: %
 	make -C $< push
