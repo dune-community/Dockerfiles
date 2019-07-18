@@ -18,12 +18,12 @@ $(UNSTABLES): NAME=debian-unstable
 $(UNSTABLES): unstable-% : %
 unstable: $(UNSTABLES)
 
-TRAVIS = minimal minimal-interactive full clion qtcreator
-travis: docs $(TRAVIS)
-unstable_travis: $(addprefix unstable-,$(TRAVIS))
+ci = minimal minimal-interactive full clion qtcreator
+ci: docs $(ci)
+unstable_ci: $(addprefix unstable-,$(ci))
 # 'wrong' order to not match implicit included rules
-travis_push: $(addprefix push_,$(TRAVIS))
-unstable_travis_push: $(addprefix push_,$(addprefix unstable-,$(TRAVIS)))
+ci_push: $(addprefix push_,$(ci))
+unstable_ci_push: $(addprefix push_,$(addprefix unstable-,$(ci)))
 
 
 .PHONY: $(REPONAMES) $(UNSTABLES)

@@ -6,9 +6,9 @@ jobs:
   strategy:
     matrix:
       stable:
-        SUBDIR: 'debian_travis'
+        SUBDIR: 'debian_ci'
       unstable:
-        SUBDIR: 'debian_unstable_travis'
+        SUBDIR: 'debian_unstable_ci'
       manylinux:
         SUBDIR: 'manylinux'
       arch:
