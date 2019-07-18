@@ -7,7 +7,7 @@
 #   Rene Milk (2017)
 
 NAME = debian
-DEBIANVERSION=stretch
+DEBIANVERSION=buster
 AUTHOR = rene.milk@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
@@ -18,7 +18,7 @@ $(UNSTABLES): NAME=debian-unstable
 $(UNSTABLES): unstable-% : %
 unstable: $(UNSTABLES)
 
-TRAVIS = minimal minimal-interactive full clion qtcreator 
+TRAVIS = minimal minimal-interactive full clion qtcreator
 travis: docs $(TRAVIS)
 unstable_travis: $(addprefix unstable-,$(TRAVIS))
 # 'wrong' order to not match implicit included rules

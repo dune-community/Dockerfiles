@@ -3,5 +3,5 @@ RUN APT_UPDATE && \
     APT_INSTALL git-gui gitk && \
     wget -q http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb APT_REDIRECT && \
-    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb 
-ifelse(DEBIANVERSION, `stretch', include(stretch-qtcreator), include(unstable-qtcreator))
+    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb
+ifelse(DEBIANVERSION, `buster', include(buster-qtcreator), include(unstable-qtcreator))
