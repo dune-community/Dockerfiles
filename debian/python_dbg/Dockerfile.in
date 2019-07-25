@@ -1,0 +1,17 @@
+# This file is part of the dune-community/Dockerfiles project:
+#   https://github.com/dune-community/Dockerfiles
+# Copyright 2017 dune-community/Dockerfiles developers and contributors. All rights reserved.
+# License: Dual licensed as BSD 2-Clause License (http://opensource.org/licenses/BSD-2-Clause)
+#      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
+# Authors:
+#   Rene Milk       (2017)
+
+include(full)
+include(interactive)
+include(clion)
+# extra packages for local py-wheel building due to dbg-interpreter
+RUN APT_INSTALL libice-dev libimagequant-dev libjbig-dev liblcms2-dev liblzma-dev libpng-dev \
+  libpthread-stubs0-dev libraqm-dev libraqm0 libsm-dev libtiff-dev libtiff5-dev libtiffxx5 libwebp-dev \
+  libxslt1-dev libxml2-dev \
+ && cd /usr/include ; ln -s libxml2/libxml
+include(labels)
