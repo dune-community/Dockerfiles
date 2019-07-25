@@ -10,7 +10,7 @@ include(global_macros)
 include(allinea)
 
 ENV PYCHARM_VERSION=2019.1.3 \
-    CLION_VERSION=2019.1.4
+    CLION_VERSION=2019.2
 
 RUN APT_UPDATE APT_REDIRECT && \
     apt dist-upgrade -y && \
