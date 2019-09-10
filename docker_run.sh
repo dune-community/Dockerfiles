@@ -27,7 +27,7 @@ PROJECT=${2}
 shift 2
 CID_FILE=${BASEDIR}/.${PROJECT}-${CONTAINER//\//_}.cid
 PORT="18$(( ( RANDOM % 10 ) ))$(( ( RANDOM % 10 ) ))$(( ( RANDOM % 10 ) ))"
-DOCKER_HOME=${BASEDIR}/docker-homes/${SYSTEM}
+DOCKER_HOME=${HOME}/.docker-homes/${SYSTEM}
 
 if [ -e ${CID_FILE} ]; then
 
