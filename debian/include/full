@@ -9,7 +9,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 # CLANG_FORMAT is defined as a commonly available version
 RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL doxygen LIBCPP_DEV clang-${CLANG_VERSION} CLANG_FORMAT \
-        libalberta-dev libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev \
+        libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev \
         libmumps-scotch-dev python-clang-${CLANG_VERSION} lcov curl clang-tidy-${CLANG_VERSION} \
         ninja-build libopenmpi-dev openmpi-common openmpi-bin libqhull-dev libtbb-dev libglu1-mesa libqt5x11extras5 \
         valgrind-mpi liblpsolve55-dev liblapacke-dev ssh numactl libtcmalloc-minimal4 google-perftools  APT_REDIRECT && \
