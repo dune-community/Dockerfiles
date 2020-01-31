@@ -68,7 +68,7 @@ RUN chmod +x /usr/local/bin/gosu
 # see http://label-schema.org/rc1/#build-time-labels
 LABEL org.label-schema.build-date=2018-11-20T08:52:42Z \
           org.label-schema.name=debian-full \
-          org.label-schema.maintainer=rene.milk@wwu.de \
+          org.label-schema.maintainer=rene.fritze@wwu.de \
           org.label-schema.description="Dev setup for dune modules" \
           org.label-schema.url="https://github.com/dune-community" \
           org.label-schema.vcs-ref=be8daf2-dirty \
