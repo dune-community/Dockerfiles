@@ -8,7 +8,7 @@
 
 NAME = debian
 DEBIANVERSION=buster
-AUTHOR = rene.milk@wwu.de
+AUTHOR = rene.fritze@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
 

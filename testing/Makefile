@@ -7,5 +7,5 @@
 #   Rene Milk (2017)
 
 NAME = testing
-AUTHOR = rene.milk@wwu.de
+AUTHOR = rene.fritze@wwu.de
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
