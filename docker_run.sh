@@ -67,10 +67,10 @@ else
     -v ${BASEDIR}/${PROJECT}:/home/${USER}/${PROJECT} \
     ${CONTAINER} "${@}"
 
+  rm -f ${CID_FILE}
+
   if [ -d $DOCKER_HOME/${PROJECT} ]; then
     [ "$(ls -A $DOCKER_HOME/${PROJECT})" ] || rmdir $DOCKER_HOME/${PROJECT}
   fi
-
-  rm -f ${CID_FILE}
 
 fi
