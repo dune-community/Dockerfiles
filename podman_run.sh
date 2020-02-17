@@ -31,31 +31,31 @@ DOCKER_HOME=${HOME}/.docker-homes/${SYSTEM}
 
 if [ -e ${CID_FILE} ]; then
 
-  echo "A docker container for"
+  echo "A podman container for"
   echo "  ${PROJECT}"
   echo "  based on ${CONTAINER}"
   echo "is already running. Execute the following command to connect to it"
-  echo "(docker_exec.sh is provided alongside this file):"
-  echo "  docker_exec.sh ${CONTAINER} ${PROJECT} ${@}"
+  echo "(podman_exec.sh is provided alongside this file):"
+  echo "  podman_exec.sh ${CONTAINER} ${PROJECT} ${@}"
+  echo "If you are 100% sure the container is dead (check with podman ps), you may delete it:"
+  echo "  rm ${CID_FILE}"
 
 else
 
-  if systemctl status docker | grep running &> /dev/null; then
-    echo -n "Starting "
+  if command -v podman &> /dev/null; then
+    echo "Starting a podman container"
   else
-    echo -n "Starting docker "
-    sudo systemctl start docker
-    echo -n "and "
+    echo "MISSING podman!"
+    exit 1
   fi
 
-  echo "a docker container"
   echo "  for ${PROJECT}"
   echo "  based on ${CONTAINER}"
   echo "  on port $PORT"
 
   mkdir -p ${DOCKER_HOME} &> /dev/null
 
-  sudo docker run --rm=true --privileged=true -t -i --hostname docker --cidfile=${CID_FILE} \
+  podman run --rm=true --privileged=true -t -i --hostname $HOSTNAME --cidfile=${CID_FILE} \
     -e LOCAL_USER=$USER -e LOCAL_UID=$(id -u) -e LOCAL_GID=$(id -g) \
     -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e QT_X11_NO_MITSHM=1 \
