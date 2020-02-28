@@ -6,7 +6,7 @@
 # Authors:
 #   Rene Milk (2017)
 
-FROM dunecommunity/arch-full
+FROM dunecommunity/arch-full:GITREV
 
 include(environment)
 

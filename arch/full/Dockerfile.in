@@ -7,7 +7,7 @@
 #   Rene Milk       (2017)
 #   Felix Schindler (2017)
 
-FROM dunecommunity/arch-minimal
+FROM dunecommunity/arch-minimal:GITREV
 
 ENV DXT_ENVIRONMENT arch-full
 
