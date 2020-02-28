@@ -6,7 +6,7 @@
 # Authors:
 #   Rene Milk (2017)
 
-FROM dunecommunity/debian-full
+FROM dunecommunity/debian-full:GITREV
 
 include(environment)
 

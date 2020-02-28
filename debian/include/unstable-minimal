@@ -1,6 +1,6 @@
 include(global_macros)
 
-FROM debian:unstable
+FROM debian:unstable-DEBIANBASEDATE
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal \
@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
     GCC_VERSION=8 \
     DXT_DOCKER=1 \
     LANG=en_US.UTF-8 \
-    LC_CTYPE=en_US.UTF-8 
+    LC_CTYPE=en_US.UTF-8
 
 # locale is mainly required for the interactive session
 RUN APT_UPDATE APT_REDIRECT && \

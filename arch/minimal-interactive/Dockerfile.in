@@ -7,7 +7,7 @@
 #   Felix Schindler (2017)
 #   Rene Milk       (2017)
 
-FROM dunecommunity/arch-minimal
+FROM dunecommunity/arch-minimal:GITREV
 
 include(interactive)
 include(labels)

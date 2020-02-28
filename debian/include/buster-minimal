@@ -1,7 +1,7 @@
 include(global_macros)
 
 # aka debian:10 (released Juli '19)
-FROM debian:buster
+FROM debian:buster-DEBIANBASEDATE
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal \
