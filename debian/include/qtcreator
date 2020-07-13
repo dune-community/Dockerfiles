@@ -1,6 +1,6 @@
 RUN APT_UPDATE && \
     apt-get dist-upgrade -qqy --no-install-recommends APT_REDIRECT && \
-    APT_INSTALL git-gui gitk && \
+    APT_INSTALL git-gui gitk paraview && \
     wget -q http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
     dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb APT_REDIRECT && \
     rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb
