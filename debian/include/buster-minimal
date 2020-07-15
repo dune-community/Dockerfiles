@@ -5,7 +5,7 @@ FROM debian:buster-DEBIANBASEDATE
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal \
-    CLANG_VERSION=7 \
+    CLANG_VERSION=8 \
     GCC_VERSION=8 \
     CLANG_PYTHON_PACKAGE=python-clang \
     DXT_DOCKER=1 \
