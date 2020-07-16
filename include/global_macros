@@ -1,3 +1,3 @@
-define(`APT_REDIRECT', `')
-define(`APT_INSTALL', `apt-get install -y --no-install-recommends')
-define(`APT_UPDATE', `apt-get update')
+define(`APT_REDIRECT', `1> /dev/null')
+define(`APT_INSTALL', `apt-get install -q=100 -y --no-install-recommends')
+define(`APT_UPDATE', `apt-get update -qq')
