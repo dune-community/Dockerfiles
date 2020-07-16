@@ -11,7 +11,7 @@
 
 RUN ${PACMAN_UPDATE} && \
     ${PACMAN_INSTALL} ack bash-completion ccache clang faenza-icon-theme gdb ninja qt5ct \
-        qtcreator42 ttf-ubuntu-font-family vim ninja xterm
+        qtcreator ttf-ubuntu-font-family vim ninja xterm paraview zenity
 
 RUN mkdir -p /home/user/.ccache && \
     echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \

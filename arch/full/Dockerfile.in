@@ -12,7 +12,7 @@ FROM dunecommunity/arch-minimal:GITREV
 ENV DXT_ENVIRONMENT arch-full
 
 RUN ${PACMAN_UPDATE} && \
-    ${PACMAN_INSTALL} eigen gcc-fortran lapacke intel-tbb openmpi
+    ${PACMAN_INSTALL} eigen gcc-fortran lapacke intel-tbb openmpi mumps
 
 include(labels)
 
