@@ -14,10 +14,10 @@ ENV PACMAN_INSTALL="pacman -S --noconfirm " \
     DXT_ENVIRONMENT=arch-minimal \
     DXT_DOCKER=1
 
-# init and update
+# init and update (awk is used somewhere in the key refresh)
 RUN pacman -Sc --noconfirm && \
     ${PACMAN_UPDATE} && \
-    ${PACMAN_INSTALL} reflector && \
+    ${PACMAN_INSTALL} gawk reflector && \
     reflector --country 'Germany' --age 12 --protocol https --sort rate --save /etc/pacman.d/mirrorlist && \
     ${PACMAN_UPDATE} && \
     mkdir -p /root/.gnupg/dirmngr-cache.d && \
