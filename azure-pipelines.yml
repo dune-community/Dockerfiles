@@ -11,8 +11,8 @@ jobs:
         SUBDIR: 'debian_unstable_ci'
       manylinux:
         SUBDIR: 'manylinux'
-      arch:
-        SUBDIR: 'arch'
+        #arch:
+        #SUBDIR: 'arch'
     maxParallel: 4
 
   steps:
