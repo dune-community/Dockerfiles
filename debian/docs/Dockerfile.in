@@ -16,7 +16,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL \
-        doxygen texlive-latex-base python3-sphinx python-sphinx \
+        doxygen texlive-latex-base python3-sphinx \
         inkscape texlive-latex-extra APT_REDIRECT && \
     apt-get autoremove -y APT_REDIRECT && \
     apt-get clean && \
