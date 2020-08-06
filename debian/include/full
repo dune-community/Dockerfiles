@@ -36,5 +36,5 @@ RUN APT_UPDATE APT_REDIRECT && \
       cmake /tmp/tbb -DTBB_BUILD_PYTHON=ON -DTBB_NO_DATE=ON -DCMAKE_INSTALL_PREFIX=/usr/local && \
       make && \
       make install && \
-      rm -rf /tmp/tbb*
+      rm -rf /tmp/*
 ADD openmpi-mca-params.conf /etc/openmpi/
