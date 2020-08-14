@@ -10,6 +10,6 @@ minimal-interactive: minimal
 full-interactive: minimal-interactive
 
 NAME = manylinux
-AUTHOR = felix.schindler@wwu.de
+AUTHOR = rene.fritze@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
