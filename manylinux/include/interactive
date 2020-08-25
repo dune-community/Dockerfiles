@@ -1,7 +1,0 @@
-RUN yum -y install bash-completion ccache devtoolset-7-gdb vim-enhanced wget
-
-RUN mkdir -p /home/user/.ccache && \
-    echo "max_size = 5.0G" > /home/user/.ccache/ccache.conf && \
-    cd /usr/local/bin && \
-    for ii in g++ gcc ; do ln -s $(which ccache) $ii; done && \
-    yum clean all
