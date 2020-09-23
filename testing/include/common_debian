@@ -1,15 +1,15 @@
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
             python3-pip python3-requests openssh-client \
-            python3-setuptools wget unzip curl lcov \
+            python3-setuptools wget unzip curl lcov ccache \
             rsync doxygen texlive-latex-base doxygen-latex && \
     groupadd -r dune-ci && \
     useradd --no-log-init -r -g dune-ci dune-ci -d ${BASEDIR} -m && \
-    chown -R dune-ci:dune-ci ${BASEDIR} 
+    chown -R dune-ci:dune-ci ${BASEDIR}
 
 USER dune-ci
 RUN mkdir -p ~/.ssh/ && ssh-keyscan -H github.com >> ~/.ssh/known_hosts && \
     git config --global push.default simple
-    
+
 ADD entrypoint.bash /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/entrypoint.bash"]
