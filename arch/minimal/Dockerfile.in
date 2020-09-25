@@ -49,7 +49,7 @@ RUN ${PACMAN_UPDATE} && \
 
 # the bare minimum
 RUN ${PACMAN_UPDATE} && \
-    ${PACMAN_INSTALL} base-devel make blas boost boost-libs git cmake python2 python python-pip \
+    yes | pacman -S base-devel make blas boost boost-libs clang8 git cmake python2 python python-pip \
     python2-pip python-setuptools python2-setuptools python2-virtualenv python-virtualenv \
     sudo suexec superlu unzip wget gcc-fortran
 include(dune_cli)
