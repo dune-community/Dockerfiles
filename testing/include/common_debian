@@ -1,7 +1,7 @@
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
             python3-pip python3-requests openssh-client \
-            python3-setuptools wget unzip curl lcov ccache \
+            python3-setuptools wget unzip curl lcov ccache llvm-${CLANG_VERSION} \
             rsync doxygen texlive-latex-base doxygen-latex && \
     groupadd -r dune-ci && \
     useradd --no-log-init -r -g dune-ci dune-ci -d ${BASEDIR} -m && \
