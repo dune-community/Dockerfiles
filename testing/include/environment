@@ -14,6 +14,7 @@ ENV PATH=${SUPERDIR}/local/bin:$PATH \
     CCACHE_BASEDIR="$HOME" \
     CCACHE_DIR="$HOME/.ccache" \
     CCACHE_COMPILERCHECK=content \
+    CCACHE_COMPRESS="true" \
     OPTS=config.opts/travis.ninja \
     GCOV=/usr/bin/gcov \
     SRC_DCTRL=${SUPERDIR}/dune-common/bin/dunecontrol \
