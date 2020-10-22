@@ -1,0 +1,3 @@
+
+ADD docker_ps1 /tmp
+RUN cat /tmp/docker_ps1 >> /etc/bash.bashrc && rm /tmp/docker_ps1
