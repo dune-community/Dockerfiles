@@ -2,3 +2,13 @@ define(`CLANG_TOOLING_VERSION', `8')
 ifelse(DEBIANVERSION, `buster', include(buster-minimal), include(unstable-minimal))
 ifelse(DEBIANVERSION, `buster', `define(`LIBCPP_DEV', `libc++-dev')', `define(`LIBCPP_DEV', `libc++-dev')')
 ifelse(DEBIANVERSION, `buster', `define(`JDK', `openjdk-11-jdk')', `define(`JDK', `openjdk-11-jdk')')
+
+# ASAN docs: https://github.com/google/sanitizers/wiki/AddressSanitizerFlags
+ENV DEBIAN_FRONTEND=noninteractive \
+    DXT_LIBCLANG_SO=/usr/lib/llvm-${CLANG_VERSION}/lib/libclang.so.1 \
+    ASAN_SYMBOLIZER_PATH=/usr/bin/asan_symbolize-${CLANG_VERSION} \
+    ASAN_OPTIONS=check_initialization_order=1:detect_leaks=0:abort_on_error=1 \
+    CCACHE_BASEDIR="$HOME" \
+    CCACHE_DIR="$HOME/.ccache" \
+    CCACHE_COMPILERCHECK=content \
+    CCACHE_COMPRESS=true
