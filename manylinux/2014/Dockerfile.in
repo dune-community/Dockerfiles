@@ -6,52 +6,31 @@ ENV MPICC=/usr/lib64/openmpi/bin/mpicc \
     PYTHON_VERSION=3.7 \
     WHEEL_DIR=/io/wheelhouse \
     PLATFORM=manylinux2014_x86_64
-
+COPY pybin.sh /etc/profile.d/
 RUN yum install -y atlas-devel openmpi-devel  \
         fltk freeglut libpng libjpeg \
         tk tcl xorg-x11-server-Xvfb xauth \
         boost169 boost169-openmpi-devel cmake3 eigen3-devel superlu_dist-openmpi-devel \
-        tbb-devel openblas-openmp64 cmake3-gui vim
-RUN ln -s /usr/bin/cmake3 /usr/local/bin/cmake && \
-    echo "alias ls='ls -h --color=auto';\
-          alias ll='ls -lh'" > /etc/profile.d/99-docker.sh
+        tbb-devel openblas-openmp64 cmake3-gui vim && \
+    ln -s /usr/bin/cmake3 /usr/local/bin/cmake
 
-COPY pybin.sh /etc/profile.d/
+include(ps1)
+include(dune_cli)
 
-ENV DUNE_GDT_VERSION=master \
-  DUNE_SRC_DIR=/src \
-  DUNE_BUILD_DIR=/src/build
-
-RUN git clone https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/dune-gdt-super ${DUNE_SRC_DIR} && \
-    cd ${DUNE_SRC_DIR} && \
-    git checkout ${DUNE_GDT_VERSION} && \
-    git rm -rf dune-uggrid dune-testtools && \
-    cd ${DUNE_SRC_DIR}  && \
-    git submodule update --init --recursive && \
-        cd dune-gdt && git fetch ; git checkout fix_pyinstall
-
-COPY config.opts ${DUNE_SRC_DIR}
-RUN source /etc/profile.d/pybin.sh && \
+RUN echo "alias ls='ls -h --color=auto';\
+          source /etc/profile.d/pybin.sh;\
+          source /etc/bash.bashrc;\
+          alias ll='ls -lh'" >> /etc/profile.d/dxt.sh && \
+    echo "source  /etc/profile.d/dxt.sh" >> /etc/bashrc && \
+    echo "source  /etc/profile.d/dxt.sh" >> /etc/profile && \
   alternatives --install /usr/bin/python python /opt/python/cp37-cp37m/bin/python 100 && \
   alternatives --install /usr/bin/python3 python3 /opt/python/cp37-cp37m/bin/python 100
-RUN source /etc/profile.d/pybin.sh && cd ${DUNE_SRC_DIR}  && \
-    ./dune-common/bin/dunecontrol --opts=${DUNE_SRC_DIR}/config.opts configure
-RUN source /etc/profile.d/pybin.sh && cd ${DUNE_SRC_DIR}  && \
-        ./dune-common/bin/dunecontrol --opts=${DUNE_SRC_DIR}/config.opts all
-# RUN cd ${DUNE_SRC_DIR}  && (for md in xt gdt xt-data ; do \
-#   ./dune-common/bin/dunecontrol --only=dune-${md} --opts=${DUNE_SRC_DIR}/config.opts make bindings ; done)
-# RUN cd ${DUNE_SRC_DIR}  && (for md in xt gdt xt-data ; do \
-#     ./dune-common/bin/dunecontrol --only=dune-${md} --opts=${DUNE_SRC_DIR}/config.opts make install; done)
-#RUN cd ${DUNE_SRC_DIR}  && ./dune-common/bin/dunecontrol --opts=${DUNE_SRC_DIR}/config.opts make install
-#
-# # RUN
-# #   rm -f ${WHEEL_DIR}/slycot* && \
-# #   ${PYBIN}/pip install --no-cache ${WHEEL_DIR}/numpy* ${WHEEL_DIR}/scipy* && \
-# #   ${PYBIN}/pip install --no-cache ${WHEEL_DIR}/*
-#
-# COPY entrypoint.sh /usr/local/bin/
-# COPY build-wheels.sh /usr/local/bin/
-# COPY gosu-amd64 /usr/local/bin/gosu
 
-# ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
-# CMD ["/usr/local/bin/build-wheels.sh"]
+COPY entrypoint.sh /usr/local/bin/
+COPY gosu-amd64 /usr/local/bin/gosu
+COPY build-wheels.sh /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/*
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["/usr/local/bin/build-wheels.sh"]
+VOLUME ["/home/dxt/src"]
