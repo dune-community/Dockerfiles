@@ -1,5 +1,5 @@
 TYPE=Release
-CXXFLAGS="-Os -w -DDNDEBUG -DNDEBUG -std=c++14 -fPIC -fno-strict-aliasing"
+CXXFLAGS="-Os -w -DDNDEBUG -DNDEBUG -std=c++17 -fPIC -fno-strict-aliasing"
 CXX=g++
 CC=gcc
 F77=gfortran

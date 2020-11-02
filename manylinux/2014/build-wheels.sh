@@ -1,5 +1,5 @@
 #!/bin/bash -l
-set -ex
+set -exu
 
 cd ${DUNE_SRC_DIR}
 rm -rf dune-uggrid dune-testtools
