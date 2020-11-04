@@ -11,7 +11,7 @@ RUN yum install -y atlas-devel openmpi-devel  \
         fltk freeglut libpng libjpeg \
         tk tcl xorg-x11-server-Xvfb xauth \
         boost169 boost169-openmpi-devel cmake3 eigen3-devel superlu_dist-openmpi-devel \
-        tbb-devel openblas-openmp64 cmake3-gui vim && \
+        tbb-devel openblas-openmp64 cmake3-gui vim ccache && \
     ln -s /usr/bin/cmake3 /usr/local/bin/cmake
 
 include(ps1)
