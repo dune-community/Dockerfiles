@@ -2,30 +2,32 @@
 set -exu
 
 cd ${DUNE_SRC_DIR}
+
+# why was this here again?
 rm -rf dune-uggrid dune-testtools
 
 OPTS=${DUNE_SRC_DIR}/config.opts/manylinux
 
-source /etc/profile.d/pybin.sh
+# sets Python path, etc.
+source /usr/local/bin/pybin.sh
+
 cd ${DUNE_SRC_DIR}
 ./dune-common/bin/dunecontrol --opts=${OPTS} all
-for md in xt gdt xt-data ; do
-  ./dune-common/bin/dunecontrol --only=dune-${md} --opts=${OPTS} make bindings
+
+for md in xt gdt ; do
+  [[ -d dune-${md} ]] && \
+    ./dune-common/bin/dunecontrol --only=dune-${md} --opts=${OPTS} make -j $(nproc --ignore 1) bindings
 done
 
-# do not build from dirty git unless DIRTY_BUILD evaluates to true
-pushd /io/dxt
-if [[ $(git rev-parse --show-toplevel 2>/dev/null) = "$PWD" ]] ; then
-    [[ ${DIRTY_BUILD} ]] || git diff --exit-code ':(exclude)setup.cfg'
-fi
-popd
+mkdir ${WHEEL_DIR}/{tmp,final} -p || true
 
 # Compile wheels
-for md in xt gdt xt-data ; do
-  ./dune-common/bin/dunecontrol --only=dune-${md} --opts=${OPTS} bexec pip wheel python -w ${WHEEL_DIR}/
+for md in xt gdt ; do
+  [[ -d dune-${md} ]] && \
+    python -m pip wheel ${DUNE_BUILD_DIR}/dune-${md}/python -w ${WHEEL_DIR}/tmp
 done
 
 # Bundle external shared libraries into the wheels
-for whl in ${WHEEL_DIR}/dune*.whl; do
-    auditwheel repair --plat ${PLATFORM} $whl -w ${WHEEL_DIR}/
+for whl in ${WHEEL_DIR}/tmp/dune*.whl; do
+    python -m auditwheel repair --plat ${PLATFORM} $whl -w ${WHEEL_DIR}/final
 done

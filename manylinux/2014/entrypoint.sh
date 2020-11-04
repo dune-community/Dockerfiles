@@ -8,5 +8,5 @@ echo "Starting with UID : $USER_ID"
 groupadd -g ${GROUP_ID} -o ${USER}
 useradd  --shell /bin/bash -u $USER_ID -g ${GROUP_ID} -o  -m ${USER}
 export HOME=/home/${USER}
-
+export CCACHE_DIR=/home/dxt/src/local/ccache
 exec gosu ${USER} "$@"
