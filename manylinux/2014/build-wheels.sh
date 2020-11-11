@@ -10,6 +10,7 @@ OPTS=${DUNE_SRC_DIR}/config.opts/manylinux
 
 # sets Python path, etc.
 source /usr/local/bin/pybin.sh
+export CCACHE_DIR=${WHEEL_DIR}/../cache
 
 cd ${DUNE_SRC_DIR}
 ./dune-common/bin/dunecontrol --opts=${OPTS} all
