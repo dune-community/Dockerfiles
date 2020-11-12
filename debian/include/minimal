@@ -1,4 +1,3 @@
-define(`CLANG_TOOLING_VERSION', `8')
 ifelse(DEBIANVERSION, `buster', include(buster-minimal), include(unstable-minimal))
 ifelse(DEBIANVERSION, `buster', `define(`LIBCPP_DEV', `libc++-dev')', `define(`LIBCPP_DEV', `libc++-dev')')
 ifelse(DEBIANVERSION, `buster', `define(`JDK', `openjdk-11-jdk')', `define(`JDK', `openjdk-11-jdk')')

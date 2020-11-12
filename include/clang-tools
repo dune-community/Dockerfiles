@@ -1,0 +1,7 @@
+ENV CLANG_TOOLING_VERSION=8
+RUN \
+    wget -O /usr/local/bin/clang-tidy-${CLANG_TOOLING_VERSION} \
+      https://github.com/muttleyxd/clang-tools-static-binaries/releases/download/master-22538c65/clang-tidy-${CLANG_TOOLING_VERSION}_linux-amd64 && \
+    wget -O /usr/local/bin/clang-format-${CLANG_TOOLING_VERSION} \
+      https://github.com/muttleyxd/clang-tools-static-binaries/releases/download/master-22538c65/clang-format-${CLANG_TOOLING_VERSION}_linux-amd64 && \
+    chmod +x /usr/local/bin/clang-*
