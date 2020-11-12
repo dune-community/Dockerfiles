@@ -11,7 +11,6 @@ RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL doxygen LIBCPP_DEV clang-${CLANG_VERSION} \
         libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev \
         libmumps-scotch-dev ${CLANG_PYTHON_PACKAGE}-${CLANG_VERSION} lcov curl \
-        clang-tidy-${CLANG_VERSION} clang-tidy-CLANG_TOOLING_VERSION clang-format-CLANG_TOOLING_VERSION iwyu \
         ninja-build libopenmpi-dev openmpi-common openmpi-bin libglu1-mesa libqt5x11extras5 \
         valgrind-mpi liblpsolve55-dev liblapacke-dev ssh numactl libtcmalloc-minimal4 google-perftools  APT_REDIRECT && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100 && \
@@ -36,5 +35,7 @@ RUN APT_UPDATE APT_REDIRECT && \
       cmake /tmp/tbb -DTBB_BUILD_PYTHON=ON -DTBB_NO_DATE=ON -DCMAKE_INSTALL_PREFIX=/usr/local && \
       make && \
       make install && \
-      rm -rf /tmp/*
+      rm -rf /tmp/* 
+
 ADD openmpi-mca-params.conf /etc/openmpi/
+include(clang-tools)
