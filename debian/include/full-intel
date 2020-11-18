@@ -1,0 +1,108 @@
+include(global_macros)
+include(minimal)
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    DXT_LIBCLANG_SO=/usr/lib/llvm-${CLANG_VERSION}/lib/libclang.so.1 \
+    DXT_ENVIRONMENT=debian-full
+
+# Set Intel-specific environment variables.
+# These were obtained by running
+#   printenv > pre
+#   source /opt/intel/oneapi/setvars.sh -i_mpi_library_kind=release
+#   printenv > post
+#   diff pre post
+# and replacing all explicit versions (e.g. 2021.1-beta09) by 'latest'.
+ENV TBBROOT=/opt/intel/oneapi/tbb/latest/ \
+    CLCK_ROOT=/opt/intel/oneapi/clck/latest \
+    DAALROOT=/opt/intel/oneapi/daal/latest \
+    ADVISOR_2021_DIR=/opt/intel/oneapi/advisor/latest \
+    DPCT_BUNDLE_ROOT=/opt/intel/oneapi/dpcpp-ct/latest \
+    ONEAPI_ROOT=/opt/intel/oneapi \
+    INSPECTOR_2021_DIR=/opt/intel/oneapi/inspector/latest \
+    CONDA_EXE=/opt/intel/oneapi/intelpython/latest/bin/conda \
+    PKG_CONFIG_PATH=/opt/intel/oneapi/inspector/latest/include/pkgconfig/lib64:/opt/intel/oneapi/advisor/latest/include/pkgconfig/lib64:/opt/intel/oneapi/mkl/latest/tools/pkgconfig:/opt/intel/oneapi/vtune/latest/include/pkgconfig/lib64: \
+    VPL_ROOT=/opt/intel/oneapi/vpl/latest \
+    VT_MPI=impi4 \
+    CCL_ATL_TRANSPORT_PATH=/opt/intel/oneapi/ccl/latest/lib/cpu_gpu_dpcpp \
+    CCL_ROOT=/opt/intel/oneapi/ccl/latest \
+    VT_ADD_LIBS='-ldwarf -lelf -lvtunwind -lm -lpthread' \
+    I_MPI_ROOT=/opt/intel/oneapi/mpi/latest \
+    FI_PROVIDER_PATH=/opt/intel/oneapi/mpi/latest//libfabric/lib/prov \
+    DNNLROOT=/opt/intel/oneapi/dnnl/latest/cpu_dpcpp_gpu_dpcpp \
+    CCL_CONFIGURATION=cpu_gpu_dpcpp \
+    CONDA_PREFIX=/opt/intel/oneapi/intelpython/latest \
+    MANPATH=:/opt/intel/oneapi/clck/latest/man:/opt/intel/oneapi/itac/latest/man:/opt/intel/oneapi/debugger/latest/documentation/man::/opt/intel/oneapi/compiler/latest/documentation/en/man/common:::: \
+    VPL_INCLUDE=/opt/intel/oneapi/vpl/latest/include \
+    VPL_LIB=/opt/intel/oneapi/vpl/latest/lib \
+    SETVARS_COMPLETED=1 \
+    CONDA_PROMPT_MODIFIER=(base) \
+    APM=/opt/intel/oneapi/advisor/latest/perfmodels \
+    INFOPATH=/opt/intel/oneapi/debugger/latest/documentation/info/ \
+    VTUNE_PROFILER_2021_DIR=/opt/intel/oneapi/vtune/latest \
+    IPPROOT=/opt/intel/oneapi/ipp/latest \
+    IPP_TARGET_ARCH=intel64 \
+    PYTHONPATH=/opt/intel/oneapi/advisor/latest/pythonapi \
+    CPLUS_INCLUDE_PATH=/opt/intel/oneapi/clck/latest/include \
+    VT_ROOT=/opt/intel/oneapi/itac/latest \
+    LIBRARY_PATH=/opt/intel/oneapi/dnnl/latest/cpu_dpcpp_gpu_dpcpp/lib:/opt/intel/oneapi/ippcp/latest/lib/intel64:/opt/intel/oneapi/daal/latest/lib/intel64:/opt/intel/oneapi/mpi/latest//libfabric/lib:/opt/intel/oneapi/mpi/latest//lib/release:/opt/intel/oneapi/mpi/latest//lib:/opt/intel/oneapi/clck/latest/lib/intel64:/opt/intel/oneapi/mkl/latest/lib/intel64:/opt/intel/oneapi/vpl/latest/lib:/opt/intel/oneapi/ipp/latest/lib/intel64:/opt/intel/oneapi/tbb/latest/lib/intel64/gcc4.8:/opt/intel/oneapi/ccl/latest/lib/cpu_gpu_dpcpp:/opt/intel/oneapi/compiler/latest/linux/lib \
+    CONDA_SHLVL=1 \
+    IPPCRYPTOROOT=/opt/intel/oneapi/ippcp/latest \
+    IPPCP_TARGET_ARCH=intel64 \
+    OCL_ICD_FILENAMES=/opt/intel/oneapi/compiler/latest/linux/lib/x64/libintelocl.so \
+    CLASSPATH=/opt/intel/oneapi/daal/latest/lib/onedal.jar:/opt/intel/oneapi/mpi/latest//lib/mpi.jar \
+    CONDA_PYTHON_EXE=/opt/intel/oneapi/intelpython/latest/bin/python \
+    LD_LIBRARY_PATH=/opt/intel/oneapi/dnnl/latest/cpu_dpcpp_gpu_dpcpp/lib:/opt/intel/oneapi/ippcp/latest/lib/intel64:/opt/intel/oneapi/daal/latest/lib/intel64:/opt/intel/oneapi/mpi/latest//libfabric/lib:/opt/intel/oneapi/mpi/latest//lib/release:/opt/intel/oneapi/mpi/latest//lib:/opt/intel/oneapi/mpi/latest//lib/release:/opt/intel/oneapi/mpi/latest//lib:/opt/intel/oneapi/itac/latest/slib:/opt/intel/oneapi/mkl/latest/lib/intel64:/opt/intel/oneapi/vpl/latest/lib:/opt/intel/oneapi/ipp/latest/lib/intel64:/opt/intel/oneapi/debugger/latest/dep/lib:/opt/intel/oneapi/debugger/latest/libipt/intel64/lib:/opt/intel/oneapi/debugger/latest/gdb/intel64/lib:/opt/intel/oneapi/tbb/latest/lib/intel64/gcc4.8:/opt/intel/oneapi/ccl/latest/lib/cpu_gpu_dpcpp:/opt/intel/oneapi/compiler/latest/linux/lib:/opt/intel/oneapi/compiler/latest/linux/lib/x64:/opt/intel/oneapi/compiler/latest/linux/lib/emu:/opt/intel/oneapi/compiler/latest/linux/compiler/lib/intel64_lin:/opt/intel/oneapi/compiler/latest/linux/compiler/lib \
+    VT_LIB_DIR=/opt/intel/oneapi/itac/latest/lib \
+    PS1=${debian_chroot:+($debian_chroot)}\u@\h:\w\$ \
+    VT_SLIB_DIR=/opt/intel/oneapi/itac/latest/slib \
+    CONDA_DEFAULT_ENV=base \
+    MKLROOT=/opt/intel/oneapi/mkl/latest \
+    NLSPATH=/opt/intel/oneapi/mkl/latest/lib/intel64/locale/%l_%t/%N \
+    PATH=/opt/intel/oneapi/inspector/latest/bin64:/opt/intel/oneapi/dev-utilities/latest/bin:/opt/intel/oneapi/mpi/latest//libfabric/bin:/opt/intel/oneapi/mpi/latest//bin:/opt/intel/oneapi/clck/latest/bin/intel64:/opt/intel/oneapi/itac/latest/bin:/opt/intel/oneapi/itac/latest/bin:/opt/intel/oneapi/advisor/latest/bin64:/opt/intel/oneapi/mkl/latest/bin/intel64:/opt/intel/oneapi/vpl/latest/bin:/opt/intel/oneapi/dpcpp-ct/latest/bin:/opt/intel/oneapi/vtune/latest/bin64:/opt/intel/oneapi/intelpython/latest/bin:/opt/intel/oneapi/intelpython/latest/condabin:/opt/intel/oneapi/debugger/latest/gdb/intel64/bin:/opt/intel/oneapi/compiler/latest/linux/bin/intel64:/opt/intel/oneapi/compiler/latest/linux/bin:/opt/intel/oneapi/compiler/latest/linux/ioc/bin:${PATH} \
+    INTEL_PYTHONHOME=/opt/intel/oneapi/debugger/latest/dep \
+    INTEL_LICENSE_FILE=/opt/intel/licenses:/opt/intel/oneapi/clck/latest/licensing:/opt/intel/licenses \
+    CPATH=/opt/intel/oneapi/dnnl/latest/cpu_dpcpp_gpu_dpcpp/include:/opt/intel/oneapi/ippcp/latest/include:/opt/intel/oneapi/daal/latest/include:/opt/intel/oneapi/dev-utilities/latest/include:/opt/intel/oneapi/mpi/latest//include:/opt/intel/oneapi/mkl/latest/include:/opt/intel/oneapi/vpl/latest/include:/opt/intel/oneapi/dpcpp-ct/latest/include:/opt/intel/oneapi/ipp/latest/include:/opt/intel/oneapi/tbb/latest/include:/opt/intel/oneapi/ccl/latest/include/cpu_gpu_dpcpp:/opt/intel/oneapi/compiler/latest/linux/include \
+    VPL_BIN=/opt/intel/oneapi/vpl/latest/bin \
+    _=/usr/bin/printenv
+
+# This is copied from 'full' except that open-mpi packages were removed and some packages that use MPI
+RUN APT_UPDATE APT_REDIRECT && \
+    APT_INSTALL doxygen LIBCPP_DEV clang-${CLANG_VERSION} \
+        ${CLANG_PYTHON_PACKAGE}-${CLANG_VERSION} lcov curl \
+        ninja-build libglu1-mesa libqt5x11extras5 vim \
+        liblapacke-dev ssh numactl libtcmalloc-minimal4 google-perftools  APT_REDIRECT
+
+# install Intel toolkits
+RUN APT_UPDATE APT_REDIRECT && \
+APT_INSTALL gnupg2 APT_REDIRECT&& \
+  wget -O- https://apt.repos.intel.com/intel-gpg-keys/GPG-PUB-KEY-INTEL-SW-PRODUCTS-2023.PUB | apt-key add - && \
+  echo "deb https://apt.repos.intel.com/oneapi all main" > /etc/apt/sources.list.d/oneAPI.list && \
+  APT_UPDATE
+RUN  apt install -y intel-basekit intel-hpckit
+
+# now that Intel MPI is available, install packages that require MPI
+RUN APT_INSTALL libeigen3-dev libsuitesparse-dev \
+                libmumps-scotch-dev \
+                valgrind-mpi liblpsolve55-dev
+
+# Also copied from 'full', except that the TBB installation has been removed (TBB is already contained in the Intel toolkit)
+RUN APT_UPDATE APT_REDIRECT && \
+    update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100 && \
+    update-alternatives --install /usr/bin/clang clang /usr/bin/clang-${CLANG_VERSION} 100 && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    wget https://codecov.io/bash -O /usr/local/bin/codecov && \
+    chmod +x /usr/local/bin/codecov && \
+    rm -rf /var/lib/apt/lists/* && \
+    cd /tmp && \
+    wget http://www.qhull.org/download/qhull-2020-src-8.0.0.tgz -O qhull.tgz && \
+    tar xzf qhull.tgz && \
+    cd qhull-2020.1 && \
+    mkdir cmbuild && \
+    cd cmbuild && \
+    cmake .. -Wno-dev -DCMAKE_INSTALL_PREFIX=/usr/local \
+      -DCMAKE_BUILD_TYPE=RELEASE -DCMAKE_POSITION_INDEPENDENT_CODE=ON && \
+    make && \
+    make install
+
+include(clang-tools)
