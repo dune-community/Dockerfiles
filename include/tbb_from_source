@@ -1,0 +1,6 @@
+RUN git clone --depth=1 https://github.com/wjakob/tbb /tmp/tbb && \
+  mkdir /tmp/tbb_build && cd /tmp/tbb_build && \
+  cmake /tmp/tbb -DTBB_BUILD_PYTHON=ON -DTBB_NO_DATE=ON -DCMAKE_INSTALL_PREFIX=/usr/local && \
+  make && \
+  make install && \
+  rm -rf /tmp/*

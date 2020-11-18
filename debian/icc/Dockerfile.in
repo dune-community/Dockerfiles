@@ -5,9 +5,9 @@
 #      or  GPL-2.0+ (http://opensource.org/licenses/gpl-license)
 # Authors:
 #   Rene Milk       (2017)
+#   Felix Schindler (2017)
 
-include(full)
-include(interactive)
-include(tbb_from_source)
-include(clion)
+include(global_macros)
+
+include(full-intel)
 include(labels)
