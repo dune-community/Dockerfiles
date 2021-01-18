@@ -6,7 +6,11 @@
 # Authors:
 #   Rene Milk       (2017)
 
+ifelse(DEBIANVERSION, `unstable', `FROM alpine 
+  RUN echo IMAGE DISABLED', `dnl
 include(full)
 include(interactive)
 include(clion)
+dnl')
+
 include(labels)
