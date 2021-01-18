@@ -12,18 +12,11 @@ AUTHOR = rene.fritze@wwu.de
 
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
 
-UNSTABLES = $(addprefix unstable-,$(patsubst %/,%,$(dir $(wildcard */Dockerfile.in))))
-$(UNSTABLES): DEBIANVERSION=unstable
-$(UNSTABLES): NAME=debian-unstable
-$(UNSTABLES): unstable-% : %
-unstable: $(UNSTABLES)
 
 ci = minimal minimal-interactive full clion qtcreator
 ci: docs $(ci)
-unstable_ci: $(addprefix unstable-,$(ci))
 # 'wrong' order to not match implicit included rules
 ci_push: $(addprefix push_,$(ci))
-unstable_ci_push: $(addprefix push_,$(addprefix unstable-,$(ci)))
 
 
 .PHONY: $(REPONAMES) $(UNSTABLES)

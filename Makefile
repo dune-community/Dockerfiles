@@ -12,7 +12,7 @@ SUBDIRS = manylinux arch debian gitlabci testing
 
 subdirs: $(SUBDIRS)
 
-testing: debian_full debian_unstable-full
+testing: debian_full 
 
 $(SUBDIRS):
 	make -C $@
@@ -28,8 +28,6 @@ push: push_arch push_debian push_gitlabci push_testing
 
 push_debian_ci:
 	make -C debian ci_push
-push_debian_unstable_ci:
-	make -C debian unstable_ci_push
 
 push_%: %
 	make -C $< push
