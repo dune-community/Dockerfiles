@@ -15,6 +15,7 @@ ENV PYCHARM_VERSION=2020.3.2 \
 RUN APT_UPDATE APT_REDIRECT && \
     apt dist-upgrade -y && \
     APT_INSTALL gnome-keyring libsecret-1-0 python3-setuptools cython3 wget JDK \
+        libxslt-dev libjpeg-dev libxml2-dev libffi-dev \
         libxext6 libxrender1 libxtst6 libxi6 APT_REDIRECT && \
     apt-get remove -yq qtcreator && \
     mkdir -p /opt/clion && \
