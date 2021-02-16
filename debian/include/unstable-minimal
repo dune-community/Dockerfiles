@@ -4,8 +4,8 @@ FROM debian:unstable-DEBIANBASEDATE
 
 ENV DEBIAN_FRONTEND=noninteractive \
     DXT_ENVIRONMENT=debian-minimal \
-    CLANG_VERSION=10 \
-    CLANG_PYTHON_VERSION=10 \
+    CLANG_VERSION=11 \
+    CLANG_PYTHON_VERSION=11 \
     CLANG_PYTHON_PACKAGE=python3-clang \
     GCC_VERSION=10 \
     DXT_DOCKER=1 \
