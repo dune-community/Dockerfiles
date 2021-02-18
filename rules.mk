@@ -36,6 +36,7 @@ $(REPONAMES): check_client
 	tar --append --file $(CTX) -C $@ .
 	cd $@ && cat ../$(CTX) | $(BUILD_CMD) \
 		-t $(REPO):$(GITREV) -f $(DF) -
+	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):rene_lrbms_$(GITREV)
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):rene_lrbms
 
 push_%:
