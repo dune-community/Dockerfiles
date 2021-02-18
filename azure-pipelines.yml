@@ -22,3 +22,22 @@ jobs:
     - script: make $(SUBDIR)
     - script: make push_$(SUBDIR)
 
+- job: 'TestingImages'
+  dependsOn: DevImages
+  timeoutInMinutes: 0
+  pool:
+    vmImage: 'ubuntu-16.04'
+
+  steps:
+    - checkout: self
+      submodules: true
+    - task: Docker@1
+      displayName: Container registry login
+      inputs:
+        command: login
+        containerregistrytype: Container Registry
+        dockerRegistryEndpoint: dockerhub
+
+    - script: make testing
+    - script: make push_testing
+
