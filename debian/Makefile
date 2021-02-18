@@ -13,7 +13,7 @@ AUTHOR = rene.fritze@wwu.de
 include $(dir $(lastword $(MAKEFILE_LIST)))/../rules.mk
 
 
-ci = minimal minimal-interactive full clion qtcreator
+ci = minimal minimal-interactive full clion qtcreator full-interactive
 ci: docs $(ci)
 # 'wrong' order to not match implicit included rules
 ci_push: $(addprefix push_,$(ci))

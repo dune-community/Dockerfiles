@@ -14,6 +14,8 @@ BUILD_CMD=$(DOCKER_SUDO) docker build ${DOCKER_NOCACHE} --rm=true ${DOCKER_QUIET
 
 .PHONY: push all $(REPONAMES) readme
 
+BRANCH=rene_lrbms
+
 check_client:
 	@$(DOCKER_SUDO) docker info > /dev/null  || \
 	  (echo "cannot connect to docker client. export DOCKER_SUDO=sudo ?" ; exit 1)
@@ -29,6 +31,7 @@ $(REPONAMES): check_client
 		-D IMAGE="$(IMAGE)" \
 		-D AUTHOR="$(AUTHOR)" \
 		-D GITREV=$(GITREV) \
+		-D BRANCHEDGITREV=$(BRANCH)_$(GITREV) \
 		-D DEBIANBASEDATE=20200224 \
 		-D DEBIANVERSION=$(DEBIANVERSION) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/$(DF)
@@ -36,13 +39,13 @@ $(REPONAMES): check_client
 	tar --append --file $(CTX) -C $@ .
 	cd $@ && cat ../$(CTX) | $(BUILD_CMD) \
 		-t $(REPO):$(GITREV) -f $(DF) -
-	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):rene_lrbms_$(GITREV)
-	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):rene_lrbms
+	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):$(BRANCH)_$(GITREV)
+	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):$(BRANCH)
 
 push_%:
 	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
-	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*:rene_lrbms_$(GITREV)
-	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*:rene_lrbms
+	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*:$(BRANCH)_$(GITREV)
+	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*:$(BRANCH)
 
 push: $(addprefix push_,$(REPONAMES))
 
