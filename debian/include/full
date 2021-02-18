@@ -11,6 +11,7 @@ RUN APT_UPDATE APT_REDIRECT && \
     APT_INSTALL doxygen LIBCPP_DEV clang-${CLANG_VERSION} CLANG_FORMAT \
         libeigen3-dev libscotchmetis-dev libscotchparmetis-dev libsuitesparse-dev \
         libmumps-scotch-dev ${CLANG_PYTHON_PACKAGE}-${CLANG_VERSION} lcov curl clang-tidy-${CLANG_VERSION} \
+        libffi-dev libjpeg-dev \
         ninja-build libopenmpi-dev openmpi-common openmpi-bin libqhull-dev libtbb-dev libglu1-mesa libqt5x11extras5 \
         valgrind-mpi liblpsolve55-dev liblapacke-dev ssh numactl libtcmalloc-minimal4 google-perftools  APT_REDIRECT && \
     update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-${CLANG_VERSION} 100 && \
