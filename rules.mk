@@ -40,7 +40,9 @@ $(REPONAMES): check_client
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):rene_lrbms
 
 push_%:
-	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*
+	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
+	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*:rene_lrbms_$(GITREV)
+	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*:rene_lrbms
 
 push: $(addprefix push_,$(REPONAMES))
 
