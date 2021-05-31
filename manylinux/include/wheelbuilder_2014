@@ -1,26 +1,26 @@
-FROM quay.io/pypa/manylinux2014_x86_64:2020-04-06-2fd435d
+FROM quay.io/pypa/manylinux2014_x86_64:2021-05-30-d4af1a5
 
 MAINTAINER René Fritze <rene.fritze@wwu.de>
 
-ENV MPICC=/usr/lib64/openmpi/bin/mpicc \
-    PYTHON_VERSION=3.8 \
-    XDG_CACHE_DIR=/home/dxt/src/docker/cache \
-    DUNE_INSTALL_PREFIX=/home/dxt/src/docker/local \
-    DUNE_BUILD_DIR=/home/dxt/src/docker/build \
-    WHEEL_DIR=/home/dxt/src/docker/wheelhouse \
-    PLATFORM=manylinux2014_x86_64 \
-    PY_SHORT=cp38-cp38 \
-    PIP_VERSION=20.2.4
 COPY pybin.sh /usr/local/bin/
 RUN yum install -y atlas-devel openmpi-devel  \
         fltk freeglut libpng libjpeg \
         tk tcl xorg-x11-server-Xvfb xauth \
         boost169 boost169-openmpi-devel cmake3 eigen3-devel superlu_dist-openmpi-devel \
-        tbb-devel openblas-openmp64 cmake3-gui vim ccache && \
-    ln -s /usr/bin/cmake3 /usr/local/bin/cmake
+        tbb-devel openblas-openmp64 cmake3-gui vim ccache
 
 include(ps1)
 include(dune_cli)
+
+ENV MPICC=/usr/lib64/openmpi/bin/mpicc \
+    PYTHON_VERSION=M4_PYTHON_VERSION \
+    XDG_CACHE_DIR=/home/dxt/src/docker/cache \
+    DUNE_INSTALL_PREFIX=/home/dxt/src/docker/local \
+    DUNE_BUILD_DIR=/home/dxt/src/docker/build \
+    WHEEL_DIR=/home/dxt/src/docker/wheelhouse \
+    PLATFORM=manylinux2014_x86_64 \
+    PY_SHORT=M4_PY_SHORT \
+    PIP_VERSION=20.2.4
 
 RUN echo "alias ls='ls -h --color=auto';\
           source /usr/local/bin/pybin.sh;\
@@ -29,9 +29,9 @@ RUN echo "alias ls='ls -h --color=auto';\
     echo "source  /etc/profile.d/dxt.sh" >> /etc/bashrc && \
     echo "source  /etc/profile.d/dxt.sh" >> /etc/profile && \
   alternatives --install /usr/bin/python python /opt/python/${PY_SHORT}/bin/python 100 && \
-  alternatives --install /usr/bin/python3 python3 /opt/python/${PY_SHORT}/bin/python 100 && \
+  alternatives --install /usr/bin/python3 python3 /opt/python/${PY_SHORT}/bin/python 100 &&\
   python -m pip install wheel auditwheel && \
-  python -m pip install pip==${PIP_VERSION} 
+  python -m pip install pip==${PIP_VERSION}
 
 COPY entrypoint.sh /usr/local/bin/
 COPY gosu-amd64 /usr/local/bin/gosu
