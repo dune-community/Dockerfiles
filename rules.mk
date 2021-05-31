@@ -29,7 +29,7 @@ $(REPONAMES): check_client
 		-D IMAGE="$(IMAGE)" \
 		-D AUTHOR="$(AUTHOR)" \
 		-D GITREV=$(GITREV) \
-		-D DEBIANBASEDATE=20200607 \
+		-D DEBIANBASEDATE=20210511 \
 		-D DEBIANVERSION=$(DEBIANVERSION) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/$(DF)
 	(test -n "${DOCKER_PRUNE}" && docker system prune -f) || true
