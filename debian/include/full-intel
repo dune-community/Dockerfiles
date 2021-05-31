@@ -67,9 +67,10 @@ ENV TBBROOT=/opt/intel/oneapi/tbb/latest/ \
 
 # This is copied from 'full' except that open-mpi packages were removed and some packages that use MPI
 RUN APT_UPDATE APT_REDIRECT && \
+APT_INSTALL WITH_BACKPORTS libglu1-mesa libqt5x11extras5 && \
     APT_INSTALL doxygen LIBCPP_DEV clang-${CLANG_VERSION} \
         ${CLANG_PYTHON_PACKAGE}-${CLANG_VERSION} lcov curl \
-        ninja-build libglu1-mesa libqt5x11extras5 vim \
+        ninja-build vim \
         liblapacke-dev ssh numactl libtcmalloc-minimal4 google-perftools  APT_REDIRECT
 
 # install Intel toolkits
