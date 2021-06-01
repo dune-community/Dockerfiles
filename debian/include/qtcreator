@@ -1,7 +1,7 @@
 RUN APT_UPDATE && \
     apt-get dist-upgrade -qqy --no-install-recommends APT_REDIRECT && \
     APT_INSTALL git-gui gitk paraview libgmsh-dev && \
-    wget -q http://de.archive.ubuntu.com/ubuntu/pool/main/u/ubuntu-font-family-sources/ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb && \
-    dpkg -i ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb APT_REDIRECT && \
-    rm ttf-ubuntu-font-family_0.80-0ubuntu2_all.deb
+    wget -q http://de.archive.ubuntu.com/ubuntu/pool/main/f/fonts-ubuntu/fonts-ubuntu_0.83-4ubuntu2_all.deb && \
+    dpkg -i fonts-ubuntu_0.83-4ubuntu2_all.deb APT_REDIRECT && \
+    rm fonts-ubuntu_0.83-4ubuntu2_all.deb
 ifelse(DEBIANVERSION, `buster', include(buster-qtcreator), include(unstable-qtcreator))
