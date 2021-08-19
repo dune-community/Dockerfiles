@@ -11,6 +11,7 @@ THISDIR=$(dir $(lastword $(MAKEFILE_LIST)))
 REPONAMES = $(patsubst %/,%,$(dir $(wildcard */Dockerfile.in)))
 DOCKER_NOCACHE=
 BUILD_CMD=$(DOCKER_SUDO) docker build ${DOCKER_NOCACHE} --rm=true ${DOCKER_QUIET}
+REGISTRY=zivgitlab.wwu.io/ag-ohlberger/dune-community/docker
 
 .PHONY: push all $(REPONAMES) readme
 
@@ -21,7 +22,7 @@ check_client:
 $(REPONAMES): check_client
 	$(eval GITREV=$(shell git describe --tags --dirty --always --long))
 	$(eval IMAGE=$(NAME)-$@)
-	$(eval REPO=dunecommunity/$(IMAGE))
+	$(eval REPO=$(REGISTRY)/$(IMAGE))
 	$(eval DF=Dockerfile.generated.$(DEBIANVERSION))
 	$(eval CTX=$@_$(DEBIANVERSION)_context.tar)
 	tar --create --file $(CTX) -C $@/../common_context .
@@ -39,7 +40,7 @@ $(REPONAMES): check_client
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest
 
 push_%:
-	$(DOCKER_SUDO) docker push dunecommunity/$(NAME)-$*
+	$(DOCKER_SUDO) docker push $(REGISTRY)/$(NAME)-$*
 
 push: $(addprefix push_,$(REPONAMES))
 
