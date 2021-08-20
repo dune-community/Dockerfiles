@@ -1,0 +1,69 @@
+stages:
+  - dev
+  - testing
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+.test_base:
+    retry:
+        max: 2
+        when:
+            - runner_system_failure
+            - stuck_or_timeout_failure
+            - api_failure
+    only: ['branches', 'tags', 'triggers', 'merge-requests']
+    except:
+        - /^staging/.*$/i
+
+.docker-in-docker:
+    tags:
+      - docker-in-docker
+    extends: .test_base
+    retry:
+        max: 2
+        when:
+            - always
+    image: docker:stable
+    variables:
+        DOCKER_HOST: tcp://docker:2375/
+        DOCKER_DRIVER: overlay2
+    before_script:
+        - apk --update add py3-pip m4 git file bash python3 curl make tar
+        - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+        - pip3 install docopt six docker
+        - alias python=python3
+        - alias pip=pip3
+    services:
+      - name: harbor.uni-muenster.de/proxy-docker/library/docker:dind
+        alias: docker
+
+.subdir:
+  script:
+    - make $SUBDIR
+    - make push_$SUBDIR
+
+debian_ci:
+  stage: dev
+  variables:
+    SUBDIR: debian_ci
+  extends: [.docker-in-docker, .subdir]
+
+debian_unstable_ci:
+  stage: dev
+  variables:
+    SUBDIR: debian_ci
+  extends: [.docker-in-docker, .subdir]
+
+manylinux:
+  stage: dev
+  variables:
+    SUBDIR: manylinux
+  extends: [.docker-in-docker, .subdir]
+
+
+TestingImages:
+  stage: testing
+  extends: [.docker-in-docker, .subdir]
+  variables:
+    SUBDIR: testing

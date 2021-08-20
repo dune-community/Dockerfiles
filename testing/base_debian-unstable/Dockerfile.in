@@ -6,7 +6,7 @@
 # Authors:
 #   Rene Milk (2017)
 
-FROM dunecommunity/debian-unstable-full:GITREV
+FROM zivgitlab.wwu.io/ag-ohlberger/dune-community/docker/debian-unstable-full:GITREV
 
 include(environment)
 
