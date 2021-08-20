@@ -35,7 +35,7 @@ variables:
         - alias python=python3
         - alias pip=pip3
     services:
-        - docker:dind
+        - harbor.uni-muenster.de/proxy-docker/library/docker:dind
 
 .subdir:
   script:
