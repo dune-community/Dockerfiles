@@ -30,5 +30,7 @@ done
 
 # Bundle external shared libraries into the wheels
 for whl in ${WHEEL_DIR}/tmp/dune*.whl; do
-    python -m auditwheel repair --plat ${PLATFORM} $whl -w ${WHEEL_DIR}/final
+    # but only in the freshly built wheels, not the downloaded dependencies
+    [[ $whl == *"manylinux"* ]] || \
+        python -m auditwheel repair --plat ${PLATFORM} $whl -w ${WHEEL_DIR}/final
 done
