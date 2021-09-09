@@ -1,7 +1,7 @@
 | Image  | Info |
 | :----- | :--- |
-| arch-minimal-interactive | [![](https://images.microbadger.com/badges/image/dunecommunity/arch-minimal-interactive.svg)](http://microbadger.com/images/dunecommunity/arch-minimal-interactive "arch-minimal-interactive layer") |
-| arch-minimal | [![](https://images.microbadger.com/badges/image/dunecommunity/arch-minimal.svg)](http://microbadger.com/images/dunecommunity/arch-minimal "arch-minimal layer") |
-| arch-full-interactive | [![](https://images.microbadger.com/badges/image/dunecommunity/arch-full-interactive.svg)](http://microbadger.com/images/dunecommunity/arch-full-interactive "arch-full-interactive layer") |
-| arch-full | [![](https://images.microbadger.com/badges/image/dunecommunity/arch-full.svg)](http://microbadger.com/images/dunecommunity/arch-full "arch-full layer") |
+| arch-full | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=arch-full&search= |
+| arch-full-interactive | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=arch-full-interactive&search= |
+| arch-minimal | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=arch-minimal&search= |
+| arch-minimal-interactive | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=arch-minimal-interactive&search= |
 

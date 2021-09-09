@@ -18,7 +18,7 @@ GITREV?=$(shell git log -1 --pretty=format:"%H")
 
 IS_DIRTY:
 	@cd $(THISDIR) ; \
-	@git diff-index --quiet HEAD || \
+	git diff-index --quiet HEAD || \
 	(git update-index -q --really-refresh && git diff --no-ext-diff --quiet --exit-code) || \
 	(git diff --no-ext-diff ; exit 1)
 
@@ -31,8 +31,8 @@ $(REPONAMES): check_client IS_DIRTY
 	$(eval REPO=$(REGISTRY)/$(IMAGE))
 	$(eval DF=Dockerfile.generated.$(DEBIANVERSION))
 	$(eval CTX=$@_$(DEBIANVERSION)_context.tar)
-	tar --create --file $(CTX) -C $@/../common_context .
-	m4 -D BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
+	@tar --create --file $(CTX) -C $@/../common_context .
+	@m4 -D BUILD_DATE=$(shell date -u +"%Y-%m-%dT%H:%M:%SZ") \
 		-D IMAGE="$(IMAGE)" \
 		-D AUTHOR="$(AUTHOR)" \
 		-D GITREV=$(GITREV) \
@@ -40,7 +40,7 @@ $(REPONAMES): check_client IS_DIRTY
 		-D DEBIANVERSION=$(DEBIANVERSION) \
 		-I$(THISDIR)/include -I ./include $@/Dockerfile.in > $@/$(DF)
 	(test -n "${DOCKER_PRUNE}" && docker system prune -f) || true
-	tar --append --file $(CTX) -C $@ .
+	@tar --append --file $(CTX) -C $@ .
 	cd $@ && cat ../$(CTX) | $(BUILD_CMD) \
 		-t $(REPO):$(GITREV) -f $(DF) -
 	$(DOCKER_SUDO) docker tag $(REPO):$(GITREV) $(REPO):latest

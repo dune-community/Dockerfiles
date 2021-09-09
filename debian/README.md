@@ -1,10 +1,11 @@
 | Image  | Info |
 | :----- | :--- |
-| debian-python_dbg | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-python_dbg.svg)](http://microbadger.com/images/dunecommunity/debian-python_dbg "debian-python_dbg layer") |
-| debian-clion | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-clion.svg)](http://microbadger.com/images/dunecommunity/debian-clion "debian-clion layer") |
-| debian-minimal-interactive | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-minimal-interactive.svg)](http://microbadger.com/images/dunecommunity/debian-minimal-interactive "debian-minimal-interactive layer") |
-| debian-minimal | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-minimal.svg)](http://microbadger.com/images/dunecommunity/debian-minimal "debian-minimal layer") |
-| debian-full | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-full.svg)](http://microbadger.com/images/dunecommunity/debian-full "debian-full layer") |
-| debian-qtcreator | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-qtcreator.svg)](http://microbadger.com/images/dunecommunity/debian-qtcreator "debian-qtcreator layer") |
-| debian-docs | [![](https://images.microbadger.com/badges/image/dunecommunity/debian-docs.svg)](http://microbadger.com/images/dunecommunity/debian-docs "debian-docs layer") |
+| debian-clion | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=debian-clion&search= |
+| debian-docs | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=debian-docs&search= |
+| debian-full | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=debian-full&search= |
+| debian-icc | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=debian-icc&search= |
+| debian-minimal | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=debian-minimal&search= |
+| debian-minimal-interactive | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=debian-minimal-interactive&search= |
+| debian-python_dbg | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=debian-python_dbg&search= |
+| debian-qtcreator | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=debian-qtcreator&search= |
 

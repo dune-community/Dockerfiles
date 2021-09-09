@@ -1,4 +1,4 @@
 | Image  | Info |
 | :----- | :--- |
-| gitlabci-dockerindocker | [![](https://images.microbadger.com/badges/image/dunecommunity/gitlabci-dockerindocker.svg)](http://microbadger.com/images/dunecommunity/gitlabci-dockerindocker "gitlabci-dockerindocker layer") |
+| gitlabci-dockerindocker | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=gitlabci-dockerindocker&search= |
 

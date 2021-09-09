@@ -1,6 +1,5 @@
 | Image  | Info |
 | :----- | :--- |
-| testing-base_debian | [![](https://images.microbadger.com/badges/image/dunecommunity/testing-base_debian.svg)](http://microbadger.com/images/dunecommunity/testing-base_debian "testing-base_debian layer") |
-| testing-base_arch | [![](https://images.microbadger.com/badges/image/dunecommunity/testing-base_arch.svg)](http://microbadger.com/images/dunecommunity/testing-base_arch "testing-base_arch layer") |
-| testing-base_debian-unstable | [![](https://images.microbadger.com/badges/image/dunecommunity/testing-base_debian-unstable.svg)](http://microbadger.com/images/dunecommunity/testing-base_debian-unstable "testing-base_debian-unstable layer") |
+| testing-base_debian | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=testing-base_debian&search= |
+| testing-base_debian-unstable | https://zivgitlab.uni-muenster.de/ag-ohlberger/dune-community/docker/container_registry/?orderBy=UPDATED&sort=desc&search=testing-base_debian-unstable&search= |
 
