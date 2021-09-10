@@ -1,4 +1,5 @@
 stages:
+  - sanity
   - dev
   - testing
 
@@ -67,3 +68,10 @@ TestingImages:
   extends: [.docker-in-docker, .subdir]
   variables:
     SUBDIR: testing
+
+debian_ci:
+  stage: sanity
+  extends: [.docker-in-docker, ]
+  script:
+    - make readme
+    - make IS_DIRTY
